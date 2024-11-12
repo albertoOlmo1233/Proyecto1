@@ -1,0 +1,86 @@
+#seccion-productoDetalle {
+    width: 100%;
+    height: 233px;
+    background-image:url("../../imagenes/Fondos/fondo_bienvenida.png");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#contenido-productoDetalle {
+    width: 75%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#seccion-detalleProducto {
+    width: 100%;
+    height: 510px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    row-gap: 25px;
+}
+
+
+#contenido-detalleProducto {
+    width: 60%;
+    height: fit-content;
+    display: flex;
+    background-color: var(--neutral-color-12);
+    border: solid 1px black;
+    flex-direction: row;
+    column-gap: 50px;
+}
+
+.apartado-producto {
+    width: fit-content;
+}
+
+.apartado-ingredientes{
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.ingredientes {
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+}
+
+.cantidad-pedido {
+    display: flex;
+    column-gap: 20px;
+}
+
+form  {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+}
+
+form * {
+    width: fit-content;
+}
+
+form input.tamaño-checkbox {
+    width: 28px;
+    height: 28px;
+    outline: none; 
+
+}
+
+form input.numero-productos {
+    width: 50px;
+    height: 40px;
+    text-align: center;
+
+}
+
+form input:focus {
+    border: 2px solid var(--primary-color-1);
+    outline: none; 
+}

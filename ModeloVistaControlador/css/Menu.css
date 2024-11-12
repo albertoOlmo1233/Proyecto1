@@ -1,0 +1,115 @@
+#seccion-nuestraCarta {
+    width: 100%;
+    height: 313px;
+    background-image:url("../imagenes/Fondos/fondo_bienvenida.png");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#contenido-descripcionCarta {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+}
+
+#contenido-descripcionCarta h2 {
+    padding-left: 0px;
+}
+
+#navegacion-productos {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+}
+
+#seccion-nuestraCarta #contenido-descripcionCarta #navegacion-productos a {
+    width: auto;
+}
+
+/*  Seccion: productos */
+#seccion-productos {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom:126px;
+}
+
+/* Dependiendo del boton que se presione sera un producto o otro */
+
+#apartado-x-producto {
+    width: 75%;
+}
+
+#apartado-x-producto .titulo-carta {
+    width: 100%;
+    padding: 48px 0px;
+    text-align: left;
+}
+
+/* #productos {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 32px;
+    row-gap: 26px;
+} */
+
+
+#container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    column-gap: 35px;
+    row-gap: 35px;
+}
+
+.card {
+    height: 550px;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: 0px 0px 51.599998474121094px 2px rgba(0, 0, 0, 25%);
+}
+
+.card img {
+    width: 100%;
+}
+
+.card-body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 23px 23px 0px 23px;
+    row-gap: 15px;
+}
+
+/* .estilo-producto {
+    width: 30%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 51.599998474121094px 2px rgba(0, 0, 0, 25%);
+}
+
+.estilo-producto img {
+    width: 100%;
+    height: 65%;
+}
+
+#apartado-x-producto #productos .estilo-producto .contenido-producto {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 23px 23px 0px 23px;
+    row-gap: 15px;
+}
+
+#apartado-x-producto #productos .estilo-producto .contenido-producto h3 {
+    padding: 0px;
+} */
