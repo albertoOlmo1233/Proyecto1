@@ -42,66 +42,55 @@
     text-align: center;
 }
 
-#seccion-ofertas #ofertas #lista-ofertas {
+/* Estilos del carrusel */
+#carousel-container {
+    position: relative;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    padding: 0 35px;
-    column-gap: 65px;
+    overflow: hidden; /* Oculta el contenido desbordante */
+}
+
+#lista-ofertas {
+    display: flex;
+    transition: transform 0.5s ease; /* Suaviza el desplazamiento */
+    gap: 20px; /* Espacio entre los elementos */
+    padding: 0; /* Quita el padding */
+    margin: 0; /* Quita el margen */
 }
 
 .estilo-oferta {
-    width: 100%;
+    flex: 1 1 calc(33.33% - 20px); /* Cada bloque ocupa un tercio del contenedor */
     box-sizing: border-box;
     padding: 16px 0;
     cursor: pointer;
+    flex-shrink: 0; /* Evita que se reduzca el tamaño de cada elemento */
 }
 
 .estilo-oferta h3 {
     padding: 24px 0 8px;
 }
 
-/* Carrusel Bootstrap */
-.carousel-inner {
-    display: flex;
-    overflow: hidden;
-}
-
-.carousel-item {
-    flex: 0 0 33.333%; /* Para mostrar tres elementos */
-    max-width: 33.333%;
-    transition: transform 0.5s ease;
-}
-
-.carousel-item img {
-    width: 100%;
-    height: auto;
-    object-fit: cover; /* Asegura que la imagen mantenga su proporción */
-}
-
-.carousel-item.active,
-.carousel-item-next,
-.carousel-item-prev {
-    display: flex;
-}
-
-/* Controladores personalizados */
-.carousel-control-prev,
-.carousel-control-next {
-    width: 40px;
-    height: 40px;
-    background-color: #33383D;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-color: white;
+/* Botones de navegación del carrusel */
+.carousel-btn {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
     padding: 10px;
-    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+#prev-btn {
+    left: 0;
+}
+
+#next-btn {
+    right: 0;
 }
 
 /* Imágenes de Ofertas */
@@ -115,8 +104,8 @@
 .img-oferta img {
     max-width: 100%;
     height: 100%;
-    object-fit: cover; /* Asegura que la imagen cubra el contenedor sin deformarse */
-    object-position: center; /* Centra la imagen si es más grande que el contenedor */
+    object-fit: cover;
+    object-position: center;
     position: relative; 
 }
 
@@ -174,6 +163,7 @@
     align-items: center;
     justify-content: center;
 }
+
 #contenido-contacto {
     width: 75%;
     display: flex;
@@ -197,7 +187,7 @@
     height: 500px;
 }
 
-.contenido-imagen img{
+.contenido-imagen img {
     position: absolute;
     bottom: 0;
     width: 100%;

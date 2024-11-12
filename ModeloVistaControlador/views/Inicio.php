@@ -11,69 +11,57 @@
     </div>
 </section>
 
-<!-- Seccion oferta -->
 <section id="seccion-ofertas">
     <div id="ofertas">
         <h2 class="h2-fondoNegro">Ofertas</h2>
-        <div id="lista-ofertas">
-        <?php
-            $first = true;
-            foreach ($ofertas as $oferta) {
-                var_dump($oferta);
-            ?>
-        <div class="carousel-itemm <?= $first ? 'active' : '' ?>">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="img-wrapper">
-                        <img src="<?= $oferta->getImagen(); ?>" class="d-block w-100" alt="...">
+        <div id="carousel-container">
+            <button id="prev-btn" class="carousel-btn">&#10094;</button>
+            <div id="lista-ofertas">
+                <?php foreach ($ofertas as $index => $oferta) { ?>
+                    <div class="estilo-oferta">
+                        <div class="imagenes-compuestas">
+                            <div class="img-oferta">
+                                <img src="<?= $oferta->getImagen(); ?>" class="card-img-top" alt="oferta<?= $oferta->getID(); ?>-productos">
+                            </div>
+                            <div class="img-icono-oferta">
+                                <img src="imagenes/Iconos/Descuento.png" alt="Oferta">
+                            </div>
+                        </div>
+                        <p class="h3-p-fondoNegro-variante-1 separacion-oferta"><?= $oferta->getCategoria(); ?></p>
+                        <h3 class="h3-fondoNegro"><?= $oferta->getNombre(); ?></h3>
+                        <p class="h3-p-fondoNegro"><?= $oferta->getDescripcion(); ?></p>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $oferta->getCategoria(); ?></h5>
-                        <h3 class="card-title"><?= $oferta->getNombre(); ?></h3>
-                        <p class="card-text"><?= $oferta->getDescripcion(); ?></p>
-                    </div>
-                </div>
+                <?php } ?>
             </div>
-        </div>
-        <?php
-            $first = false;
-            }
-            ?>
-                    
-            
+            <button id="next-btn" class="carousel-btn">&#10095;</button>
         </div>
     </div>
 </section>
-
 <script>
-    // Selecciona el carrusel
-    document.addEventListener('DOMContentLoaded', function () {
-        const carouselElement = document.querySelector('#miCarrusel'); // Cambia #miCarrusel por el id real del carrusel
+    const listaOfertas = document.getElementById('lista-ofertas');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const ofertaWidth = document.querySelector('.estilo-oferta').offsetWidth + 20; // Ancho de cada oferta + gap
+    let currentPosition = 0;
 
-        if (carouselElement) {
-            const carousel = new bootstrap.Carousel(carouselElement, {
-                interval: 2000,
-                wrap: true
-            });
+    nextBtn.addEventListener('click', () => {
+        const maxScrollPosition = listaOfertas.scrollWidth - listaOfertas.clientWidth;
+        if (currentPosition < maxScrollPosition) {
+            currentPosition += ofertaWidth * 3;
+            if (currentPosition > maxScrollPosition) {
+                currentPosition = maxScrollPosition; // Limitar al final
+            }
+            listaOfertas.style.transform = `translateX(-${currentPosition}px)`;
+        }
+    });
 
-            // Añade un evento al carrusel para manejar el movimiento de tres elementos
-            carouselElement.addEventListener('slide.bs.carousel', function (e) {
-                const itemsPerSlide = 3;
-                const totalItems = document.querySelectorAll('.carousel-item').length;
-                const items = document.querySelectorAll('.carousel-item');
-
-                // Comprueba si el índice actual está alcanzando el final del carrusel
-                if (e.to >= totalItems - (itemsPerSlide - 1)) {
-                    for (let i = 0; i < itemsPerSlide; i++) {
-                        // Mueve los elementos del principio al final
-                        if (e.direction === 'left') {
-                            items[0].parentNode.append(items[0]);
-                        } else {
-                            items[totalItems - 1].parentNode.prepend(items[totalItems - 1]);
-                        }
-                    }
-                }
-            });
+    prevBtn.addEventListener('click', () => {
+        if (currentPosition > 0) {
+            currentPosition -= ofertaWidth * 3;
+            if (currentPosition < 0) {
+                currentPosition = 0; // Limitar al inicio
+            }
+            listaOfertas.style.transform = `translateX(-${currentPosition}px)`;
         }
     });
 </script>
