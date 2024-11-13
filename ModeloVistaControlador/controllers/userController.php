@@ -11,6 +11,20 @@ class userController {
         include_once 'views/main.php';
     }
     
+    public function inicioSesion(){
+        $correo= $_POST['correo'];
+        $password = $_POST['password'];
+        UsuarioDAO::iniciarSesion($correo,$password);
+    }
+
+    public function registro(){
+        $nombre= $_POST['nombre'];
+        $apellidos= $_POST['apellidos'];
+        $correo= $_POST['correo'];
+        $password = $_POST['password'];
+        UsuarioDAO::iniciarSesion($nombre,$apellidos,$correo,$password);
+        
+    }
 
     // Acciones (Crear, almacenar, borrar)
     public function create() {
@@ -18,29 +32,19 @@ class userController {
         include_once 'views/main.php';
     }
     public function store() {
-        $nombre = $_POST['nombre'];
-        $talla = $_POST['talla'];
-        $precio = $_POST['precio'];
+        $correo= $_POST['correo'];
+        $password = $_POST['password'];
         
-        echo "Nombre: .$nombre. Talla: .$talla. Precio: .$precio.";
+        echo "Nombre: .$correo. Talla: .$password";
 
         // Creacion camiseta
-        $producto = new Camiseta();
-        $producto->setNombre($nombre);
-        $producto->setTalla($talla);
-        $producto->setPrecio($precio);
+        $usuario = new Usuario();
+        $usuario->setNombre($correo);
+        $usuario->setTalla($password);
+        $usuario->setPrecio($precio);
 
-        CamisetaDAO::store($producto);
+        UsuarioDAO::store($producto);
     }
-    public function destroy() {
-        CamisetaDAO::destroy($_GET['id']);
-        header('Location:?controller=producto');
-    }
-    public function show() {
-        $view="views/productos/show.php";
-        include_once 'views/main.php';
-    }
-
 }
 
 ?>

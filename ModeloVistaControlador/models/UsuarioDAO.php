@@ -2,10 +2,10 @@
 include_once("models/Usuario.php");
 include_once("config/dataBase.php");
 
-class UserDAO {
+class UsuarioDAO {
     public static function getAll(){
         $con = DataBase::connect();
-        $stmt = $con->prepare("SELECT * FROM producto");
+        $stmt = $con->prepare("SELECT * FROM usuario");
 
         $stmt->execute();
         $result = $stmt->get_result();
@@ -21,14 +21,51 @@ class UserDAO {
         return $productos;
     }
 
-    public static function store($producto){
+    public static function store($usuario){
         $con = DataBase::connect();
-        $stmt = $con->prepare("INSERT INTO productos (nombre, talla, precio) VALUES (?,?,?);");
-        $stmt->bind_param("ssd",$producto->getNombre(),$producto->getTalla(),$producto->getPrecio());
+        $stmt = $con->prepare("INSERT INTO usuarios (nombre, apellidos, correo, contraseña, rol) VALUES (?,?,?,?,?);");
+        $stmt->bind_param("sssss",$usuario->getNombre(),$usuario->getApellido(),$usuario->getCorreo(),$usuario->getContraseña,"Cliente");
         
         $stmt->execute();
         $con->close();
     }
+    // Iniciar sesion
+    public static function iniciarSesion($correo,$contraseña){
+        $con = DataBase::connect();
+        $stmt = $con->prepare("SELECT * FROM usuario WHERE correo=? AND contraseña =?");
+        $passwordEncriptado = password_hash($contraseña, PASSWORD_BCRYPT);
+        $stmt->bind_param("ss",$correo,$contraseña);
+        $stmt->execute();
+        
+        if($stmt->execute()){
+            $view="views/cuenta/cuenta.php";
+            include_once 'views/main.php';
+        }else {
+            echo "Error en el registro: " . $stmt->error;
+        }
+        $con->close();
+    }
+
+    // Registrar usuario
+    public static function registrarUsuario(){
+        $con = DataBase::connect();
+        $stmt = $con->prepare("SELECT * FROM usuario WHERE correo=? AND contraseña =?");
+        $passwordEncriptado = password_hash($contraseña, PASSWORD_BCRYPT);
+        $stmt->bind_param("ss",$correo,$contraseña);
+        $stmt->execute();
+        // Obtener el resultado y contar las filas
+        $resultado = $stmt->get_result();
+        $numeroFilas = $resultado->num_rows;
+        if($numeroFilas == 0){
+            $stmt1 = $con->prepare("INSERT INTO usuarios (nombre, apellidos, correo, contraseña, rol) VALUES (?,?,?,?,?);");
+            $stmt1->bind_param("sssss",$usuario->getNombre(),$usuario->getApellido(),$usuario->getCorreo(),$usuario->getContraseña,"Cliente");
+        
+        }else {
+            echo "El usuario ya existe: " . $stmt->error;
+        }
+        $con->close();
+    }
+
 
     public static function destroy($id){
         $con = DataBase::connect();

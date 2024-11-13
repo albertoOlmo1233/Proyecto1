@@ -6,10 +6,10 @@
             <p>¿No tienes cuenta?</p>
             <a href="?controller=user&action=register">Registrate</a>
         </div>
-        <form action="?controller= u 9ser&action=store">
-            <input type="text"><br>
-            <input type="password"><br>
-            <a href="" class="primaryButton-yellow-3-login">Log in</a>
+        <form action="?controller=user&action=inicioSesion" method="POST">
+            <input type="text" name="correo" placeholder="Correo electronico" ><br>
+            <input type="password" name="password" placeholder="Contraseña"><br>
+            <button type="submit" class="primaryButton-yellow-3-login">Log in</button>
         </form>
     </div>
 </div>

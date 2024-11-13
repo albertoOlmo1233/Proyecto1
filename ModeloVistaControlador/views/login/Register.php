@@ -11,8 +11,8 @@
                 <input type="text" value="Nombre">
                 <input type="text" value="Apellidos"> <br>
             </div>
-            <input type="text" value="Direccion de correo"><br>
-            <input type="password"><br>
+            <input type="text" placeholder="Direccion de correo"><br>
+            <input type="password" placeholder="Contraseña"><br>
             <div class="flex centrado-izquierda">
                 <input type="checkbox" name="vehicle1" value="Bike">
                 <label for="vehicle1">Aceptar los terminos y condiciones</label><br>
