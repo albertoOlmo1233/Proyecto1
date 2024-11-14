@@ -1,7 +1,6 @@
 /* Primera Sección (Fondo) */
 #fondo-primera-seccion {
     width: 100%;
-    height: 380px;
     background-image: url("../imagenes/Fondos/fondo_bienvenida.png");
     background-size: cover;
     display: flex;
@@ -16,11 +15,7 @@
     width: 75%;
     text-align: center;
     align-items: center;
-    padding: 0px 96px 0px;
-}
-
-#seccion-bienvenida p {
-    margin: 16px 160px 32px;
+    padding: 35px 0px;
 }
 
 /* Sección de Ofertas */
@@ -33,13 +28,24 @@
 }
 
 #seccion-ofertas #ofertas {
-    width: 75%;
-    padding: 80px 96px;
+    width: 100%;
+    padding: 70px 0px;
 }
 
 #seccion-ofertas #ofertas h2 {
     margin-bottom: 20px;
     text-align: center;
+}
+.container, .container-fluid {
+    display: flex;
+    justify-content: center;
+}
+
+.col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
 }
 
 /* Estilos del carrusel */
@@ -54,7 +60,7 @@
 #lista-ofertas {
     display: flex;
     transition: transform 0.5s ease; /* Suaviza el desplazamiento */
-    gap: 20px; /* Espacio entre los elementos */
+    gap: 30px; /* Espacio entre los elementos */
     padding: 0; /* Quita el padding */
     margin: 0; /* Quita el margen */
 }
@@ -142,7 +148,7 @@
 }
 
 #contenido-sobreNosotros {
-    width: 75%;
+    width: 100%;
     display: flex;
     row-gap: 25px;
     flex-direction: column;
@@ -157,7 +163,6 @@
 /* Contacto */
 #seccion-contacto {
     width: 100%;
-    height: 500px;
     background-color: #262A2E;
     display: flex;
     align-items: center;
@@ -165,31 +170,30 @@
 }
 
 #contenido-contacto {
-    width: 75%;
+    width: 100%;
     display: flex;
     align-items: center;
     column-gap: 20px;
-    padding: 80px 96px;
+    padding: 30px 96px 0px;
 }
 
 .contenido-texto {
     width: 35%;
-    height: fit-content;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    row-gap: 25px;
+    justify-content: space-between;
 }
 
 .contenido-imagen {
     position: relative;
     width: 55%;
-    height: 500px;
+    height: 100%;
+    display: flex;
 }
 
 .contenido-imagen img {
     position: absolute;
     bottom: 0;
-    width: 100%;
-    height: 396px;
 }

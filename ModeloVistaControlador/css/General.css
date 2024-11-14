@@ -228,6 +228,24 @@ h1, h2, h3 {
     color: #787673;
 }
 
+/* Weight */
+
+h1 {
+    font-weight: bold;
+}
+
+h2, h3 {
+    font-weight: 600px;
+}
+
+.h1-p {
+    font-weight: 500px;
+}
+
+.h2-p, .h2-p-fondoNegro, .h3-p, .h3-p-fondoNegro, .h3-p-fondoNegro-variante-1 {
+    font-weight: 400px;
+}
+
 /* Tamaños de Encabezados */
 h1 {
     font-size: 64px;
