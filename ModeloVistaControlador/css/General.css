@@ -1,11 +1,10 @@
 :root {
     --primary-color-1: #FFBE3C;
-    --primary-color-1-hover: #FFCB63;
     --shadow-1: #FAB33B;
     --primary-color-2-hover: #FFAE00;
-    --neutral-background-color-1: #FFFFFF;
-    --neutral-background-2: #F9F9F8;
-    --neutral-background-titles-color-3: #262A2E;
+    --neutral-color-1: #FFFFFF;
+    --neutral-color-2: #F9F9F8;
+    --neutral-color-3: #262A2E;
     --neutral-color-4: #F6F6F6; /*esto sirve para...*/
     --neutral-color-5: #CCD1D6;
     --neutral-color-6: #66707A;
@@ -19,6 +18,7 @@
     --neutral-color-14: #9D9EA0;
     --neutral-color-15: #f2f4f5;
     --neutral-color-16: #e6e9ed;
+    --neutral-color-17: #090909;
 
 }
 
@@ -28,7 +28,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Beausite, Inter, Helvetica, sans-serif;
-    color: #66707A;
+    color: var(--neutral-color-6);
 
 }
 
@@ -89,7 +89,7 @@ header {
 
 #seccion-menu a {
     padding: 16px 12px;
-    color: #262A2E;
+    color: var(--neutral-color-3);
     text-decoration: none;
     transition: opacity 0.3s;
 }
@@ -116,7 +116,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #FFBE3C;
+    background-color: var(--primary-color-1);
     color: #111111;
     font-weight: 600;
     border-radius: 8px;
@@ -150,7 +150,7 @@ header {
 }
 
 .primaryButton-yellow-2:hover{
-    box-shadow: 0px 1px 16.5px 0px #ffbe3c;
+    box-shadow: 0px 1px 16.5px 0px --primary-color-1;
 }
 
 .primaryButton-yellow-2:active {
@@ -166,7 +166,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #FFBE3C;
+    background-color: var(--primary-color-1);
     color: #111111;
     font-weight: 600;
     border-radius: 8px;
@@ -176,7 +176,7 @@ header {
 }
 
 .primaryButton-yellow-3-login:hover {
-    background-color: #FFAE00;
+    background-color: var(--primary-color-2-hover);
 }
 
 
@@ -194,7 +194,7 @@ header {
     color: #000000;
     background-color: white;
     /* Ajustes borde */
-    border: solid 1px #e6e9ed;
+    border: solid 1px var(--neutral-color-16);
     border-radius: 8px;
     /* Margenes */
     padding: 4px 12px;
@@ -202,18 +202,18 @@ header {
 }
 
 .neutralButton-white:hover {
-    background-color: #f2f4f5;
-    border: solid 1px #e6e9ed;
+    background-color: var(--neutral-color-15);
+    border: solid 1px var(--neutral-color-16);
 }
 
 /* Encabezados */
 h1, h2, h3 {
-    color: #262A2E;
+    color: var(--neutral-color-3);
     padding: 3px 2px;
 }
 
 .h1-small, .h1-p, .h2-p, .h3-p {
-    color: #66707A;
+    color: var(--neutral-color-6);
 }
 
 .h2-fondoNegro, .h3-fondoNegro {
@@ -221,11 +221,11 @@ h1, h2, h3 {
 }
 
 .h1-p-fondoNegro, .h2-p-fondoNegro, .h3-p-fondoNegro {
-    color: #CCD1D6;
+    color: var(--neutral-color-5);
 }
 
 .h3-p-fondoNegro-variante-1 {
-    color: #787673;
+    color: var(--neutral-color-7);
 }
 
 /* Weight */
@@ -289,7 +289,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #090909;
+    background-color: var(--neutral-color-17);
 }
 
 .contenido-footer {
