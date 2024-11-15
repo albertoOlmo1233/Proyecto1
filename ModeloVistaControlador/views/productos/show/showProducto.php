@@ -17,7 +17,7 @@
             <h2><?=$detalleProducto->getNombre();?></h2>
             <p><?=$detalleProducto->getDescripcion();?></p>
             <h3><?=$detalleProducto->getPrecio();?>€</h3>
-            <img src="<?=$detalleProducto->getImagen();?>" alt="">
+            <img src="<?=$detalleProducto->getImagen();?>" alt="producto">
         </div>
         <div class="apartado-ingredientes">
             <h3>Extras:</h3>

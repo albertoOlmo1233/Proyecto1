@@ -18,7 +18,7 @@
     <header>
         <a href="?controller=producto">
             <div id="Logo" aria-label="Logo del sitio">
-                <img src="imagenes/Logo/Logo vertical color.png" alt="Logo color">
+                <img src="imagenes/Logo/Logo entero color.svg" alt="Logo color">
             </div>
         </a>
         <nav id="seccion-menu">
@@ -37,7 +37,7 @@
     <footer>
         <div class="contenido-footer">
             <div class="primera-seccion">
-                <img src="imagenes/Logo/Logo vertical blanco.png" alt="">
+                <img src="imagenes/Logo/Logo entero blanco.svg" alt="">
                 <div class="redes-sociales">
                     <img src="imagenes/Iconos/Property 1=X, isDark=True, Tamaño=24px.png" alt="">
                     <img src="imagenes/Iconos/Property 1=Instagram, isDark=True, Tamaño=24px.png" alt="">

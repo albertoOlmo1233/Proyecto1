@@ -87,7 +87,7 @@
                     <h2>¡Nuestra historia!</h2>
                     <p>Desde 2010, hemos dedicado nuestra pasion a ofrecer hamburgesas que celebran la frescura y los sabores auténticos. Cada plato cuenta una historia y está hecho con los mejores ingredientes...</p>
                     <a href="views/Sobre nosotros.php" class="neutralButton-white">Leer mas</a>
-                    <img src="imagenes/Fondos/imagen-sobreNosotros.png" alt="">
+                    <img src="imagenes/Fondos/imagen-sobreNosotros.webp" alt="">
                 </div>
             </div>
         </div>
@@ -95,21 +95,18 @@
 </section>
 
 <!-- Seccion: Contacto -->
+
 <section id="seccion-contacto">
-    <div class="container-fluid">
-        <div class="row d-flex justify-content-center">
-            <div class="col col-md-10 col-lg-8 mx-auto">
-                <div id="contenido-contacto">
-                    <div class="contenido-texto">
-                        <h2 class="h2-fondoNegro">¿Tienes alguna duda?</h2>
-                        <p class="h2-p-fondoNegro">We think Super is the best way to publish content online which is why we use it for all our sites. The content for this site (the one you are reading now), is all coming from Notion.</p>
-                        <a href="views/Contacto.php" class="neutralButton-white">Contactanos!</a>
-                    </div>
-                    <div class="contenido-imagen">
-                        <img src="imagenes/Fondos/imagen-contacto.png" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 contenido-texto">
+        <h2 class="h2-fondoNegro">¿Tienes alguna duda?</h2>
+        <p class="h2-p-fondoNegro">We think Super is the best way to publish content online which is why we use it for all our sites. The content for this site (the one you are reading now), is all coming from Notion.</p>
+        <a href="views/Contacto.php" class="neutralButton-white">Contactanos!</a>
     </div>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <img src="imagenes/Fondos/imagen-contacto.webp" class="w-100" alt="">
+    </div>
+  </div>
+</div>
 </section>

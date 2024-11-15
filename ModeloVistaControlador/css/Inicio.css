@@ -161,16 +161,16 @@
 }
 
 /* Contacto */
+
 #seccion-contacto {
-    width: 100%;
     background-color: var(--neutral-color-3);
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 25px 0px 0px;
 }
 
 #contenido-contacto {
-    width: 100%;
     display: flex;
     align-items: center;
     column-gap: 20px;
@@ -178,22 +178,17 @@
 }
 
 .contenido-texto {
-    width: 35%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: space-between;
 }
 
 .contenido-imagen {
-    position: relative;
-    width: 55%;
     height: 100%;
     display: flex;
 }
 
 .contenido-imagen img {
-    position: absolute;
+    
     bottom: 0;
 }
