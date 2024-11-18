@@ -1,6 +1,5 @@
 /* Primera Sección (Fondo) */
 #fondo-primera-seccion {
-    width: 100%;
     background-image: url("../imagenes/Fondos/fondo_bienvenida.png");
     background-size: cover;
     display: flex;
@@ -12,7 +11,6 @@
 
 /* Sección de Bienvenida */
 #seccion-bienvenida {
-    width: 75%;
     text-align: center;
     align-items: center;
     padding: 35px 0px;
@@ -20,7 +18,6 @@
 
 /* Sección de Ofertas */
 #seccion-ofertas {
-    width: 100%;
     background-color: var(--neutral-color-3);
     display: flex;
     align-items: center;
@@ -28,24 +25,11 @@
 }
 
 #seccion-ofertas #ofertas {
-    width: 100%;
     padding: 70px 0px;
 }
 
 #seccion-ofertas #ofertas h2 {
     margin-bottom: 20px;
-    text-align: center;
-}
-.container, .container-fluid {
-    display: flex;
-    justify-content: center;
-}
-
-.col {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 75%;
 }
 
 /* Estilos del carrusel */
@@ -53,7 +37,6 @@
     position: relative;
     display: flex;
     align-items: center;
-    width: 100%;
     overflow: hidden; /* Oculta el contenido desbordante */
 }
 
@@ -140,7 +123,6 @@
 
 /* Sobre nosotros */
 #seccion-sobreNosotros {
-    width: 100%;
     background-color: var(--neutral-color-2);
     display: flex;
     align-items: center;
@@ -148,16 +130,11 @@
 }
 
 #contenido-sobreNosotros {
-    width: 100%;
     display: flex;
     row-gap: 25px;
     flex-direction: column;
     align-items: flex-start;
-    padding: 80px 96px;
-}
-
-#contenido-sobreNosotros img {
-    width: 100%;
+    padding: 80px 0px;
 }
 
 /* Contacto */
@@ -167,20 +144,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 25px 0px 0px;
+    padding: 55px 0px 0px;
 }
 
 #contenido-contacto {
-    display: flex;
-    align-items: center;
-    column-gap: 20px;
-    padding: 30px 96px 0px;
+    padding: 50px 0x;
 }
 
 .contenido-texto {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    row-gap: 20px;
 }
 
 .contenido-imagen {
@@ -188,7 +163,6 @@
     display: flex;
 }
 
-.contenido-imagen img {
-    
+.contenido-imagen img { 
     bottom: 0;
 }

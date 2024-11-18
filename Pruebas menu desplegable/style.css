@@ -1,3 +1,52 @@
+
+
+.menu .dropdown {
+   position: relative; /* Define el contexto para el menú */
+}
+
+/* Botón que activa el dropdown */
+.dropdown-btn {
+    cursor: pointer;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+
+
+.dropdown .contenido {
+    display: none; /* Solo visible al activarlo */
+    position: absolute; /* Relativo al contenedor .dropdown */
+    top: calc(100% + 20px); /* Aparece justo debajo del botón */
+    right: 0; /* Alineado al borde derecho del contenedor */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Asegura que el menú aparezca sobre otros elementos del header */
+    min-width: 150px;
+    padding: 10px 0;
+}
+
+/* Estilos para los enlaces dentro del dropdown */
+.contenido a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.contenido a:hover {
+    background-color: #f1f1f1; /* Efecto hover en las opciones */
+}
+
+
+
 :root {
     --primary-color-1: #FFBE3C;
     --shadow-1: #FAB33B;
@@ -84,9 +133,6 @@ a {
 
 /* Logo */
 @media (max-width: 465.71px) {
-    .container {
-        width: 100%;
-    }
     .logo-1 {
         display: none;
     }
@@ -99,26 +145,6 @@ a {
 }
 
 /* Menu */
-
-@media (max-width: 768.57px) { 
-    .container {
-        width: 100%;
-    }
-    #seccion-menu {
-        display: none !important;
-    }
-    .menu {
-        display: block;
-    }
-
-    .primaryButton-yellow-1 {
-        width: auto; /* Permite que el botón se ajuste dinámicamente */
-        padding: 8px 16px; /* Ajusta el espacio interno */
-        font-size: 14px; /* Reduce ligeramente el tamaño de la fuente */
-        margin-right: 8px; /* Reduce el margen */
-    }
-
-}
 
 @media (max-width: 768.57px) { 
     
@@ -136,18 +162,6 @@ a {
         margin-right: 8px; /* Reduce el margen */
     }
 
-}
-
-@media (min-width: 992px) { 
-    .container {
-        width: 75%;
-    }
- }
-
-@media (min-width: 1200px) {
-    .container {
-        width: 75%;
-    }
 }
 
 @font-face {
@@ -229,58 +243,6 @@ header {
     cursor: pointer;
 }
 
-/* Menu desplegable */
-
-.menu .dropdown {
-    position: relative; /* Define el contexto para el menú */
- }
- 
- /* Botón que activa el dropdown */
- .dropdown-btn {
-     cursor: pointer;
-     color: white;
-     border: none;
-     padding: 10px 15px;
-     border-radius: 4px;
-     font-size: 16px;
-     outline: none;
-     transition: background-color 0.3s ease;
-     background-color: #FFFFFF !important;
- }
- 
- 
- .dropdown .contenido {
-     display: none; /* Solo visible al activarlo */
-     position: absolute; /* Relativo al contenedor .dropdown */
-     top: calc(100% + 20px); /* Aparece justo debajo del botón */
-     right: 0; /* Alineado al borde derecho del contenedor */
-     background-color: white;
-     border: 1px solid #ccc;
-     border-radius: 4px;
-     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-     z-index: 1000; /* Asegura que el menú aparezca sobre otros elementos del header */
-     min-width: 150px;
-     padding: 10px 0;
- }
- 
- /* Estilos para los enlaces dentro del dropdown */
- .contenido a {
-     display: block;
-     padding: 10px 15px;
-     text-decoration: none;
-     color: #333;
-     font-size: 14px;
-     transition: background-color 0.3s ease;
- }
- 
- .contenido a:hover {
-     background-color: #f1f1f1; /* Efecto hover en las opciones */
- } 
-
-
-.icono-close {
-    display: none;
-}
 /* Botones */
 .primaryButton-yellow-1, .primaryButton-yellow-2 {
     display: flex;
@@ -401,24 +363,24 @@ h1, h2, h3 {
 /* Weight */
 
 h1 {
-    font-weight: bold !important;
+    font-weight: bold;
 }
 
 h2, h3 {
-    font-weight: 600px !important;
+    font-weight: 600px;
 }
 
 .h1-p {
-    font-weight: 500px !important;
+    font-weight: 500px;
 }
 
 .h2-p, .h2-p-fondoNegro, .h3-p, .h3-p-fondoNegro, .h3-p-fondoNegro-variante-1 {
-    font-weight: 400px !important;
+    font-weight: 400px;
 }
 
 /* Tamaños de Encabezados */
 h1 {
-    font-size: 64px !important;
+    font-size: 64px;
 }
 
 .h1-small {

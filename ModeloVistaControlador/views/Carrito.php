@@ -1,4 +1,4 @@
-
+<?php include_once("views/header/header.php");?>
 <div id="seccion-titulo">
 
 </div>

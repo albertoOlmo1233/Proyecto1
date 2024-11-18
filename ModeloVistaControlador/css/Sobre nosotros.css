@@ -1,0 +1,42 @@
+/* Logo */
+@media (max-width: 527px) {
+    .container .sobreNosotros {
+        width: 100%;
+    }
+}
+
+/* Menu */
+
+@media (max-width: 768.57px) { 
+    .container .sobreNosotros{
+        width: 75%;
+    }
+}
+@media (min-width: 992px) { 
+    .container .sobreNosotros{
+        width: 75%;
+    }
+ }
+
+@media (min-width: 1200px) {
+    .container .sobreNosotros{
+        width: 75%;
+    }
+}
+#seccion-sobreNosotros {
+    width: 100vw;
+    position: relative;
+    transform: translateX(-50%);
+    left: 50%;
+    background: linear-gradient(to bottom, #f8b862, #ffffff);
+    height: 233px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#contenido-sobreNosotros {
+    display: flex;
+    
+    align-items: center;
+    flex-direction: column;
+}

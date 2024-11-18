@@ -12,6 +12,7 @@ class productoController {
 
     public function menu() {
         $productos = ProductoDAO::getType("Hamburguesa");
+        $tituloProducto = "Hamburguesas";
         $view="views/Menu.php";
         include_once 'views/main.php';
     }
@@ -39,18 +40,21 @@ class productoController {
     // Filtros
     public function showPatatas() {
         $productos = ProductoDAO::getType("Patata");
+        $tituloProducto = "Patatas"; 
         $view="views/Menu.php";
         include_once 'views/main.php';
     }
 
     public function showBebidas(){
         $productos = ProductoDAO::getType("Bebida");
+        $tituloProducto = "Bebidas"; 
         $view="views/Menu.php";
         include_once 'views/main.php';
     }
 
     public function showPostres() {
         $productos = ProductoDAO::getType("Postre");
+        $tituloProducto = "Postres";
         $view="views/Menu.php";
         include_once 'views/main.php';
     }
