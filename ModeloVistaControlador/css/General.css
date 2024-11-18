@@ -138,17 +138,6 @@ a {
 
 }
 
-@media (min-width: 992px) { 
-    .container {
-        width: 75%;
-    }
- }
-
-@media (min-width: 1200px) {
-    .container {
-        width: 75%;
-    }
-}
 
 @font-face {
     font-family: 'Beausite';
