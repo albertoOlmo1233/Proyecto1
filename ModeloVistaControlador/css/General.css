@@ -5,7 +5,7 @@
     --neutral-color-1: #FFFFFF;
     --neutral-color-2: #F9F9F8;
     --neutral-color-3: #262A2E;
-    --neutral-color-4: #F6F6F6; /*esto sirve para...*/
+    --neutral-color-4: #F6F6F6;
     --neutral-color-5: #CCD1D6;
     --neutral-color-6: #66707A;
     --neutral-color-7: #787673;
@@ -67,28 +67,13 @@ a {
     }
 }
 
-/* Menu */
+/* Menu:
+*NO QUITAR*
+Razon: Dependiendo que tamaño tenga la pagina, aparecera el menu o el menu desplegable
+*/
 
 @media (max-width: 768.57px) { 
 
-    #seccion-menu {
-        display: none !important;
-    }
-    .menu {
-        display: block;
-    }
-
-    .primaryButton-yellow-1 {
-        width: auto; /* Permite que el botón se ajuste dinámicamente */
-        padding: 8px 16px; /* Ajusta el espacio interno */
-        font-size: 14px; /* Reduce ligeramente el tamaño de la fuente */
-        margin-right: 8px; /* Reduce el margen */
-    }
-
-}
-
-@media (max-width: 768.57px) { 
-    
     #seccion-menu {
         display: none !important;
     }

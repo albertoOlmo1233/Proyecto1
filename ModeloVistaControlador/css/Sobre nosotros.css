@@ -1,28 +1,3 @@
-/* Logo */
-@media (max-width: 527px) {
-    .container .sobreNosotros {
-        width: 100%;
-    }
-}
-
-/* Menu */
-
-@media (max-width: 768.57px) { 
-    .container .sobreNosotros{
-        width: 55%;
-    }
-}
-@media (min-width: 992px) { 
-    .container .sobreNosotros{
-        width: 55%;
-    }
- }
-
-@media (min-width: 1200px) {
-    .container .sobreNosotros{
-        width: 55%
-    }
-}
 #seccion-sobre-nosotros {
     width: 100vw;
     position: relative;
