@@ -17,7 +17,7 @@
             </div>
 
             <div class="col-10 col-md-8 d-flex justify-content-end align-items-center">
-                <nav id="seccion-menu d-grid gap-2">
+                <nav id="seccion-menu">
                     <a href="?controller=producto&action=menu" class="apartado-menu">Menu</a>
                     <a href="?controller=producto&action=sobreNosotros" class="apartado-sobreNosotros">Sobre nosotros</a>
                     <a href="?controller=producto&action=contacto" class="apartado-contacto">Contacto</a>
