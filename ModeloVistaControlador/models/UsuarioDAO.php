@@ -38,6 +38,9 @@ class UsuarioDAO {
         $stmt->execute();
         
         if($stmt->execute()){
+            //  Creamos la session
+            session_start();
+            $_SESSION['usuario'] = $correo;
             $view="views/cuenta/cuenta.php";
             include_once 'views/main.php';
         }else {
@@ -45,6 +48,14 @@ class UsuarioDAO {
         }
         $con->close();
     }
+
+    public static function comprobarSesion(){
+        session_start();
+        if(!isset($_SESSION['usuario'])){
+            header("Location: ?controller=user");
+        }
+    }
+
 
     // Registrar usuario
     public static function registrarUsuario(){
