@@ -1,5 +1,5 @@
 
-<header>
+<header class="sticky-top">
     <div class="container-fluid">
         <div class="row">
             <div class="col-2 col-md-4 contenido-texto d-flex">
@@ -17,7 +17,7 @@
             </div>
 
             <div class="col-10 col-md-8 d-flex justify-content-end align-items-center">
-                <nav id="seccion-menu">
+                <nav id="seccion-menu d-grid gap-2">
                     <a href="?controller=producto&action=menu" class="apartado-menu">Menu</a>
                     <a href="?controller=producto&action=sobreNosotros" class="apartado-sobreNosotros">Sobre nosotros</a>
                     <a href="?controller=producto&action=contacto" class="apartado-contacto">Contacto</a>
@@ -48,3 +48,14 @@
     </div>
 </header>
     
+
+<script>
+    const header = document.getElementsByTagName("header")[0];
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 80) { // Cambia el fondo al desplazarse más de 50px
+            header.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+            header.style.backdropFilter = "blur(10px)"; 
+            header.style.webkitBackdropFilter = "blur(10px)";
+        }
+    });
+</script>
