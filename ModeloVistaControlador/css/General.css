@@ -27,7 +27,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Beausite, Inter, Helvetica, sans-serif;
+    font-family: Beausite, Inter;
     color: var(--neutral-color-6);
 
 }
@@ -36,37 +36,6 @@ a {
     color: var(--neutral-color-6);
 }
 /* Responsive */
-
-/* // Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) { 
-    .container, header .container {
-        width: 100%;
-    }
-}
-
-/* // Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) { 
-    .container {
-        width: 90%;
-    }
-}
-
-/* // Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-    .container {
-        width: 80%;
-    }
-}
-
-/* // Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-    .container {
-        width: 75%;
-    }
-    header .container {
-        width: 100%;
-    }
-}
 
 .menu {
     display: none;
@@ -101,9 +70,7 @@ a {
 /* Menu */
 
 @media (max-width: 768.57px) { 
-    .container {
-        width: 100%;
-    }
+
     #seccion-menu {
         display: none !important;
     }
