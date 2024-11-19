@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/Inicio.css">
     <link rel="stylesheet" href="css/Menu.css">
     <link rel="stylesheet" href="css/Contacto.css">
-    <link rel="stylesheet" href="css/Sobre nosotros.css">
+    <link rel="stylesheet" href="css/Sobre-nosotros.css">
     <link rel="stylesheet" href="css/Carrito.css">
     <link rel="stylesheet" href="css/Login.css">
     <link rel="stylesheet" href="css/show/showProducto.css">
