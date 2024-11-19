@@ -156,6 +156,7 @@ a {
 
 /* Header */
 header {
+    position: fixed;
     width: 100%;
     height: 80px;
     /* position: fixed; */
@@ -390,24 +391,24 @@ h1, h2, h3 {
 /* Weight */
 
 h1 {
-    font-weight: bold !important;
+    font-weight: bold;
 }
 
 h2, h3 {
-    font-weight: 600px !important;
+    font-weight: 600;
 }
 
 .h1-p {
-    font-weight: 500px !important;
+    font-weight: 500;
 }
 
 .h2-p, .h2-p-fondoNegro, .h3-p, .h3-p-fondoNegro, .h3-p-fondoNegro-variante-1 {
-    font-weight: 400px !important;
+    font-weight: 400;
 }
 
 /* Tamaños de Encabezados */
 h1 {
-    font-size: 64px !important;
+    font-size: 64px;
 }
 
 .h1-small {
