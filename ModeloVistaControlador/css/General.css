@@ -153,6 +153,15 @@ header {
     transition: opacity 0.3s;
 }
 
+.iniciarSesion, .iniciadoSesion {
+    column-gap: 15px;
+}
+
+.iniciarSesion img, .iniciadoSesion img {
+    column-gap: 15px;
+    cursor: pointer;
+}
+
 #seccion-menu .apartado-menu,
 #seccion-menu .apartado-sobreNosotros,
 #seccion-menu .apartado-contacto {
