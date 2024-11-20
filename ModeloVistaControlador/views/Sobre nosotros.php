@@ -2,19 +2,19 @@
 session_start();
 include_once("views/header/header.php"); ?>
 
-<div class="container-fluid fondo">
-    <div class="container">
+<div class="container-fluid p-0">
+    <div class="container-fluid fondo">
         <div class="row">
-            <div class="col">
-                <div class="icono-grupo d-flex justify-content-center w-100">
+            <div class="col-lg-8 col-md-8 col-sm-12 mx-auto">
+                <div class="icono-grupo d-flex justify-content-start w-100">
                     <img src="imagenes/Iconos/custom-groups-24.svg" class="d-flex justify-content-start" alt="sobre nosotros" width="125px">
                 </div> 
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col">
+            <div class="col-lg-7 col-md-7 col-sm-12 mx-auto">
                 <div id="contenido-sobre-nosotros col-12">
                     <div class="migas-de-pan ">
                         <!-- Migas de pan -->

@@ -32,7 +32,7 @@ include_once("views/header/header.php");?>
                 <!-- Contenedor de ofertas, con scroll horizontal -->
                 <div id="lista-ofertas">
                     <?php foreach ($ofertas as $index => $oferta) { ?>
-                        <div class="estilo-oferta col-12 col-md-4 col-lg-3 mb-4">
+                        <div class="estilo-oferta col-xm-1 col-sm-2 col-md-3 col-lg-3 mb-4">
                             <div class="imagenes-compuestas">
                                 <div class="img-oferta">
                                     <img src="<?= $oferta->getImagen(); ?>" class="card-img-top" alt="oferta<?= $oferta->getID(); ?>-productos">

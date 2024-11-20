@@ -27,7 +27,7 @@ include_once("views/header/header.php");?>
 </section>
 
 
-<!-- seccion: Productos -->
+<!-- Seccion: Productos -->
 
 <section id="seccion-productos">
     <div class="container-fluid"> <!-- Usa container-fluid para eliminar los márgenes -->
@@ -38,7 +38,7 @@ include_once("views/header/header.php");?>
                     <?php
                         foreach($productos as $producto) {
                     ?>
-                        <div class="col-sm-12 col-md-6 col-lg-4 mt-0 mb-4"> <!-- Sin padding horizontal -->
+                        <div class="col-xm-12 col-sm-6 col-md-6 col-lg-4 mt-0 mb-4"> <!-- Sin padding horizontal -->
                             <div class="card h-100 w-100"> 
                                 <a href="?controller=producto&action=show&id=<?=$producto->getID()?>">
                                     <img src="<?=$producto->getImagen();?>" class="card-img-top" alt="Imagen del producto">
