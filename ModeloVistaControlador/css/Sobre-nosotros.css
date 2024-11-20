@@ -1,9 +1,9 @@
+.fondo {
+    background-image: url("../imagenes/Fondos/sobreNosotros-Contacto.webp");
+}
 #seccion-sobre-nosotros {
-    width: 100vw;
     position: relative;
-    transform: translateX(-50%);
-    left: 50%;
-    background: linear-gradient(to bottom, #f8b862, #ffffff);
+    background-image: url("../imagenes/Fondos/sobreNosotros-Contacto.webp");
     height: 233px;
     display: flex;
     justify-content: center;

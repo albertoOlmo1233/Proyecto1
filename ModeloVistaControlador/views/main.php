@@ -24,7 +24,7 @@
             <div class="primera-seccion">
                 <img src="imagenes/Logo/Logo entero blanco.svg" alt="">
                 <div class="redes-sociales">
-                    <img src="imagenes/Iconos/Property 1=X, isDark=True, Tamaño=24px.png" alt="">
+                    <i class="bi bi-twitter-x text-white"></i>
                     <img src="imagenes/Iconos/Property 1=Instagram, isDark=True, Tamaño=24px.png" alt="">
                     <img src="imagenes/Iconos/Property 1=YouTube, isDark=True, Tamaño=24px.png" alt="">
                 </div>

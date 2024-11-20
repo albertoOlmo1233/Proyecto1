@@ -4,9 +4,9 @@ session_start();
 include_once("views/header/header.php");?>
 <!-- Primera seccion: Bienvenida -->
 <section id="fondo-primera-seccion">
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="col col-sm-12 col-md-9 col-lg-9 mx-auto d-flex justify-content-center">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-sm-12 col-md-9 col-lg-9 mx-auto">
                 <div id="seccion-bienvenida" class="">
                     <h1 class="h1-small">¡Bienvenido!</h1>
                     <h1>¿Tienes hambre?</h1>
@@ -22,10 +22,10 @@ include_once("views/header/header.php");?>
 </section>
 
 <section id="seccion-ofertas">
-    <div class="container">
-        <div class="row pt-5 pb-5 d-flex justify-content-center">
+    <div class="container-fluid">
+        <div class="row pt-5 pb-5">
             <h2 class="h2-fondoNegro text-center">Ofertas</h2>
-            <div id="carousel-container" class="col-sm-12 col-md-9 col-lg-9 position-relative">
+            <div id="carousel-container" class="col-sm-12 col-md-9 col-lg-9 mx-auto position-relative">
                 <!-- Botón anterior del carrusel -->
                 <button id="prev-btn" class="carousel-btn">&#10094;</button>
                 
@@ -61,9 +61,9 @@ include_once("views/header/header.php");?>
 
 <!-- Seccion: Sobre nosotros -->
 <section id="seccion-sobreNosotros">
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="col-sm-12 col-md-9 col-lg-9 contenido-texto">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-9 col-lg-9 mx-auto contenido-texto">
                 <div id="contenido-sobreNosotros">
                     <h2>¡Nuestra historia!</h2>
                     <p>Desde 2010, hemos dedicado nuestra pasion a ofrecer hamburgesas que celebran la frescura y los sabores auténticos. Cada plato cuenta una historia y está hecho con los mejores ingredientes...</p>
@@ -78,9 +78,9 @@ include_once("views/header/header.php");?>
 <!-- Seccion: Contacto -->
 
 <section id="seccion-contacto">
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-sm-12 col-md-9 col-lg-9">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 col-md-9 col-lg-9 mx-auto">
             <div class="row">
                 <div class="col-md-6 col-lg-6 contenido-texto">
                     <h2 class="h2-fondoNegro">¿Tienes alguna duda?</h2>
