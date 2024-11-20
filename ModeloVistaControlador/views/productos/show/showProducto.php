@@ -1,3 +1,5 @@
+<?php session_start(); 
+include_once("views/header/header.php");?>
 <div id="seccion-productoDetalle"> 
     <div id="contenido-productoDetalle">
         <h1><?=$detalleProducto->getNombre();?></h1>

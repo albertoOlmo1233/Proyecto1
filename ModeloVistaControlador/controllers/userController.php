@@ -11,6 +11,18 @@ class userController {
         include_once 'views/main.php';
     }
     
+    public function cuenta(){
+        UsuarioDAO::comprobarSesion();
+        $view="views/cuenta/Cuenta.php";
+        include_once 'views/main.php';
+    }
+    public function carrito(){
+        UsuarioDAO::comprobarSesion();
+        $view="views/cuenta/Carrito.php";
+        include_once 'views/main.php';
+    }
+
+
     public function inicioSesion(){
         $correo= $_POST['correo'];
         $password = $_POST['password'];

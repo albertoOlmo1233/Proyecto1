@@ -1,4 +1,6 @@
-<?php include_once("views/header/header.php"); ?>
+<?php 
+session_start();
+include_once("views/header/header.php"); ?>
 
 <div class="container sobreNosotros">
     <div class="row d-flex justify-content-center">

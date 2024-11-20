@@ -1,4 +1,6 @@
-<?php include_once("views/header/header.php");?>
+<?php 
+session_start();
+include_once("views/header/header.php");?>
 <section id="seccion-nuestraCarta">
     <div class="container">
         <div class="row d-flex justify-content-center">
@@ -27,14 +29,14 @@
 
 <section id="seccion-productos">
     <div class="container"> <!-- Usa container-fluid para eliminar los márgenes -->
-        <div class="row g-4 d-flex justify-content-center"> <!-- Sin espacio entre columnas -->
+        <div class="row d-flex justify-content-center"> <!-- Sin espacio entre columnas -->
             <div class="col-sm-12 col-sm-9 col-lg-9">
-                <div class="row">
+                <div class="row g-4">
                 <h3 class="titulo-carta"><?=$tituloProducto?></h3>
                     <?php
                         foreach($productos as $producto) {
                     ?>
-                        <div class="col-sm-12 col-md-6 col-lg-4 mt-0"> <!-- Sin padding horizontal -->
+                        <div class="col-sm-12 col-md-6 col-lg-4 mt-0 mb-4"> <!-- Sin padding horizontal -->
                             <div class="card h-100" style="width: 100%;"> 
                                 <a href="?controller=producto&action=show&id=<?=$producto->getID()?>">
                                     <img src="<?=$producto->getImagen();?>" class="card-img-top" alt="Imagen del producto">

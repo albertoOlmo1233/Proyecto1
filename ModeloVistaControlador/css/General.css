@@ -145,36 +145,25 @@ header {
     display: flex;
     align-items: center;
 }
-
 #seccion-menu a {
+    opacity: 0.5;
+}
+
+#seccion-menu a, #seccion-menu img {
+    display: flex;
     padding: 16px 12px;
+    cursor: pointer;
+    gap: 15px;
     color: var(--neutral-color-3);
     text-decoration: none;
     transition: opacity 0.3s;
-}
-
-.iniciarSesion, .iniciadoSesion {
-    column-gap: 15px;
-}
-
-.iniciarSesion img, .iniciadoSesion img {
-    column-gap: 15px;
-    cursor: pointer;
-}
-
-#seccion-menu .apartado-menu,
-#seccion-menu .apartado-sobreNosotros,
-#seccion-menu .apartado-contacto {
-    opacity: 0.5;
 }
 
 #seccion-menu .active {
     opacity: 1;
 }
 
-#seccion-menu .apartado-menu:hover,
-#seccion-menu .apartado-sobreNosotros:hover,
-#seccion-menu .apartado-contacto:hover {
+#seccion-menu a:hover {
     opacity: 1;
     cursor: pointer;
 }

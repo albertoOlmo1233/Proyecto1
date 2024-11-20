@@ -21,19 +21,18 @@
                     <a href="?controller=producto&action=sobreNosotros" class="apartado-sobreNosotros">Sobre nosotros</a>
                     <a href="?controller=producto&action=contacto" class="apartado-contacto">Contacto</a>
                     <!-- Si el usuario no esta iniciado sesion se mostrara el div de abajo -->
-                    <?
-                    
+                    <?php
                     if(!isset($_SESSION['usuario'])) {?>
-                        <div class="iniciarSesion d-flex align-items-center">
-                            <a href="?controller=user" class="primaryButton-yellow-1">Iniciar sesión</a>
-                        </div>
-                    <?} else {?>
+                        <a href="?controller=user" class="primaryButton-yellow-1">Iniciar sesión</a>
+                    <?php } else {?>
                     <!-- Por otro lado, si el usuario inicia sesion se mostrara el de abajo -->
-                    <div class="iniciadoSesion d-flex align-items-center">
-                        <img src="imagenes/Iconos/person-24.svg" alt="">
-                        <img src="imagenes/Iconos/shopping-cart-24.svg" alt="">
-                    </div>
-                    <?}?>
+                        <a href="?controller=user&action=cuenta" class="opacity-100 p-0">
+                            <img src="imagenes/Iconos/person-24.svg" alt="">
+                        </a>
+                        <a href="?controller=user&action=carrito" class="opacity-100 p-0">
+                            <img src="imagenes/Iconos/shopping-cart-24.svg" alt="">
+                        </a>
+                    <?php }?>
                     
 
                 </nav> 

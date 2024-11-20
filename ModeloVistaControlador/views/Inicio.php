@@ -1,5 +1,7 @@
 
-<?php include_once("views/header/header.php");?>
+<?php 
+session_start();
+include_once("views/header/header.php");?>
 <!-- Primera seccion: Bienvenida -->
 <section id="fondo-primera-seccion">
     <div class="container">
