@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 104 94" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-430.442,-478.327)">
+        <g transform="matrix(1.7989,0,0,1.7989,-473.336,-409.114)">
+            <g transform="matrix(1.08108,0,0,1.07432,-43.6429,-34.6395)">
+                <path d="M545.329,509.359L545.329,517.839C545.329,523.3 540.923,527.733 535.497,527.733L526.893,527.733C521.467,527.733 517.062,523.3 517.062,517.839L517.062,509.359C517.062,503.899 521.467,499.466 526.893,499.466L535.497,499.466C540.923,499.466 545.329,503.899 545.329,509.359Z" style="fill:rgb(255,193,88);"/>
+            </g>
+            <g id="battery_charging_90_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" transform="matrix(2.40599,0,0,2.16752,531.278,519.335)">
+                <g transform="matrix(1,0,0,1,-12,-12)">
+                    <g>
+                        <g transform="matrix(-0.845929,0.533296,-0.533296,-0.845929,34.1036,17.812)">
+                            <path d="M16.5,22L16.5,19L13.643,19.939L15.632,16.763L17.77,16.782L19.216,16.822L16.5,22Z" style="fill:white;fill-rule:nonzero;"/>
+                        </g>
+                        <g transform="matrix(0.85143,0.532564,0.52963,-0.846738,-10.2463,17.8383)">
+                            <path d="M16.5,22L16.5,19L13.643,19.939L15.632,16.763L17.77,16.782L19.216,16.822L16.5,22Z" style="fill:white;fill-rule:nonzero;"/>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

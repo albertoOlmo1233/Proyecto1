@@ -1,6 +1,6 @@
 /* Primera Sección (Fondo) */
 #fondo-primera-seccion {
-    background-image: url("../imagenes/Fondos/fondo_bienvenida.png");
+    background-image: url("../imagenes/Fondos/fondo_bienvenida.webp");
     background-size: cover;
     display: flex;
     flex-direction: column;

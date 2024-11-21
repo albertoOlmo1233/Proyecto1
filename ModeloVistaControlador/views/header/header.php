@@ -23,7 +23,7 @@
                     <!-- Si el usuario no esta iniciado sesion se mostrara el div de abajo -->
                     <?php
                     if(!isset($_SESSION['usuario'])) {?>
-                        <a href="?controller=user" class="primaryButton-yellow-1">Iniciar sesión</a>
+                        <a href="?controller=user" class="primaryButton-yellow-1 opacity-100">Iniciar sesión</a>
                     <?php } else {?>
                     <!-- Por otro lado, si el usuario inicia sesion se mostrara el de abajo -->
                         <a href="?controller=user&action=cuenta" class="opacity-100 p-0">
