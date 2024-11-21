@@ -31,3 +31,7 @@ include_once("views/header/header.php"); ?>
         </div>
     </div>
 </div>
+
+<?php 
+include_once("views/footer/footer.php");
+?>

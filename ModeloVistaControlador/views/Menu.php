@@ -60,3 +60,6 @@ include_once("views/header/header.php");?>
 </section>
 
 
+<?php 
+include_once("views/footer/footer.php");
+?>
