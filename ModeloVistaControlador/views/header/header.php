@@ -48,6 +48,7 @@
                             <a href="?controller=producto&action=menu" class="apartado-menu">Menu</a>
                             <a href="?controller=producto&action=sobreNosotros" class="apartado-sobreNosotros">Sobre nosotros</a>
                             <a href="?controller=producto&action=contacto" class="apartado-contacto">Contacto</a>
+                            <a href="?controller=user">Iniciar sesion</a>
                         </div>
                     </div>
                 </div>
