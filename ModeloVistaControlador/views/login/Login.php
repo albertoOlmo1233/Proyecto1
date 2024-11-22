@@ -4,10 +4,10 @@
             <!-- Logo -->
              <div class="logo gap-3 d-flex flex-column align-items-center">
                 <img src="imagenes/Logo/Logo blanco.svg" alt="" width="36px">
-                <h3 class="titulo-login">Inicio de sesion<br>Work & Taste</h3>
+                <h3 class="titulo-login">Inicio de sesion</h3>
              </div>
             <div id="redireccion-register">
-                <p class="h3-p">¿Ya tienes una cuenta? <a href="?controller=user&action=register">Registrate</a></p>
+                <p class="h3-p">¿No tienes una cuenta? <a href="?controller=user&action=register">Registrate</a></p>
             </div>
         </div>
         
