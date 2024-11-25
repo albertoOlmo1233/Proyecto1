@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/Login.css">
     <link rel="stylesheet" href="css/show/showProducto.css">
     <link rel="stylesheet" href="css/General.css">
+    <link rel="stylesheet" href="css/Cuenta.css">
     <title>Work & Taste</title>
 </head>
 <body>

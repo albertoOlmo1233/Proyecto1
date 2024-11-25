@@ -13,7 +13,7 @@
 #seccion-bienvenida {
     text-align: center;
     align-items: center;
-    padding: 35px 0px;
+    padding: 70px 0px;
 }
 
 /* Sección de Ofertas */
@@ -144,13 +144,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 55px 0px 0px;
+    padding: 55px 0;
+    min-height: 500px; /* Altura mínima */
+    position: relative; /* Necesario para posicionar la imagen al fondo */
 }
 
-#contenido-contacto {
-    padding: 50px 0x;
-}
-
+/* Estilo de la columna de texto */
 .contenido-texto {
     display: flex;
     flex-direction: column;
@@ -158,11 +157,38 @@
     row-gap: 20px;
 }
 
+/* Contenedor de la imagen */
 .contenido-imagen {
-    height: 100%;
+    width: 100%; /* Ocupa todo el ancho */
+    height: 100%; /* Ocupa todo el alto del contenedor */
     display: flex;
+    justify-content: center; /* Centra la imagen horizontalmente */
+    align-items: flex-end; /* Alinea la imagen al fondo */
 }
 
-.contenido-imagen img { 
-    bottom: 0;
+/* Imagen */
+.contenido-imagen img {
+    width: 100%; /* Escala proporcionalmente */
+    height: auto; /* Mantiene proporciones */
+    object-fit: cover; /* Ajusta el tamaño para que cubra sin deformarse */
+}
+
+/* Reglas para pantallas pequeñas */
+@media (max-width: 768px) {
+    #seccion-contacto {
+        flex-direction: column; /* Apila el contenido en pantallas pequeñas */
+        min-height: auto; /* Ajusta la altura al contenido */
+    }
+
+    .contenido-texto, .contenido-imagen {
+        width: 100%; /* Ambos elementos ocupan el ancho completo */
+    }
+
+    .contenido-imagen {
+        height: auto; /* Ajusta la altura de la imagen en pantallas pequeñas */
+    }
+
+    .contenido-imagen img {
+        object-fit: contain; /* Mantiene la imagen dentro del contenedor sin deformarse */
+    }
 }

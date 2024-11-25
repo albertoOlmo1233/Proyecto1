@@ -2,10 +2,15 @@
     background-color: var(--neutral-color-2);
 }
 
-.contenido-login{
+.contenido-login {
     width: 320px;
     gap: 0.5rem;
 }
+.contenido-register {
+    width: 350px;
+    gap: 0.5rem;
+}
+
 .titulo-login {
     font-size: 30px;
     margin: 0px;
@@ -16,8 +21,81 @@
     column-gap: 8px;
 }
 
-.form-control:focus {
-    border-color: var(--primary-color-1) !important;
+input {
+    font-size: 14px;
+    color: var(--default-border-checkbox);
+}
+
+
+/* Por defecto */
+input {
+    display: flex;
+    align-items: center;
+}
+input[type="text"],input[type="email"],input[type="password"],.form-check, button {
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: var(--default-border-input) !important;
+    padding: 0px 16px !important;
+    height: 44px;
+}
+
+input::placeholder {
+    font-size: 14px;
+    color: #91918d;
+    opacity: 0.5;
+}
+
+/* Contenedor del checkbox */
+.form-check {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-color: #ccc; /* Borde base */
+    border-radius: 10px; /* Bordes redondeados */
+    background-color: #fff; /* Fondo blanco */
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+/* Aseguramos el puntero */
+.form-check * {
+    cursor: pointer;
+}
+
+/* Estilo del label */
+.form-check-label {
+    font-size: 14px;
+    color: #333;
+    margin-right: auto; /* Alinea el texto hacia la izquierda */
+}
+
+input:checked, input:focus, .form-check:focus-within {
     outline: 0 !important;
-    box-shadow: 0 0 0 .25rem rgba(255, 190, 60, .45) !important;
+    border-color: var(--primary-color-1) !important;
+    box-shadow: var(--box-shadow-after) !important;
+    transition: all 0.2s ease; /* Transición suave */
+}
+
+.mycheck {
+    cursor: pointer;
+    background-color: #fff;
+    appearance: none;
+    width: 18px !important;
+    height: 18px !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: var(--default-border-checkbox);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+
+.mycheck:hover {
+    background-color: var(--background-checkbox);
+    border-color: var(--primary-color-1);
+}
+
+.mycheck:checked {
+    background-image: url('../imagenes/Iconos/check-small-24.svg');
+    background-size: cover;
 }

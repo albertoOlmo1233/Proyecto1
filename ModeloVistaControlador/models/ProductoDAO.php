@@ -43,6 +43,26 @@ class ProductoDAO {
         return $detalleProducto;
     }
 
+    public static function getProductoArray($id) {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("SELECT * FROM producto WHERE id_producto=?");
+        $stmt->bind_param("i", $id);
+    
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        $detalleProducto = [];  // Definir como un array para almacenar varios productos.
+    
+        while ($producto = $result->fetch_object("ProductoArrayDetalle")) {
+            $detalleProducto[] = $producto;  // Agregar al array
+        }
+    
+        $con->close();
+    
+        return $detalleProducto;  // Devuelve el array con todos los productos encontrados.
+    }
+
+
     // Administrador
     public static function store($producto){
         $con = DataBase::connect();

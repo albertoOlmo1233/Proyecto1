@@ -23,40 +23,58 @@ class userController {
     }
 
 
-    public function inicioSesion(){
-        $correo= $_POST['correo'];
+public function inicioSesion(){
+    $correo= "";
+    $password="";
+    if (isset($_POST['correo']) && isset($_POST['password'])) {
+        $correo = $_POST['correo'];
         $password = $_POST['password'];
-        UsuarioDAO::iniciarSesion($correo,$password);
     }
+    UsuarioDAO::iniciarSesion($correo,$password);
+}
 
-    public function registro(){
+public function registroSesion(){
+    $nombre= "";
+    $apellidos= "";
+    $correo= "";
+    $password="";
+    if(isset($_POST['nombre']) && isset($_POST['apellidos'])&& isset($_POST['correo']) && isset($_POST['password'])){
         $nombre= $_POST['nombre'];
         $apellidos= $_POST['apellidos'];
         $correo= $_POST['correo'];
         $password = $_POST['password'];
-        UsuarioDAO::iniciarSesion($nombre,$apellidos,$correo,$password);
-        
     }
+    UsuarioDAO::registroSesion($nombre,$apellidos,$correo,$password);
+    
+}
 
-    // Acciones (Crear, almacenar, borrar)
-    public function create() {
-        $view="views/productos/create.php";
-        include_once 'views/main.php';
-    }
-    public function store() {
-        $correo= $_POST['correo'];
-        $password = $_POST['password'];
-        
-        echo "Nombre: .$correo. Talla: .$password";
+public static function redireccionCarrito(){
+    UsuarioDAO::comprobarSesion();
+}
 
-        // Creacion camiseta
-        $usuario = new Usuario();
-        $usuario->setNombre($correo);
-        $usuario->setTalla($password);
-        $usuario->setPrecio($precio);
+public static function logout(){
+    UsuarioDAO::cerrarSesion();
+}
 
-        UsuarioDAO::store($producto);
-    }
+// Acciones (Crear, almacenar, borrar)
+public function create() {
+    $view="views/productos/create.php";
+    include_once 'views/main.php';
+}
+public function store() {
+    $correo= $_POST['correo'];
+    $password = $_POST['password'];
+    
+    echo "Nombre: .$correo. Talla: .$password";
+
+    // Creacion camiseta
+    $usuario = new Usuario();
+    $usuario->setNombre($correo);
+    $usuario->setTalla($password);
+    $usuario->setPrecio($precio);
+
+    UsuarioDAO::store($producto);
+}
 }
 
 ?>

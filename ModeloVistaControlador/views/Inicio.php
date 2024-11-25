@@ -31,11 +31,12 @@ include_once("views/header/header.php");?>
                 
                 <!-- Contenedor de ofertas, con scroll horizontal -->
                 <div id="lista-ofertas">
-                    <?php foreach ($ofertas as $index => $oferta) { ?>
+                    <?php foreach ($ofertas as $index => $oferta) {?>
+
                         <div class="estilo-oferta col-xm-1 col-sm-2 col-md-3 col-lg-3 mb-4">
                             <div class="imagenes-compuestas">
                                 <div class="img-oferta">
-                                    <img src="<?= $oferta->getImagen(); ?>" class="card-img-top" alt="oferta<?= $oferta->getID(); ?>-productos">
+                                    <img src="<?= $oferta->getImagen(); ?>" class="card-img-top" alt="oferta-<?=$oferta->getIdOferta();?>">
                                 </div>
                                 <div class="img-icono-oferta">
                                     <img src="imagenes/Iconos/Descuento.png" alt="Oferta">
@@ -78,22 +79,29 @@ include_once("views/header/header.php");?>
 <!-- Seccion: Contacto -->
 
 <section id="seccion-contacto">
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12 col-md-9 col-lg-9 mx-auto">
-            <div class="row">
-                <div class="col-md-6 col-lg-6 contenido-texto">
-                    <h2 class="h2-fondoNegro">¿Tienes alguna duda?</h2>
-                    <p class="h2-p-fondoNegro">We think Super is the best way to publish content online which is why we use it for all our sites. The content for this site (the one you are reading now), is all coming from Notion.</p>
-                    <a href="views/Contacto.php" class="neutralButton-white">Contactanos!</a>
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-sm-12 col-md-9 col-lg-9 mx-auto">
+                <div class="row h-100">
+                    <!-- Contenido de texto -->
+                    <div class="col-md-6 col-lg-6 contenido-texto">
+                        <h2 class="h2-fondoNegro">¿Tienes alguna duda?</h2>
+                        <p class="h2-p-fondoNegro">
+                            We think Super is the best way to publish content online which is why we use it for all our sites. 
+                            The content for this site (the one you are reading now), is all coming from Notion.
+                        </p>
+                        <a href="views/Contacto.php" class="neutralButton-white">Contactanos!</a>
+                    </div>
+                    <!-- Contenedor de la imagen -->
+                    <div class="col-md-6 col-lg-6">
+                        <div class="contenido-imagen">
+                            <img src="imagenes/Fondos/imagen-contacto.webp" alt="Imagen de contacto">
+                        </div>
+                    </div>
                 </div>
-                <div class=" col-md-6 col-lg-6">
-                    <img src="imagenes/Fondos/imagen-contacto.webp" class="w-100" alt="">
-                </div>   
-            </div>                   
+            </div>
         </div>
     </div>
-</div>
 </section>
 
 <?php 

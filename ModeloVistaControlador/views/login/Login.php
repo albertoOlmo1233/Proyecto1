@@ -12,12 +12,30 @@
         </div>
         
         <!-- Login Form -->
-        <form action="" class="w-100 d-flex flex-columngap-3">
-            <input type="text" class="form-control custom-border w-100" placeholder="Nombre" required>
-            <input type="text" class="form-control custom-border w-100" placeholder="Apellidos" required>
-            
+        <form action="?controller=user&action=inicioSesion" method="POST" class="w-100 d-flex flex-column gap-3">
+            <input type="email" class="form-control custom-border w-100" id="correo" name="correo" placeholder="Email" required>
+            <input type="password" class="form-control custom-border w-100" id="password" name="password" placeholder="Contraseña" required>
+            <!-- Mostrar el error si existe -->
+            <?php if (isset($error) && $error != ""): ?>
+                <div class="alert alert-danger mt-3">
+                    <?php echo $error; ?>
+                </div>
+            <?php endif; ?>
+            <?php if (isset($confirmacion) && $confirmacion != ""): ?>
+                <div class="alert alert-success mt-3">
+                    <?php echo $confirmacion; ?>
+                </div>
+                <script>
+                    // Redirigir después de 3 segundos
+                    setTimeout(function() {
+                        window.location.href = "?controller=user&action=cuenta";
+                    }, 3000);
+                </script>
+            <?php endif; ?>
             <!-- Login Button -->
-            <a href="" class="primaryButton-yellow-3-login">Login</a>
+            <button type="submit" class="primaryButton-yellow-3-login">
+                Login
+            </button>
         </form>
     </div>
 
