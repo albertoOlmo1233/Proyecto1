@@ -52,24 +52,24 @@ $tipo = "";
                 <h3 class="text-align-left" id="titulo">Update your </h3>
                 <p class="text-align-left" id="descripcion">Introduce tu a continuacion</p>
             </div>
-            <div class="d-flex flex-column h-auto gap-3">
+            <form id="formulario" class="d-flex flex-column h-auto gap-3">
                 <div class="mostrar-0 hidden">
                     <label>Nombre de usuario</label>
-                    <input type="text" value="<?= $_SESSION['usuario']?>">
+                    <input type="text" value="<?= $_SESSION['usuario']['nombre']?>" name="nombre" id="nombre">
                 </div>
                 <div class="mostrar-1 hidden">
                     <label>Contraseña</label>
-                    <input type="password" value="******">
+                    <input type="password" value="******" name="contraseña" id="contraseña">
                 </div>
                 <div class="mostrar-2 hidden">
                     <label>Direccion</label>
-                    <input type="text" value="<?= $_SESSION['usuario']?>">
+                    <input type="text" value="<?= $_SESSION['usuario']?>" name="direccion" id="direccion">
                 </div>
                 <div class="accion-contenedor text-end">
                     <button id="close-btn">Close</button>
-                    <button>Confirm</button>
+                    <button type="submit">Confirm</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 
@@ -80,6 +80,8 @@ $tipo = "";
         const editBtn_contraseña = document.getElementById('edit-btn-contraseña');
         const editBtn_direccion = document.getElementById('edit-btn-direccion');
 
+        //  Formulario
+        const formulario = document.getElementById('formulario');
         // DATOS 
         const datos_nombre = document.querySelector(".mostrar-0");
         const datos_contraseña = document.querySelector(".mostrar-1");
@@ -90,6 +92,7 @@ $tipo = "";
         // Mostrar el modal
         editBtn_nombre.addEventListener('click', () => {
             contenedor.classList.remove('hidden');
+            formulario.action = "?controller=user&action=modificarNombre&id=<?= $_SESSION['usuario']['id']?>";
             titulo.textContent = "Modificar tu nombre de usuario"; // Cambia el título
             descripcion.textContent = "Introduce tu nombre de usuario a continuación"; // Cambia el título
             datos_nombre.classList.remove('hidden');
@@ -98,6 +101,7 @@ $tipo = "";
         });
         editBtn_contraseña.addEventListener('click', () => {
             contenedor.classList.remove('hidden');
+            formulario.action = "?controller=user&action=modificarContraseña&id=<?= $_SESSION['usuario']['id']?>";
             titulo.textContent = "Modificar tu contraseña"; // Cambia el título
             descripcion.textContent = "Introduce tu contraseña a continuación"; // Cambia el título
             datos_contraseña.classList.remove('hidden');
@@ -106,6 +110,7 @@ $tipo = "";
         });
         editBtn_direccion.addEventListener('click', () => {
             contenedor.classList.remove('hidden');
+            formulario.action = "?controller=user&action=modificarDireccion&id=<?= $_SESSION['usuario']['id']?>";
             titulo.textContent = "Update your direccion"; // Cambia el título
             descripcion.textContent = "Introduce tu direccion a continuación"; // Cambia el título
             datos_direccion.classList.remove('hidden');

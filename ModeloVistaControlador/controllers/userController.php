@@ -56,6 +56,34 @@ public static function logout(){
     UsuarioDAO::cerrarSesion();
 }
 
+public static function modificarNombre(){
+    $id = null;
+    $nombre = null;
+    if(isset($_GET['id']) && isset($_GET['nombre'])){
+        $id = $_GET['id'];
+        $nombre = $_GET['nombre'];
+    }
+    UsuarioDAO::modificarNombre($id,$nombre);
+}
+public static function modificarContraseña(){
+    $id = null;
+    $contraseña = null;
+    if(isset($_GET['id']) && isset($_GET['contraseña'])){
+        $id = $_GET['id'];
+        $contraseña = $_GET['contraseña'];
+    }
+    UsuarioDAO::modificarContraseña($id,$contraseña);
+}
+public static function modificarDireccion(){
+    $id = null;
+    $direccion = null;
+    if(isset($_GET['id']) && isset($_GET['direccion'])){
+        $id = $_GET['id'];
+        $direccion = $_GET['direccion'];
+    }
+    UsuarioDAO::modificarDireccion($id,$direccion);
+}
+
 // Acciones (Crear, almacenar, borrar)
 public function create() {
     $view="views/productos/create.php";

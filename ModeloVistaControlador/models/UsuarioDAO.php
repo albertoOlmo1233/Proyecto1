@@ -64,12 +64,19 @@ public static function iniciarSesion($identificador,$contraseña){
     $result = $stmt->get_result();
     $usuario = $result->fetch_object("UsuarioDetalle");
     if($usuario){
-        if(password_verify($contraseña, $usuario->getContraseña())){
-            //  Creamos la session
+        if (password_verify($contraseña, $usuario->getContraseña())) {
+            // Iniciamos la sesión
             session_start();
-            $_SESSION["usuario"] = $usuario->getNombre();
+        
+            // Guardamos el ID y el nombre del usuario en la sesión
+            $_SESSION["usuario"] = [
+                "id" => $usuario->getId(),       // Asumiendo que tienes un método getId()
+                "nombre" => $usuario->getNombre() // Asumiendo que tienes un método getNombre()
+            ];
+        
             $confirmacion = "Inicio de sesión exitoso. Serás redirigido en breve.";
-            if(isset($confirmacion)){
+        
+            if (isset($confirmacion)) {
                 $view = "views/login/Login.php";
                 include_once 'views/main.php';
             }
@@ -168,6 +175,34 @@ public static function comprobarSesion(){
         header("Location: ?controller=user");
     }
     
+}
+
+public static function modificarNombre($id,$nombre){
+    $con = DataBase::connect();
+    $stmt = $con->prepare("INSERT INTO usuarios (nombre, apellidos, correo, contraseña, rol) VALUES (?,?,?,?,?);");
+    $stmt->bind_param("sssss",$usuario->getNombre(),$usuario->getApellido(),$usuario->getCorreo(),$usuario->getContraseña,"Cliente");
+    
+    $stmt->execute();
+    $con->close();
+}
+public static function modificarContraseña($id,$contraseña){
+    $con = DataBase::connect();
+    $stmt = $con->prepare("INSERT INTO usuarios (nombre, apellidos, correo, contraseña, rol) VALUES (?,?,?,?,?);");
+    $stmt->bind_param("sssss",$usuario->getNombre(),$usuario->getApellido(),$usuario->getCorreo(),$usuario->getContraseña,"Cliente");
+    
+    $stmt->execute();
+    $con->close();
+}
+public static function modificarDireccion($id,$direccion){
+    $con = DataBase::connect();
+    $stmt = $con->prepare("SELECT * FROM usuario WHERE id_usuario=?");
+    $stmt1->bind_param("i",$id);
+    
+    $stmt1 = $con->prepare("INSERT INTO usuarios (nombre, apellidos, correo, contraseña, rol) VALUES (?,?,?,?,?);");
+    $stmt1->bind_param("sssss",$usuario->getNombre(),$usuario->getApellido(),$usuario->getCorreo(),$usuario->getContraseña,"Cliente");
+    
+    $stmt->execute();
+    $con->close();
 }
 
 public static function cerrarSesion() {
