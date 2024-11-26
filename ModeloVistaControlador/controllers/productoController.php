@@ -48,7 +48,10 @@ class productoController {
         } else {
             echo "ID de producto no especificado.";
         }
-        $this->menu();
+        // Redirigimos al carrito
+        header("Location: ?controller=producto&action=menu#producto-$id");
+        exit();
+    
     }
     
     public function sumar() {
@@ -70,7 +73,7 @@ class productoController {
                 echo "El producto no está en el carrito.";
             }
             // Redirigimos al carrito
-            header("Location: ?controller=user&action=carrito");
+            header("Location: ?controller=user&action=carrito#pedido-$id");
             exit();
         }
     }
@@ -96,7 +99,7 @@ class productoController {
             }
 
             // Redirigimos al carrito
-            header("Location: ?controller=user&action=carrito");
+            header("Location: ?controller=user&action=carrito#pedido-$id");
             exit();
         }
     }

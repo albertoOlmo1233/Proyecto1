@@ -34,14 +34,14 @@ include_once("views/header/header.php");?>
 <section id="seccion-productos">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12 col-sm-9 col-lg-9 mx-auto">
+            <div class="col-sm-12 col-md-9 col-lg-9 mx-auto">
                 <div class="row g-5">
                 <h3 class="titulo-carta"><?=$tituloProducto?></h3>
                     <?php
                         foreach($productos as $producto) {
                     ?>
                         <div class="col-xm-12 col-sm-6 col-md-6 col-lg-4 mt-0 mb-5">
-                            <div class="card h-100 w-100"> 
+                            <div class="card h-100 w-100" id="producto-<?=$producto->getID();?>"> 
                                 <a href="?controller=producto&action=show&id=<?=$producto->getID()?>">
                                     <img src="<?=$producto->getImagen();?>" class="card-img-top" alt="<?=$producto->getNombre();?>">
                                 </a>

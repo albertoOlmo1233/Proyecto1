@@ -21,7 +21,7 @@ include_once("views/header/header.php");
                         $cantidad = $productoPedido["cantidad"];
                         $total += $producto->getPrecio() * $cantidad;  // Acumulamos el total      
             ?>
-                <div class="row plantilla-pedido py-5">
+                <div class="row plantilla-pedido py-5" id="pedido-<?=$producto->getID();?>">
                     <div class="col-10">
                         <div class="contenido-producto d-flex ps-5">
                             <img src="<?=$producto->getImagen();?>" alt="<?=$producto->getNombre();?>">

@@ -21,7 +21,6 @@
 /* Inputs */
 
 label {
-    height: 60px !important;
     align-items: center;
     display: flex;
 }
@@ -51,15 +50,6 @@ input:disabled {
     background-color: #eeeeec !important;
 }
 
-.account-details {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    margin: auto;
-}
-
 /* Botón de edición */
 button {
     background-color: #ffcc80;
@@ -70,11 +60,15 @@ button {
 }
 
 /* Fondo oscuro */
-#modal.hidden {
+#contenedor.hidden {
     display: none;
 }
 
-#modal {
+.hidden {
+    display: none;
+}
+
+#contenedor {
     position: fixed;
     top: 0;
     left: 0;
@@ -88,26 +82,39 @@ button {
 }
 
 /* Contenedor del modal */
-.modal-content {
+.contenido-contenedor {
     background: #fff;
-    padding: 20px;
+    padding: 24px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 400px;
+    height: auto;
     text-align: center;
 }
 
-.modal-actions button {
+.contenido-contenedor img {
+    width: 64px;
+}
+
+.text-align-left {
+    text-align: left;
+}
+.align-left {
+    display: flex;
+    justify-content: left;
+}
+
+.accion-contenedor button {
     margin: 5px;
     padding: 10px 20px;
     border-radius: 5px;
 }
 
-.modal-actions #close-btn {
+.accion-contenedor #close-btn {
     background-color: #ddd;
 }
 
-.modal-actions button:last-child {
+.accion-contenedor button:last-child {
     background-color: #ffcc80;
     color: #000;
 }
