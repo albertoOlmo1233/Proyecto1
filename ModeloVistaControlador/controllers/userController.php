@@ -2,8 +2,16 @@
 include_once("models/UsuarioDAO.php");
 class userController {
     public function index() {
-        $view="views/login/Login.php";
-        include_once 'views/main.php';
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();  // Inicia la sesión si no está iniciada
+        }
+        if(isset($_SESSION['usuario'])){
+            $view="views/cuenta/Cuenta.php";
+            include_once 'views/main.php';
+        }else {
+            $view="views/login/Login.php";
+            include_once 'views/main.php';
+        }
     }
 
     public function register() {
@@ -59,18 +67,18 @@ public static function logout(){
 public static function modificarNombre(){
     $id = null;
     $nombre = null;
-    if(isset($_GET['id']) && isset($_GET['nombre'])){
+    if(isset($_GET['id']) && isset($_POST['nombre'])){
         $id = $_GET['id'];
-        $nombre = $_GET['nombre'];
+        $nombre = $_POST['nombre'];
     }
     UsuarioDAO::modificarNombre($id,$nombre);
 }
 public static function modificarContraseña(){
     $id = null;
     $contraseña = null;
-    if(isset($_GET['id']) && isset($_GET['contraseña'])){
+    if(isset($_GET['id']) && isset($_POST['contraseña'])){
         $id = $_GET['id'];
-        $contraseña = $_GET['contraseña'];
+        $contraseña = $_POST['contraseña'];
     }
     UsuarioDAO::modificarContraseña($id,$contraseña);
 }

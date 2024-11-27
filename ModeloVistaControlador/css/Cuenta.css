@@ -104,6 +104,25 @@ button {
     justify-content: left;
 }
 
+
+/* Animacion mensajes ( Error / Confirmacion ) */
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.alert {
+    /* Agregar animación suave al fadeOut */
+    animation: fadeOut 2s forwards;
+}
+
+
 .accion-contenedor button {
     margin: 5px;
     padding: 10px 20px;

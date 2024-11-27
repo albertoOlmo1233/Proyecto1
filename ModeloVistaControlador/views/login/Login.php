@@ -28,7 +28,7 @@
                 <script>
                     // Redirigir después de 3 segundos
                     setTimeout(function() {
-                        window.location.href = "?controller=user&action=cuenta";
+                        window.location.href = "?controller=user";
                     }, 1500);
                 </script>
             <?php endif; ?>

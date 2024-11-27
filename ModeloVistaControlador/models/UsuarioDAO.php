@@ -184,22 +184,76 @@ public static function comprobarSesion(){
 }
 
 public static function modificarNombre($id,$nombre){
+    // Asegúrate de que la sesión esté iniciada
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();  // Inicia la sesión si no está iniciada
+    }
     $con = DataBase::connect();
-    $stmt = $con->prepare("INSERT INTO usuarios (nombre, apellidos, correo, contraseña, rol) VALUES (?,?,?,?,?);");
-    $stmt->bind_param("sssss",$usuario->getNombre(),$usuario->getApellido(),$usuario->getCorreo(),$usuario->getContraseña,"Cliente");
-    
+    $stmt = $con->prepare("SELECT nombre FROM usuario WHERE id_usuario=?;");
+    $stmt->bind_param("i",$id);
     $stmt->execute();
+    $resultNombre = $stmt->get_result();
+    $row = $resultNombre->fetch_array();
+    $nombre_resultado = $row['nombre'];
+
+    if($nombre_resultado && $nombre_resultado === $nombre) {
+        $error = "Este nombre de usuario ya lo tienes asignada. <br> Prueba de nuevo.";
+    } else {
+        $stmt1 = $con->prepare("UPDATE usuario SET nombre = ? WHERE id_usuario = ?;");
+        $stmt1->bind_param("si",$nombre,$id);
+        $stmt1->execute();
+        $_SESSION['usuario']['nombre'] = $nombre;
+        $confirmacion = "El nombre se ha modificado correctamente.";
+    }
+
+    if(isset($error)) {
+        $view = "views/cuenta/Cuenta.php";
+        include_once 'views/main.php';
+    }
+    if(isset($confirmacion)){
+        $view = "views/cuenta/Cuenta.php";
+        include_once 'views/main.php';
+    }
     $con->close();
 }
 public static function modificarContraseña($id,$contraseña){
+    // Asegúrate de que la sesión esté iniciada
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();  // Inicia la sesión si no está iniciada
+    }
     $con = DataBase::connect();
-    $stmt = $con->prepare("INSERT INTO usuarios (nombre, apellidos, correo, contraseña, rol) VALUES (?,?,?,?,?);");
-    $stmt->bind_param("sssss",$usuario->getNombre(),$usuario->getApellido(),$usuario->getCorreo(),$usuario->getContraseña,"Cliente");
-    
+    $stmt = $con->prepare("SELECT contraseña FROM usuario WHERE id_usuario=?");
+    $stmt->bind_param("i",$id);
     $stmt->execute();
+    $resultContraseña = $stmt->get_result();
+    $row = $resultContraseña->fetch_array();
+    $contraseña_resultado = $row['contraseña'];
+
+    if($contraseña_resultado && $contraseña_resultado === $contraseña) {
+        $error = "Esta contraseña ya la tienes asignada. <br> Prueba de nuevo.";
+    } else {
+        $passwordEncriptado = password_hash($contraseña, PASSWORD_BCRYPT);
+        $stmt1 = $con->prepare("UPDATE usuario SET contraseña = ? WHERE id_usuario = ?;");
+        $stmt1->bind_param("si",$passwordEncriptado,$id);
+        $stmt1->execute();
+        $confirmacion = "La contraseña se ha modificado correctamente.";
+    }
+
+    if(isset($error)) {
+        $view = "views/cuenta/Cuenta.php";
+        include_once 'views/main.php';
+    }
+    if(isset($confirmacion)){
+        $view = "views/cuenta/Cuenta.php";
+        include_once 'views/main.php';
+    }
     $con->close();
 }
 public static function modificarDireccion($id,$direccion){
+    // Asegúrate de que la sesión esté iniciada
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();  // Inicia la sesión si no está iniciada
+    }
     $con = DataBase::connect();
     $stmt = $con->prepare("SELECT direccion FROM usuario WHERE id_usuario=?");
     $stmt->bind_param("i",$id);
@@ -211,11 +265,10 @@ public static function modificarDireccion($id,$direccion){
     if($direccion_resultado && $direccion_resultado === $direccion) {
         $error = "Esta direccion ya la tienes asignada. <br> Prueba de nuevo.";
     } else {
-        var_dump();
-        die();
         $stmt1 = $con->prepare("UPDATE usuario SET direccion = ? WHERE id_usuario = ?;");
         $stmt1->bind_param("si",$direccion,$id);
-        $stmt->execute();
+        $stmt1->execute();
+        $_SESSION['usuario']['direccion'] = $direccion;
         $confirmacion = "La direccion se ha modificado correctamente.";
     }
 
