@@ -3,7 +3,7 @@
 // Creamos una clase abstracta para....
 abstract class Usuario {
 
-    public $ID;
+    public $id_usuario;
     protected $nombre;
     protected $apellidos;
     protected $correo;
@@ -11,8 +11,8 @@ abstract class Usuario {
     protected $direccion;
     protected $rol;
     
-    public function __construct($ID,$nombre,$apellidos,$correo,$contraseña,$direccion,$rol){
-        $this->id=$ID;
+    public function __construct($id_usuario,$nombre,$apellidos,$correo,$contraseña,$direccion,$rol){
+        $this->id=$id_usuario;
         $this->nombre=$nombre;
         $this->apellidos=$apellidos;
         $this->correo=$correo;
@@ -145,7 +145,7 @@ abstract class Usuario {
      */ 
     public function getID()
     {
-        return $this->ID;
+        return $this->id_usuario;
     }
 
     /**
@@ -155,7 +155,7 @@ abstract class Usuario {
      */ 
     public function setID($ID)
     {
-        $this->ID = $ID;
+        $this->id_usuario = $id_usuario;
 
         return $this;
     }

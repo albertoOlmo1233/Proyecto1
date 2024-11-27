@@ -5,9 +5,9 @@ include_once("controllers/productoController.php");
 include_once("controllers/userController.php");
 include_once("config/parameters.php");
 
-
 if(!isset($_GET['controller'])){
     // Accedemos a la url por default creada anteriormente y pasarle el controlador
+    
     header("Location:". url . "?controller=producto");
 }else {
     // En el caso asignamos el controlador a una variable

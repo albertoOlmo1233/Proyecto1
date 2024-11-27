@@ -63,6 +63,7 @@ public static function iniciarSesion($identificador,$contraseña){
     // Obtenemo el resultado de la query
     $result = $stmt->get_result();
     $usuario = $result->fetch_object("UsuarioDetalle");
+
     if($usuario){
         if (password_verify($contraseña, $usuario->getContraseña())) {
             // Iniciamos la sesión
@@ -70,10 +71,15 @@ public static function iniciarSesion($identificador,$contraseña){
         
             // Guardamos el ID y el nombre del usuario en la sesión
             $_SESSION["usuario"] = [
-                "id" => $usuario->getId(),       // Asumiendo que tienes un método getId()
-                "nombre" => $usuario->getNombre() // Asumiendo que tienes un método getNombre()
+                "id" => $usuario->getID(),
+                "correo" => $usuario->getCorreo(),
+                "nombre" => $usuario->getNombre(),
+                "direccion" => $usuario->getDireccion()
             ];
-        
+            error_log(print_r($_SESSION["usuario"], true)); 
+            echo '<pre>';
+            print_r($_SESSION['usuario']);
+            echo '</pre>';
             $confirmacion = "Inicio de sesión exitoso. Serás redirigido en breve.";
         
             if (isset($confirmacion)) {
@@ -195,13 +201,32 @@ public static function modificarContraseña($id,$contraseña){
 }
 public static function modificarDireccion($id,$direccion){
     $con = DataBase::connect();
-    $stmt = $con->prepare("SELECT * FROM usuario WHERE id_usuario=?");
-    $stmt1->bind_param("i",$id);
-    
-    $stmt1 = $con->prepare("INSERT INTO usuarios (nombre, apellidos, correo, contraseña, rol) VALUES (?,?,?,?,?);");
-    $stmt1->bind_param("sssss",$usuario->getNombre(),$usuario->getApellido(),$usuario->getCorreo(),$usuario->getContraseña,"Cliente");
-    
+    $stmt = $con->prepare("SELECT direccion FROM usuario WHERE id_usuario=?");
+    $stmt->bind_param("i",$id);
     $stmt->execute();
+    $resultDireccion = $stmt->get_result();
+    $row = $resultDireccion->fetch_array();
+    $direccion_resultado = $row['direccion'];
+
+    if($direccion_resultado && $direccion_resultado === $direccion) {
+        $error = "Esta direccion ya la tienes asignada. <br> Prueba de nuevo.";
+    } else {
+        var_dump();
+        die();
+        $stmt1 = $con->prepare("UPDATE usuario SET direccion = ? WHERE id_usuario = ?;");
+        $stmt1->bind_param("si",$direccion,$id);
+        $stmt->execute();
+        $confirmacion = "La direccion se ha modificado correctamente.";
+    }
+
+    if(isset($error)) {
+        $view = "views/cuenta/Cuenta.php";
+        include_once 'views/main.php';
+    }
+    if(isset($confirmacion)){
+        $view = "views/cuenta/Cuenta.php";
+        include_once 'views/main.php';
+    }
     $con->close();
 }
 

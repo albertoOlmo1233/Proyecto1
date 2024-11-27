@@ -77,9 +77,10 @@ public static function modificarContraseña(){
 public static function modificarDireccion(){
     $id = null;
     $direccion = null;
-    if(isset($_GET['id']) && isset($_GET['direccion'])){
+   
+    if(isset($_GET['id']) && isset($_POST['direccion'])){
         $id = $_GET['id'];
-        $direccion = $_GET['direccion'];
+        $direccion = $_POST['direccion'];
     }
     UsuarioDAO::modificarDireccion($id,$direccion);
 }

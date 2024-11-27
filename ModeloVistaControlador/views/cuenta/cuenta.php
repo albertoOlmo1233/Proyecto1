@@ -13,14 +13,14 @@ $tipo = "";
                     <h2 class="mb-0 text-left">Detalles de la cuenta</h2>
                     <label for="nombre">Nombre</label>
                     <div class="d-flex">
-                        <input type="text" class="form-control custom-border" id="nombre" name="nombre" placeholder="<?= $_SESSION['usuario']?>" disabled>
+                        <input type="text" class="form-control custom-border" id="nombre" name="nombre" placeholder="<?= $_SESSION['usuario']['nombre']?>" disabled>
                         <div class="fondo-edit form-control" id="edit-btn-nombre">
                             <img src="../../imagenes/Iconos/edit-24.svg" alt="icon-edit-24">
                         </div>
                     </div>
                     <label for="correo">Correo</label>
                     <div class="d-flex">
-                        <input type="email" class="form-control custom-border" id="correo" name="correo" placeholder="Tu correo" disabled>
+                        <input type="email" class="form-control custom-border" id="correo" name="correo" placeholder="<?= $_SESSION['usuario']['correo']?>" disabled>
                         <div class="fondo-edit form-control accion-deshabilitado">
                             <img src="../../imagenes/Iconos/edit-24.svg" alt="icon-edit-24">
                         </div>
@@ -52,7 +52,7 @@ $tipo = "";
                 <h3 class="text-align-left" id="titulo">Update your </h3>
                 <p class="text-align-left" id="descripcion">Introduce tu a continuacion</p>
             </div>
-            <form id="formulario" class="d-flex flex-column h-auto gap-3">
+            <form id="formulario" class="d-flex flex-column h-auto gap-3" method="POST">
                 <div class="mostrar-0 hidden">
                     <label>Nombre de usuario</label>
                     <input type="text" value="<?= $_SESSION['usuario']['nombre']?>" name="nombre" id="nombre">
@@ -63,8 +63,24 @@ $tipo = "";
                 </div>
                 <div class="mostrar-2 hidden">
                     <label>Direccion</label>
-                    <input type="text" value="<?= $_SESSION['usuario']?>" name="direccion" id="direccion">
+                    <input type="text" value="<?= $_SESSION['usuario']['direccion']?>" name="direccion" id="direccion">
                 </div>
+                <!-- Mostrar el error si existe -->
+                <?php if (isset($error) && $error != ""): ?>
+                    <div class="alert alert-danger mt-3">
+                        <?php echo $error; ?>
+                    </div>
+                <?php endif; ?>
+                <?php if (isset($confirmacion) && $confirmacion != ""): ?>
+                    <div class="alert alert-success mt-3">
+                        <?php echo $confirmacion; ?>
+                    </div>
+                    <script>
+                        setTimeout(function() {
+                            window.location.href = "?controller=user&action=cuenta";
+                        }, 3000);
+                    </script>
+                <?php endif; ?>
                 <div class="accion-contenedor text-end">
                     <button id="close-btn">Close</button>
                     <button type="submit">Confirm</button>
