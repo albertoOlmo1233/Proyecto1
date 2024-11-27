@@ -56,9 +56,11 @@ include_once("views/header/header.php");
                 <label for="correo">Correo</label>
                 <div class="d-flex">
                     <input type="email" class="form-control custom-border" id="correo" name="correo" placeholder="<?= $_SESSION['usuario']['correo']?>" disabled>
+
                     <div class="fondo-edit form-control accion-deshabilitado">
                         <img src="../../imagenes/Iconos/edit-24.svg" alt="icon-edit-24">
                     </div>
+
                 </div>
 
                 <label for="password">Contraseña</label>
