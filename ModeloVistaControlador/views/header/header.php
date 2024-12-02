@@ -1,3 +1,10 @@
+<?php 
+    if (!isset($_SESSION['usuario'])) { 
+        $texto_login_cuenta= "Iniciar sesión";
+    } else { 
+        $texto_login_cuenta= "Cuenta";
+    }
+?>
 <header class="sticky-top">
     <div class="container-fluid px-0 h-100">
         <div class="row">
@@ -41,7 +48,7 @@
                             <a href="?controller=producto&action=menu" class="apartado-menu">Menu</a>
                             <a href="?controller=producto&action=sobreNosotros" class="apartado-sobreNosotros">Sobre nosotros</a>
                             <a href="?controller=producto&action=contacto" class="apartado-contacto">Contacto</a>
-                            <a href="?controller=user">Iniciar sesión</a>
+                            <a href="?controller=user"><?=$texto_login_cuenta?></a>
                         </div>
                     </div>
                 </div>

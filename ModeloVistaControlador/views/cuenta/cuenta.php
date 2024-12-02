@@ -1,3 +1,9 @@
+<script>
+        window.addEventListener("beforeunload", function(event) {
+            // Redirigir a otra URL al recargar
+            window.location.href = "?controller=user"; // Cambia esto a la URL deseada
+        });
+    </script>
 <?php 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -6,13 +12,13 @@ include_once("views/header/header.php");
 ?>
 <div id="seccion-cuenta" class="w-100 vh-100 d-flex align-items-center">
     <div class="container cuenta py-5">
-        <div class="card cuenta border-0 justify-content-start p-5">
+        <div class="card cuenta border-0 justify-content-start p-5 position-relative overflow-visible">
             <div class="contenido-cuenta d-flex flex-column h-auto gap-3">
                 <h2 class="mb-0 text-left">Detalles de la cuenta</h2>
                 
                 <!-- Mostrar el error si existe -->
                 <?php if (isset($error) && $error != ""): ?>
-                    <div class="alert alert-danger mt-3" id="alert-error">
+                    <div class="alert animacion alert-danger mt-3" id="alert-error">
                         <?php echo $error; ?>
                     </div>
                     <script>
@@ -22,6 +28,7 @@ include_once("views/header/header.php");
                         // Escuchar el evento cuando la animación termine
                         alertError.addEventListener("animationend", function() {
                             alertError.style.display = "none"; // Poner display: none solo después de que la animación termine
+                            window.location.href = "?controller=user"; // Recarga la pagina
                         });
                     </script>
                     <?php unset($error); // Limpiar el mensaje de error después de mostrarlo ?>
@@ -29,7 +36,7 @@ include_once("views/header/header.php");
 
                 <!-- Mostrar la confirmación si existe -->
                 <?php if (isset($confirmacion) && $confirmacion != ""): ?>
-                    <div class="alert alert-success mt-3" id="alert-confirmacion">
+                    <div class="alert animacion alert-success mt-3" id="alert-confirmacion">
                         <?php echo $confirmacion; ?>
                     </div>
                     <script>
@@ -39,6 +46,7 @@ include_once("views/header/header.php");
                         // Escuchar el evento cuando la animación termine
                         alertConfirmacion.addEventListener("animationend", function() {
                             alertConfirmacion.style.display = "none"; // Poner display: none solo después de que la animación termine
+                            window.location.href = "?controller=user"; // Recarga la pagina
                         });
                     </script>
                     <?php unset($confirmacion); // Limpiar el mensaje de confirmación después de mostrarlo ?>
@@ -54,12 +62,26 @@ include_once("views/header/header.php");
                 </div>
 
                 <label for="correo">Correo</label>
-                <div class="d-flex">
+                <div class="d-flex align-items-center position-relative">
                     <input type="email" class="form-control custom-border" id="correo" name="correo" placeholder="<?= $_SESSION['usuario']['correo']?>" disabled>
-
-                    <div class="fondo-edit form-control accion-deshabilitado">
+                    <div class="hidden avisos-flotantes" id="aviso-flotante">
+                        <p>No puedes cambiar tu correo electrónico mientras estás con la sesión iniciada. Por favor, si necesitas cambiarlo contacta con un administrador.</p>
+                    </div>
+                    <div class="fondo-edit form-control accion-deshabilitado" id="boton-hover">
                         <img src="../../imagenes/Iconos/edit-24.svg" alt="icon-edit-24">
                     </div>
+                    <script>
+                        const contenedor_flotante = document.querySelector("#aviso-flotante");
+                        const boton_hover = document.querySelector("#boton-hover");
+
+                        boton_hover.addEventListener("mouseover", () => {
+                            contenedor_flotante.classList.remove("hidden");
+                        });
+
+                        boton_hover.addEventListener("mouseout", () => {
+                            contenedor_flotante.classList.add("hidden");
+                        });
+                    </script>
 
                 </div>
 

@@ -81,11 +81,6 @@ public static function iniciarSesion($identificador,$contraseña){
             print_r($_SESSION['usuario']);
             echo '</pre>';
             $confirmacion = "Inicio de sesión exitoso. Serás redirigido en breve.";
-        
-            if (isset($confirmacion)) {
-                $view = "views/login/Login.php";
-                include_once 'views/main.php';
-            }
         }else {
             // La contraseña no existe
             $error = "La contraseña es incorrecta, pruebe de nuevo.";
@@ -154,6 +149,7 @@ public static function registroSesion($nombre, $apellidos, $correo, $password){
 
             // Si la ejecución es exitosa, redirigimos a la página de login
             if ($stmt2->execute()) {
+                $confirmacion = "Registro de sesion exitoso. Serás redirigido en breve.";
                 $view = "views/login/Login.php";
                 include_once 'views/main.php';
             } else {
@@ -168,6 +164,11 @@ public static function registroSesion($nombre, $apellidos, $correo, $password){
         $view = "views/login/Register.php";
         include_once "views/main.php";
     }
+    if(isset($confirmacion)){
+        $view = "views/login/Login.php";
+        include_once 'views/main.php';
+    }
+    
 
     $con->close();
 }
@@ -181,6 +182,84 @@ public static function comprobarSesion(){
         header("Location: ?controller=user");
     }
     
+}
+
+public static function tramitar_pedido($totalPedido) {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();  // Inicia la sesión si no está iniciada
+    }
+
+    // Verificar que el usuario está logueado
+    if (isset($_SESSION['usuario']['id'])) {
+        $id_usuario = $_SESSION['usuario']['id'];
+        // Crear la conexión con la base de datos
+        $con = DataBase::connect();
+
+        // Definir la fecha actual
+        $fecha = date("Y-m-d H:i:s");
+
+        // Insertar pedido en la base de datos
+        $stmt_pedido = $con->prepare("INSERT INTO pedido (Fecha, id_usuario, total_pedido) VALUES (?,?,?)");
+        $stmt_pedido->bind_param("sid", $fecha, $id_usuario, $totalPedido);
+
+        // Verificar si la inserción del pedido fue exitosa
+        if ($stmt_pedido->execute()) {
+            // Obtener el ID del pedido recién insertado
+            $id_pedido = $con->insert_id;
+
+            // Verificar si se obtuvo el ID del pedido correctamente
+            if ($id_pedido) {
+                echo "Pedido agregado con ID: " . $id_pedido;
+            } else {
+                echo "Error: No se obtuvo un ID válido del pedido.";
+                $con->close();
+                return; // Detener la ejecución si no se obtuvo el ID
+            }
+        } else {
+            echo "Error al insertar el pedido: " . $stmt_pedido->error;
+            $con->close();
+            return; // Detener la ejecución si hay un error al insertar el pedido
+        }
+
+        // Verificar si el carrito del usuario tiene productos
+        if (isset($_SESSION['carrito'][$id_usuario]) && !empty($_SESSION['carrito'][$id_usuario])) {
+            // Insertar los detalles del pedido
+            foreach ($_SESSION['carrito'][$id_usuario] as $id_producto => $pedido) {
+                $producto = $pedido['producto'];
+                $id_producto = $producto->getID();
+                $cantidad = $pedido['cantidad'];
+
+                // Asegurarse de que $id_pedido sea válido antes de insertar en detalle_producto
+                if ($id_pedido) {
+                    // Preparar la consulta para insertar el detalle del producto
+                    $stmt_detalleProducto = $con->prepare("INSERT INTO detalle_pedido (id_pedido, id_producto, cantidad) VALUES (?, ?, ?)");
+                    $stmt_detalleProducto->bind_param("iid", $id_pedido, $id_producto, $cantidad);
+
+                    // Ejecutar la inserción de los detalles del producto
+                    if ($stmt_detalleProducto->execute()) {
+                        echo "Detalle del pedido agregado correctamente para el producto ID: " . $id_producto . "<br>";
+                    } else {
+                        echo "Error al insertar el detalle del pedido: " . $stmt_detalleProducto->error . "<br>";
+                    }
+                } else {
+                    echo "Error: El ID del pedido es nulo, no se puede insertar el detalle del pedido.<br>";
+                }
+            }
+        }
+
+        // Confirmación de compra
+        $_SESSION['confirmacion-compra'] = "Pedido tramitado correctamente, recoge el pedido en X días.";
+        unset($_SESSION['carrito'][$id_usuario]);
+
+        // Redirigir a la página que muestra la confirmación de compra (confirmacion-compra)
+        header("Location: ?controller=user&action=carrito");
+        exit();
+
+        // Cerrar la conexión
+        $con->close();
+    } else {
+        echo "No hay datos de usuario en la sesión.";
+    }
 }
 
 public static function modificarNombre($id,$nombre){
@@ -288,9 +367,11 @@ public static function cerrarSesion() {
     session_start();
 
     // Eliminar todas las variables de sesión
-    session_unset();
+    // session_unset();
     // Destruir la sesión
-    session_destroy();
+    // session_destroy();
+
+    unset($_SESSION['usuario']);
 
     header("Location: ?controller=producto");
     exit();

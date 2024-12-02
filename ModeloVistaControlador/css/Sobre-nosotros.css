@@ -1,6 +1,20 @@
 .fondo {
     background-image: url("../imagenes/Fondos/sobreNosotros-Contacto.webp");
 }
+
+.banner-style {
+    background-image: linear-gradient(to bottom,rgba(253,253,252,0),#fdfdfc 100%)!important;
+}
+
+.altura-banner {
+    height: 304px;
+}
+
+.ajustar-logo-banner {
+    left: -7px;
+    top: 165px;
+}
+
 #seccion-sobre-nosotros {
     position: relative;
     background-image: url("../imagenes/Fondos/sobreNosotros-Contacto.webp");
@@ -16,6 +30,26 @@
     flex-direction: column;
 }
 
+.padding-personalizado {
+    padding: 0px 120px 47.55px !important;
+}
+
+.sobreNosotros-padding-h1 {
+    padding: 16px 0px !important;
+}
+
+.sobreNosotros-padding-migas {
+    padding: 16px 0px;
+    padding-left: 7px;
+}
+
+.sobreNosotros-imagen {
+    padding: 32px 0px !important;
+    width: 100%;
+}
+
 .descripcion {
     font-size: 30px;
+    color: var(--neutral-color-3);
+    line-height: 35px;
 }
