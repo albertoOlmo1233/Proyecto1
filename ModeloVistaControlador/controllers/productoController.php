@@ -18,6 +18,7 @@ class productoController {
         include_once 'views/main.php';
     }
 
+
     public function añadirCarrito() {
         session_start();
     
@@ -172,6 +173,12 @@ class productoController {
         include_once 'views/main.php';
     }
     
+
+    // Redirigir panel
+    public function panel() {
+        $view="views/admin/panel.php";
+        include_once 'views/main.php';
+    }
 
     // Acciones (Crear, almacenar, borrar)
     public function create() {

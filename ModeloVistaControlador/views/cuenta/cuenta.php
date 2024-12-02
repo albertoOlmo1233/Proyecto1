@@ -8,7 +8,14 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-include_once("views/header/header.php");
+if($_SESSION['usuario']["rol"] === "Admin"){
+?>
+<section id="panel-administrador" class="d-flex">
+<?php 
+    include_once("views/header/header-admin.php");
+} else {
+    include_once("views/header/header.php");
+}
 ?>
 <div id="seccion-cuenta" class="w-100 vh-100 d-flex align-items-center">
     <div class="container cuenta py-5">

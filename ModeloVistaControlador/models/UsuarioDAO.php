@@ -68,13 +68,14 @@ public static function iniciarSesion($identificador,$contraseña){
         if (password_verify($contraseña, $usuario->getContraseña())) {
             // Iniciamos la sesión
             session_start();
-        
+
             // Guardamos el ID y el nombre del usuario en la sesión
             $_SESSION["usuario"] = [
                 "id" => $usuario->getID(),
                 "correo" => $usuario->getCorreo(),
                 "nombre" => $usuario->getNombre(),
-                "direccion" => $usuario->getDireccion()
+                "direccion" => $usuario->getDireccion(),
+                "rol" =>  $usuario->getRol()
             ];
             error_log(print_r($_SESSION["usuario"], true)); 
             echo '<pre>';
@@ -192,71 +193,76 @@ public static function tramitar_pedido($totalPedido) {
     // Verificar que el usuario está logueado
     if (isset($_SESSION['usuario']['id'])) {
         $id_usuario = $_SESSION['usuario']['id'];
-        // Crear la conexión con la base de datos
-        $con = DataBase::connect();
+        if (empty($_SESSION['usuario']['direccion'])) {
+            $_SESSION['error'] = "Necesitas configurar una direccion a la que enviar tu pedido.";
+            header("Location: ?controller=user&action=carrito");
+            exit();
+        }else {
+            // Crear la conexión con la base de datos
+            $con = DataBase::connect();
 
-        // Definir la fecha actual
-        $fecha = date("Y-m-d H:i:s");
+            // Definir la fecha actual
+            $fecha = date("Y-m-d H:i:s");
 
-        // Insertar pedido en la base de datos
-        $stmt_pedido = $con->prepare("INSERT INTO pedido (Fecha, id_usuario, total_pedido) VALUES (?,?,?)");
-        $stmt_pedido->bind_param("sid", $fecha, $id_usuario, $totalPedido);
+            // Insertar pedido en la base de datos
+            $stmt_pedido = $con->prepare("INSERT INTO pedido (Fecha, id_usuario, total_pedido) VALUES (?,?,?)");
+            $stmt_pedido->bind_param("sid", $fecha, $id_usuario, $totalPedido);
 
-        // Verificar si la inserción del pedido fue exitosa
-        if ($stmt_pedido->execute()) {
-            // Obtener el ID del pedido recién insertado
-            $id_pedido = $con->insert_id;
+            // Verificar si la inserción del pedido fue exitosa
+            if ($stmt_pedido->execute()) {
+                // Obtener el ID del pedido recién insertado
+                $id_pedido = $con->insert_id;
 
-            // Verificar si se obtuvo el ID del pedido correctamente
-            if ($id_pedido) {
-                echo "Pedido agregado con ID: " . $id_pedido;
-            } else {
-                echo "Error: No se obtuvo un ID válido del pedido.";
-                $con->close();
-                return; // Detener la ejecución si no se obtuvo el ID
-            }
-        } else {
-            echo "Error al insertar el pedido: " . $stmt_pedido->error;
-            $con->close();
-            return; // Detener la ejecución si hay un error al insertar el pedido
-        }
-
-        // Verificar si el carrito del usuario tiene productos
-        if (isset($_SESSION['carrito'][$id_usuario]) && !empty($_SESSION['carrito'][$id_usuario])) {
-            // Insertar los detalles del pedido
-            foreach ($_SESSION['carrito'][$id_usuario] as $id_producto => $pedido) {
-                $producto = $pedido['producto'];
-                $id_producto = $producto->getID();
-                $cantidad = $pedido['cantidad'];
-
-                // Asegurarse de que $id_pedido sea válido antes de insertar en detalle_producto
+                // Verificar si se obtuvo el ID del pedido correctamente
                 if ($id_pedido) {
-                    // Preparar la consulta para insertar el detalle del producto
-                    $stmt_detalleProducto = $con->prepare("INSERT INTO detalle_pedido (id_pedido, id_producto, cantidad) VALUES (?, ?, ?)");
-                    $stmt_detalleProducto->bind_param("iid", $id_pedido, $id_producto, $cantidad);
-
-                    // Ejecutar la inserción de los detalles del producto
-                    if ($stmt_detalleProducto->execute()) {
-                        echo "Detalle del pedido agregado correctamente para el producto ID: " . $id_producto . "<br>";
-                    } else {
-                        echo "Error al insertar el detalle del pedido: " . $stmt_detalleProducto->error . "<br>";
-                    }
+                    echo "Pedido agregado con ID: " . $id_pedido;
                 } else {
-                    echo "Error: El ID del pedido es nulo, no se puede insertar el detalle del pedido.<br>";
+                    echo "Error: No se obtuvo un ID válido del pedido.";
+                    $con->close();
+                    return; // Detener la ejecución si no se obtuvo el ID
+                }
+            } else {
+                echo "Error al insertar el pedido: " . $stmt_pedido->error;
+                $con->close();
+                return; // Detener la ejecución si hay un error al insertar el pedido
+            }
+
+            // Verificar si el carrito del usuario tiene productos
+            if (isset($_SESSION['carrito'][$id_usuario]) && !empty($_SESSION['carrito'][$id_usuario])) {
+                // Insertar los detalles del pedido
+                foreach ($_SESSION['carrito'][$id_usuario] as $id_producto => $pedido) {
+                    $producto = $pedido['producto'];
+                    $id_producto = $producto->getID();
+                    $cantidad = $pedido['cantidad'];
+
+                    // Asegurarse de que $id_pedido sea válido antes de insertar en detalle_producto
+                    if ($id_pedido) {
+                        // Preparar la consulta para insertar el detalle del producto
+                        $stmt_detalleProducto = $con->prepare("INSERT INTO detalle_pedido (id_pedido, id_producto, cantidad) VALUES (?, ?, ?)");
+                        $stmt_detalleProducto->bind_param("iid", $id_pedido, $id_producto, $cantidad);
+
+                        // Ejecutar la inserción de los detalles del producto
+                        if ($stmt_detalleProducto->execute()) {
+                            echo "Detalle del pedido agregado correctamente para el producto ID: " . $id_producto . "<br>";
+                        } else {
+                            echo "Error al insertar el detalle del pedido: " . $stmt_detalleProducto->error . "<br>";
+                        }
+                    } else {
+                        echo "Error: El ID del pedido es nulo, no se puede insertar el detalle del pedido.<br>";
+                    }
                 }
             }
+
+            // Confirmación de compra
+            $_SESSION['confirmacion'] = "Pedido tramitado correctamente, recoge el pedido en X días.";
+            unset($_SESSION['carrito'][$id_usuario]);
+            // Redirigir a la página que muestra la confirmación de compra (confirmacion)
+            header("Location: ?controller=user&action=carrito");
+            exit();
+            // Cerrar la conexión
+            $con->close();
         }
 
-        // Confirmación de compra
-        $_SESSION['confirmacion-compra'] = "Pedido tramitado correctamente, recoge el pedido en X días.";
-        unset($_SESSION['carrito'][$id_usuario]);
-
-        // Redirigir a la página que muestra la confirmación de compra (confirmacion-compra)
-        header("Location: ?controller=user&action=carrito");
-        exit();
-
-        // Cerrar la conexión
-        $con->close();
     } else {
         echo "No hay datos de usuario en la sesión.";
     }

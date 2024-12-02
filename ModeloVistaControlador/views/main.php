@@ -17,6 +17,7 @@
     <title>Work & Taste</title>
 </head>
 <body>
+    
     <?php 
     include_once($view);
     ?>
