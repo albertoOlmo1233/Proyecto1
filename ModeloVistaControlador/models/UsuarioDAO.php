@@ -377,9 +377,13 @@ public static function cerrarSesion() {
     // Destruir la sesión
     // session_destroy();
 
-    unset($_SESSION['usuario']);
 
-    header("Location: ?controller=producto");
+    if($_SESSION["usuario"]["rol"] === "Admin") {
+        header("Location: ?controller=user");
+    } else {
+        header("Location: ?controller=producto");
+    }
+    unset($_SESSION['usuario']);
     exit();
 }
 

@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 if($_SESSION['usuario']["rol"] === "Admin"){
 ?>
-<section id="panel-administrador" class="d-flex">
+<section id="panel-administrador" class="d-flex-personalizado">
 <?php 
     include_once("views/header/header-admin.php");
 } else {

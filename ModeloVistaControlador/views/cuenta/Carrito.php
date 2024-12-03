@@ -4,14 +4,14 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 if($_SESSION['usuario']["rol"] === "Admin"){
     ?>
-<section id="panel-administrador" class="d-flex">
+<section id="panel-administrador" class="d-flex-personalizado">
 <?php 
     include_once("views/header/header-admin.php");
 } else {
     include_once("views/header/header.php");
 }
 ?>
-<section id="carrito" class="d-flex">
+<section id="carrito" class="d-flex-personalizado w-100">
     <div class="container-fluid p-0">
         <div class="row">
             <div class="col-sm-12 p-0">
