@@ -8,13 +8,17 @@
       <li class="mb-1">
         <button class="btn btn-toggle align-items-center rounded collapsed w-100 justify-content-between" data-bs-toggle="collapse" data-bs-target="#panel-collapse" aria-expanded="false">
           <p class="mb-0">Panel</p>
-          <i class="bi bi-arrow-bar-down"></i>
+          <i class="bi bi-arrow-down-circle"></i>
+          <!-- Si hago hover por el de arriba se muestra el de abajo y el de arriba desaparece -->
+          <i class="bi bi-arrow-down-circle-fill hidden"></i>
         </button>
         <div class="collapse fondo-gris" id="panel-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <button class="btn btn-toggle align-items-center rounded collapsed link-dark rounded w-100 justify-content-between" data-bs-toggle="collapse" data-bs-target="#usuarios-collapse" aria-expanded="false">
             <p class="mb-0">Usuarios</p>
-            <i class="bi bi-arrow-bar-down"></i>
+            <i class="bi bi-arrow-down-circle normal-icon"></i>
+            <!-- Si hago hover por el de arriba se muestra el de abajo y el de arriba desaparece -->
+            <i class="bi bi-arrow-down-circle-fill hover-icon hidden"></i>
             </button>
             <!-- Ver datos -->
             <div class="collapse" id="usuarios-collapse">
@@ -26,7 +30,9 @@
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <button class="btn btn-toggle align-items-center rounded collapsed link-dark rounded w-100 justify-content-between" data-bs-toggle="collapse" data-bs-target="#productos-collapse" aria-expanded="false">
               <p class="mb-0">Productos</p>
-              <i class="bi bi-arrow-bar-down"></i>
+              <i class="bi bi-arrow-down-circle"></i>
+              <!-- Si hago hover por el de arriba se muestra el de abajo y el de arriba desaparece -->
+              <i class="bi bi-arrow-down-circle-fill hidden"></i>
             </button>
             <!-- Crear datos -->
             <div class="collapse" id="productos-collapse">
@@ -59,6 +65,14 @@
       </li>
     </ul>
   </div>
+
+  <script>
+    const normal_icon = document.querySelector(".normal-icon");
+    const arrow_hover = document.querySelector(".hover-icon");
+
+    normal_icon.addEventListener('click', () => {});
+    nextBtn.addEventListener('click', () => {});
+  </script>
 
 
 
