@@ -2,6 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
 if($_SESSION['usuario']["rol"] === "Admin"){
     ?>
 <section id="panel-administrador" class="d-flex-personalizado">
@@ -49,7 +50,12 @@ if($_SESSION['usuario']["rol"] === "Admin"){
                         foreach ($_SESSION['carrito'][$id_usuario] as $id_producto => $productoPedido) {
                             $producto = $productoPedido['producto'];
                             $cantidad = $productoPedido['cantidad'];
-                            $total += $producto->getPrecio() * $cantidad;
+                            if ($producto->getPrecioOferta() > 0) {
+                                $precio = $producto->getPrecioOferta();
+                            } else {
+                                $precio = $producto->getPrecio();
+                            }
+                            $total += $precio * $cantidad;
             ?>
                     <div class="row plantilla-pedido py-5" id="pedido-<?=$producto->getID();?>">
                         <div class="col-10">
@@ -57,7 +63,14 @@ if($_SESSION['usuario']["rol"] === "Admin"){
                                 <img src="<?=$producto->getImagen();?>" alt="<?=$producto->getNombre();?>">
                                 <div class="contenido-texto-producto d-flex flex-column">
                                     <p class="h2 p"><?=$producto->getNombre();?></p>
-                                    <p><?=$producto->getPrecio();?>€</p>
+                                    <?php if ($producto->getPrecioOferta()){ ?>
+                                                <div class="d-flex flex-row gap-3">
+                                                    <p class="card-text h3-p text-decoration-line-through"><?=$producto->getPrecio();?> €</p>
+                                                    <p class="card-text h3-p"><?=$producto->getPrecioOferta();?> €</p>
+                                                </div>
+                                    <?php } else { ?>
+                                        <p class="card-text h3-p"><?=$producto->getPrecio();?> €</p>
+                                    <?php } ?>
                                 
                                 <div class="botones-pedido izquierda">
                                     <a href="?controller=producto&id_producto=<?= $producto->getId(); ?>&action=restar" class="primaryButton-yellow-1 estilo-boton-pequeño text-center">-</a>

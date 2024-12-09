@@ -34,17 +34,19 @@ include_once("views/header/header.php");?>
                     <?php foreach ($ofertas as $index => $oferta) {?>
 
                         <div class="estilo-oferta col-xm-1 col-sm-2 col-md-3 col-lg-3 mb-4">
-                            <div class="imagenes-compuestas">
-                                <div class="img-oferta">
-                                    <img src="<?= $oferta->getImagen(); ?>" class="card-img-top" alt="oferta-<?=$oferta->getIdOferta();?>">
+                            <a href="?controller=">
+                                <div class="imagenes-compuestas">
+                                    <div class="img-oferta">
+                                        <img src="<?= $oferta->getImagen(); ?>" class="card-img-top" alt="oferta-<?=$oferta->getIdOferta();?>">
+                                    </div>
+                                    <div class="img-icono-oferta">
+                                        <img src="imagenes/Iconos/Descuento.png" alt="Oferta">
+                                    </div>
                                 </div>
-                                <div class="img-icono-oferta">
-                                    <img src="imagenes/Iconos/Descuento.png" alt="Oferta">
-                                </div>
-                            </div>
-                            <p class="h3-p-fondoNegro-variante-1 separacion-oferta"><?= $oferta->getCategoria(); ?></p>
-                            <h3 class="h3-fondoNegro"><?= $oferta->getNombre(); ?></h3>
-                            <p class="h3-p-fondoNegro"><?= $oferta->getDescripcion(); ?></p>
+                                <p class="h3-p-fondoNegro-variante-1 separacion-oferta"><?= $oferta->getCategoria(); ?></p>
+                                <h3 class="h3-fondoNegro"><?= $oferta->getNombre(); ?></h3>
+                                <p class="h3-p-fondoNegro"><?= $oferta->getDescripcion(); ?></p>
+                            </a>
                         </div>
                     <?php } ?>
                 </div>

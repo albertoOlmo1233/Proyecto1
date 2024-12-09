@@ -23,12 +23,25 @@
                 <label for="mycheck" class="form-check-label w-100">Agree to terms of service</label>
                 <input type="checkbox" class="mycheck" id="mycheck" required>
             </div>
-            <?php if (isset($error) && $error != ""): ?>
-                <div class="alert alert-danger mt-3">
-                    <?php echo $error; ?>
+            <!-- Mostrar el error si existe -->
+            <?php if (isset($_SESSION['error']) && $_SESSION['error'] != ""): ?>
+                <div class="alert alert-danger mt-3" id="alert-error">
+                    <?php echo $_SESSION['error']; ?>
                 </div>
+                <script src="../../javascript/cuenta/animacion-error.js"></script>
             <?php endif; ?>
-
+            <?php if (isset($_SESSION['confirmacion']) && $_SESSION['confirmacion'] != ""): ?>
+                <div class="alert alert-success mt-3" id="alert-confirmacion">
+                    <?php echo $_SESSION['confirmacion']; ?>
+                </div>
+                <script src="../../javascript/cuenta/animacion-confirmacion.js"></script>
+                <script>
+                    // Redirigir después de 3 segundos
+                    setTimeout(function() {
+                        window.location.href = "?controller=user";
+                    }, 1500);
+                </script>
+            <?php endif; ?>
             <!-- Login Button -->
             <button type="submit" class="primaryButton-yellow-3-login">Registrarse con correo</button>
         </form>

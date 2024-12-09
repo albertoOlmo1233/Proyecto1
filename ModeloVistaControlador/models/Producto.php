@@ -1,5 +1,6 @@
 <?php
 
+
 // Creamos una clase abstracta para....
 abstract class Producto {
     const TYPE_HAMBURGESAS = 1;

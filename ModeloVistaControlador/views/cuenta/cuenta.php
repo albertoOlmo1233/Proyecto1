@@ -4,6 +4,7 @@
             window.location.href = "?controller=user"; // Cambia esto a la URL deseada
         });
     </script>
+
 <?php 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -24,39 +25,21 @@ if($_SESSION['usuario']["rol"] === "Admin"){
                 <h2 class="mb-0 text-left">Detalles de la cuenta</h2>
                 
                 <!-- Mostrar el error si existe -->
-                <?php if (isset($error) && $error != ""): ?>
+                <?php if (isset($_SESSION['error']) && $_SESSION['error'] != ""): ?>
                     <div class="alert animacion alert-danger mt-3" id="alert-error">
-                        <?php echo $error; ?>
+                        <?php echo $_SESSION['error']; ?>
                     </div>
-                    <script>
-                        const alertError = document.getElementById("alert-error");
-                        alertError.style.animation = "fadeOut 3s forwards";  // La animación durará 4 segundos
-
-                        // Escuchar el evento cuando la animación termine
-                        alertError.addEventListener("animationend", function() {
-                            alertError.style.display = "none"; // Poner display: none solo después de que la animación termine
-                            window.location.href = "?controller=user"; // Recarga la pagina
-                        });
-                    </script>
-                    <?php unset($error); // Limpiar el mensaje de error después de mostrarlo ?>
+                    <script src="../../javascript/cuenta/animacion-error.js"></script>
+                    <?php unset($_SESSION['error']); // Limpiar el mensaje de error después de mostrarlo ?>
                 <?php endif; ?>
 
                 <!-- Mostrar la confirmación si existe -->
-                <?php if (isset($confirmacion) && $confirmacion != ""): ?>
+                <?php if (isset($_SESSION['confirmacion']) && $_SESSION['confirmacion'] != ""): ?>
                     <div class="alert animacion alert-success mt-3" id="alert-confirmacion">
-                        <?php echo $confirmacion; ?>
+                        <?php echo $_SESSION['confirmacion']; ?>
                     </div>
-                    <script>
-                        const alertConfirmacion = document.getElementById("alert-confirmacion");
-                        alertConfirmacion.style.animation = "fadeOut 3s forwards";  // La animación durará 4 segundos
-                        
-                        // Escuchar el evento cuando la animación termine
-                        alertConfirmacion.addEventListener("animationend", function() {
-                            alertConfirmacion.style.display = "none"; // Poner display: none solo después de que la animación termine
-                            window.location.href = "?controller=user"; // Recarga la pagina
-                        });
-                    </script>
-                    <?php unset($confirmacion); // Limpiar el mensaje de confirmación después de mostrarlo ?>
+                    <script src="../../javascript/cuenta/animacion-confirmacion.js"></script>
+                    <?php unset($_SESSION['confirmacion']); // Limpiar el mensaje de confirmación después de mostrarlo ?>
                 <?php endif; ?>
 
                 <!-- Formulario de datos -->
@@ -77,18 +60,7 @@ if($_SESSION['usuario']["rol"] === "Admin"){
                     <div class="fondo-edit form-control accion-deshabilitado" id="boton-hover">
                         <img src="../../imagenes/Iconos/edit-24.svg" alt="icon-edit-24">
                     </div>
-                    <script>
-                        const contenedor_flotante = document.querySelector("#aviso-flotante");
-                        const boton_hover = document.querySelector("#boton-hover");
-
-                        boton_hover.addEventListener("mouseover", () => {
-                            contenedor_flotante.classList.remove("hidden");
-                        });
-
-                        boton_hover.addEventListener("mouseout", () => {
-                            contenedor_flotante.classList.add("hidden");
-                        });
-                    </script>
+                    <script src="../../javascript/cuenta/aviso-flotante.js"></script>
 
                 </div>
 
@@ -120,6 +92,10 @@ if($_SESSION['usuario']["rol"] === "Admin"){
             <h3 class="text-align-left" id="titulo">Update your </h3>
             <p class="text-align-left" id="descripcion">Introduce tu a continuacion</p>
         </div>
+        <!-- Pasar el id de usuario al archivo javascript, para poder trabajar con el -->
+        <script>
+            const userId = <?= json_encode($_SESSION['usuario']['id']); ?>;
+        </script>
         <form id="formulario" class="d-flex flex-column h-auto gap-3" method="POST">
             <div class="mostrar-0 hidden">
                 <label>Nombre de usuario</label>
@@ -141,53 +117,4 @@ if($_SESSION['usuario']["rol"] === "Admin"){
     </div>
 </div>
 
-<script>
-    // Mostrar el modal para editar los datos
-    const editBtn_nombre = document.getElementById('edit-btn-nombre');
-    const editBtn_contraseña = document.getElementById('edit-btn-contraseña');
-    const editBtn_direccion = document.getElementById('edit-btn-direccion');
-
-    const formulario = document.getElementById('formulario');
-    const datos_nombre = document.querySelector(".mostrar-0");
-    const datos_contraseña = document.querySelector(".mostrar-1");
-    const datos_direccion = document.querySelector(".mostrar-2");
-    const contenedor = document.getElementById('contenedor');
-    const closeBtn = document.getElementById('close-btn');
-
-    editBtn_nombre.addEventListener('click', () => {
-        contenedor.classList.remove('hidden');
-        formulario.action = "?controller=user&action=modificarNombre&id=<?= $_SESSION['usuario']['id']?>";
-        titulo.textContent = "Modificar tu nombre de usuario"; // Cambia el título
-        descripcion.textContent = "Introduce tu nombre de usuario a continuación"; // Cambia el título
-        datos_nombre.classList.remove('hidden');
-        datos_contraseña.classList.add('hidden');
-        datos_direccion.classList.add('hidden');
-    });
-
-    editBtn_contraseña.addEventListener('click', () => {
-        contenedor.classList.remove('hidden');
-        formulario.action = "?controller=user&action=modificarContraseña&id=<?= $_SESSION['usuario']['id']?>";
-        titulo.textContent = "Modificar tu contraseña"; // Cambia el título
-        descripcion.textContent = "Introduce tu contraseña a continuación"; // Cambia el título
-        datos_contraseña.classList.remove('hidden');
-        datos_nombre.classList.add('hidden');
-        datos_direccion.classList.add('hidden');
-    });
-
-    editBtn_direccion.addEventListener('click', () => {
-        contenedor.classList.remove('hidden');
-        formulario.action = "?controller=user&action=modificarDireccion&id=<?= $_SESSION['usuario']['id']?>";
-        titulo.textContent = "Update your direccion"; // Cambia el título
-        descripcion.textContent = "Introduce tu direccion a continuación"; // Cambia el título
-        datos_direccion.classList.remove('hidden');
-        datos_contraseña.classList.add('hidden');
-        datos_nombre.classList.add('hidden');
-    });
-
-    // Ocultar el modal
-    closeBtn.addEventListener('click', () => {
-        contenedor.classList.add('hidden');
-        formulario.action = "?controller=user";
-
-    });
-</script>
+<script src="../../javascript/cuenta/funciones-configuracion-cuenta.js"></script>

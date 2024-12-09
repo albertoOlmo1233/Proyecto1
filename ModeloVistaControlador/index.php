@@ -3,6 +3,7 @@
 // Incluimos los archivos que utilizaremos a continuación
 include_once("controllers/productoController.php");
 include_once("controllers/userController.php");
+include_once("controllers/adminController.php");
 include_once("config/parameters.php");
 
 if(!isset($_GET['controller'])){

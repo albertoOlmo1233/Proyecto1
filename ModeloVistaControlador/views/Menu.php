@@ -2,6 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
 if($_SESSION['usuario']["rol"] === "Admin"){
 ?>
 <section id="panel-administrador" class="d-flex-personalizado">
@@ -26,18 +27,16 @@ if($_SESSION['usuario']["rol"] === "Admin"){
                         </div>
                         <p class="h2-p">Start your website from a selection of beautifully crafted templates and customize it to fit your needs</p>
                         <nav id="navegacion-productos">
-                            <a href="?controller=producto&action=menu" class="neutralButton-white h2-p opacity-100">Hamburguesas</a>
-                            <a href="?controller=producto&action=showPatatas" class="neutralButton-white h2-p">Patatas</a>
-                            <a href="?controller=producto&action=showBebidas" class="neutralButton-white h2-p">Bebidas</a>
-                            <a href="?controller=producto&action=showPostres" class="neutralButton-white h2-p">Postres</a>
+                            <a href="?controller=producto&action=menu" class="neutralButton-white h2-p <?= ($tituloProducto === "Hamburguesas") ? 'active-menu' : ''; ?>" id="hamburguesas">Hamburguesas</a>
+                            <a href="?controller=producto&action=showPatatas" class="neutralButton-white h2-p <?= ($tituloProducto === "Patatas") ? 'active-menu' : '';?>" id="patatas">Patatas</a>
+                            <a href="?controller=producto&action=showBebidas" class="neutralButton-white h2-p <?= ($tituloProducto === "Bebidas") ? 'active-menu' : '';?>" id="bebidas">Bebidas</a>
+                            <a href="?controller=producto&action=showPostres" class="neutralButton-white h2-p <?= ($tituloProducto === "Postres") ? 'active-menu' : '';?>" id="postres">Postres</a>
                         </nav>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-
     <!-- Seccion: Productos -->
 
     <section id="seccion-productos">
@@ -46,24 +45,40 @@ if($_SESSION['usuario']["rol"] === "Admin"){
                 <div class="col-sm-12 col-md-9 col-lg-9 mx-auto">
                     <div class="row g-5">
                     <h3 class="titulo-carta"><?=$tituloProducto?></h3>
-                        <?php
-                            foreach($productos as $producto) {
-                        ?>
-                            <div class="col-xm-12 col-sm-6 col-md-6 col-lg-4 mt-0 mb-5">
-                                <div class="card h-100 w-100" id="producto-<?=$producto->getID();?>"> 
-                                    <a href="?controller=producto&action=show&id=<?=$producto->getID()?>">
-                                        <img src="<?=$producto->getImagen();?>" class="card-img-top" alt="<?=$producto->getNombre();?>">
-                                    </a>
-                                    <div class="card-body">
-                                        <h3 class="card-title"><?=$producto->getNombre();?></h3>
-                                        <p class="card-text h3-p"><?=$producto->getPrecio();?> €</p>
-                                        <a href="?controller=producto&action=añadirCarrito&id_producto=<?=$producto->getID()?>" class="neutralButton-white">Añadir al carrito</a>
-                                    </div>
+                    <?php 
+                    foreach($productos as $producto) {
+                        // Inicializar la variable para evitar el warning
+                        $oferta = false;
+                        $precio_oferta = $producto->getPrecio(); // Asignar el precio normal como el precio de oferta por defecto
+
+                        if($producto->getPrecioOferta() > 0){
+                            $oferta = true;
+                            $precio_oferta = $producto->getPrecioOferta(); // Cambiar el precio de oferta si existe
+                        }
+                    ?>
+                        <div class="col-xm-12 col-sm-6 col-md-6 col-lg-4 mt-0 mb-5">
+                            <div class="card h-100 w-100" id="producto-<?=$producto->getID();?>"> 
+                                <a href="?controller=producto&action=show&id=<?=$producto->getID()?>">
+                                    <img src="<?=$producto->getImagen();?>" class="card-img-top" alt="<?=$producto->getNombre();?>">
+                                </a>
+                                <div class="card-body">
+                                    <h3 class="card-title"><?=$producto->getNombre();?></h3>
+                                        <?php if ($oferta): ?>
+                                            <div class="d-flex flex-row gap-3">
+                                                <p class="card-text h3-p text-decoration-line-through"><?=$producto->getPrecio();?> €</p>
+                                                <p class="card-text h3-p"><?=$producto->getPrecioOferta();?> €</p>
+                                            </div>
+                                        <?php else: ?>
+                                            <p class="card-text h3-p"><?=$precio_oferta;?> €</p>
+                                        <?php endif; ?>
+                                    <a href="?controller=producto&action=añadirCarrito&id_producto=<?=$producto->getID()?>" class="neutralButton-white">Añadir al carrito</a>
                                 </div>
                             </div>
-                        <?php
-                            }
-                        ?>
+                        </div>
+                    <?php
+                    }
+                    ?>
+
                     </div>
                     <!-- Aqui quiero un div flotante invisible, que cuando al agregar un producto, aparezca por unos segundos ocupando toda la pantalla para mostrar el aviso. -->
                     <div id="contenedor" class="hidden">
@@ -108,6 +123,9 @@ if($_SESSION['usuario']["rol"] === "Admin"){
     </section>
 </section>
 
+<script>
+
+</script>
 
 <?php 
 if($_SESSION['usuario']["rol"] != "Admin"){

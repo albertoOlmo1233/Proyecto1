@@ -18,6 +18,27 @@ class productoController {
         include_once 'views/main.php';
     }
 
+    // Filtros
+    public function showPatatas() {
+        $productos = ProductoDAO::getType("Patata");
+        $tituloProducto = "Patatas"; 
+        $view="views/Menu.php";
+        include_once 'views/main.php';
+    }
+
+    public function showBebidas(){
+        $productos = ProductoDAO::getType("Bebida");
+        $tituloProducto = "Bebidas"; 
+        $view="views/Menu.php";
+        include_once 'views/main.php';
+    }
+
+    public function showPostres() {
+        $productos = ProductoDAO::getType("Postre");
+        $tituloProducto = "Postres";
+        $view="views/Menu.php";
+        include_once 'views/main.php';
+    }
 
     public function añadirCarrito() {
         session_start();
@@ -124,7 +145,10 @@ class productoController {
 
     // Mostrar producto
     public function show() {
-        $id=$_GET["id"];
+        $id = null;
+        if(isset($_GET["id"])) {
+            $id=$_GET["id"];
+        }
         $detalleProducto= ProductoDAO::getProducto($id);
         $detalleIngredientes= IngredienteDAO::getIngrediente($id);
         $view="views/productos/show/showProducto.php";
@@ -148,28 +172,6 @@ class productoController {
 
     public function registrarse() {
         $view="views/login/Register.php";
-        include_once 'views/main.php';
-    }
-    
-    // Filtros
-    public function showPatatas() {
-        $productos = ProductoDAO::getType("Patata");
-        $tituloProducto = "Patatas"; 
-        $view="views/Menu.php";
-        include_once 'views/main.php';
-    }
-
-    public function showBebidas(){
-        $productos = ProductoDAO::getType("Bebida");
-        $tituloProducto = "Bebidas"; 
-        $view="views/Menu.php";
-        include_once 'views/main.php';
-    }
-
-    public function showPostres() {
-        $productos = ProductoDAO::getType("Postre");
-        $tituloProducto = "Postres";
-        $view="views/Menu.php";
         include_once 'views/main.php';
     }
     

@@ -65,6 +65,7 @@ public static function logout(){
 }
 
 public static function modificarNombre(){
+        session_start();
     $id = null;
     $nombre = null;
     if(isset($_GET['id']) && isset($_POST['nombre'])){

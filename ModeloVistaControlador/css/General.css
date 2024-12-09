@@ -130,18 +130,6 @@ Razon: Dependiendo que tamaño tenga la pagina, aparecera el menu o el menu desp
     display: flex;
 }
 
-@media (max-width: 1022px) {
-    .header-activo {
-        display: block !important;
-    }
-    .d-flex-personalizado {
-        flex-direction: column;
-        justify-content: space-around;
-    }
-    .pantallas-pequeñas {
-        display: none !important;
-    }
-}
 
 .configuraciones-boton-menu-admin {
     border: none !important;
@@ -361,9 +349,9 @@ header {
     margin-bottom: 16px;
 }
 
-.neutralButton-white:hover {
-    background-color: var(--neutral-color-15);
-    border: solid 1px var(--neutral-color-16);
+.neutralButton-white:hover, .active-menu {
+    background-color: var(--neutral-color-15) !important;
+    border: solid 1px var(--neutral-color-16) !important;
 }
 
 /* Encabezados */

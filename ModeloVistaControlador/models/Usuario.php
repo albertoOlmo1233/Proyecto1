@@ -12,7 +12,7 @@ abstract class Usuario {
     protected $rol;
     
     public function __construct($id_usuario,$nombre,$apellidos,$correo,$contraseña,$direccion,$rol){
-        $this->id=$id_usuario;
+        $this->id_usuario=$id_usuario;
         $this->nombre=$nombre;
         $this->apellidos=$apellidos;
         $this->correo=$correo;

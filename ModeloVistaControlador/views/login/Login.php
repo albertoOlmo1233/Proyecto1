@@ -16,22 +16,25 @@
             <input type="email" class="form-control custom-border w-100" id="correo" name="correo" placeholder="Email" required>
             <input type="password" class="form-control custom-border w-100" id="password" name="password" placeholder="Contraseña" required>
             <!-- Mostrar el error si existe -->
-            <?php if (isset($error) && $error != ""): ?>
-                <div class="alert alert-danger mt-3">
-                    <?php echo $error; ?>
+            <?php if (isset($_SESSION['error']) && $_SESSION['error'] != ""): ?>
+                <div class="alert alert-danger mt-3" id="alert-error">
+                    <?php echo $_SESSION['error']; ?>
                 </div>
-            <?php endif; ?>
-            <?php if (isset($confirmacion) && $confirmacion != ""): ?>
-                <div class="alert alert-success mt-3">
-                    <?php echo $confirmacion; ?>
+                <script src="../../javascript/cuenta/animacion-error.js"></script>
+            <?php unset($_SESSION['error']); endif; ?>
+
+            <?php if (isset($_SESSION['confirmacion']) && $_SESSION['confirmacion'] != ""): ?>
+                <div class="alert alert-success mt-3" id="alert-confirmacion">
+                    <?php echo $_SESSION['confirmacion']; ?>
                 </div>
+                <script src="../../javascript/cuenta/animacion-confirmacion.js"></script>
                 <script>
                     // Redirigir después de 3 segundos
                     setTimeout(function() {
                         window.location.href = "?controller=user";
                     }, 1500);
                 </script>
-            <?php endif; ?>
+            <?php unset($_SESSION['confirmacion']); endif; ?>
             <!-- Login Button -->
             <button type="submit" class="primaryButton-yellow-3-login">
                 Login
