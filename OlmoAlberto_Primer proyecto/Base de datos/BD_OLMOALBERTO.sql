@@ -58,7 +58,7 @@ CREATE TABLE `detalle_pedido` (
   KEY `id_productos_idx` (`id_producto`),
   CONSTRAINT `fk_detallePedido_pedido` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id_pedido`),
   CONSTRAINT `fk_detallePedido_producto` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,6 +67,7 @@ CREATE TABLE `detalle_pedido` (
 
 LOCK TABLES `detalle_pedido` WRITE;
 /*!40000 ALTER TABLE `detalle_pedido` DISABLE KEYS */;
+INSERT INTO `detalle_pedido` VALUES (2,1,2,1),(3,1,2,20),(4,1,2,8),(5,1,2,15),(6,1,3,1),(7,1,3,3),(8,1,3,7);
 /*!40000 ALTER TABLE `detalle_pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,6 +94,33 @@ LOCK TABLES `ingrediente` WRITE;
 /*!40000 ALTER TABLE `ingrediente` DISABLE KEYS */;
 INSERT INTO `ingrediente` VALUES (1,'Carne',1.5),(2,'Bacon',1),(3,'Queso cheddar',0.5),(4,'Cebolla caramelizada',0.5),(5,'Lechuga',0.5),(6,'Tomate',0.7),(7,'Pepinillos',0.35),(8,'Cebolla',0.5),(9,'Cebolla crujiente',0.7),(10,'Salsa BBQ',0.5),(11,'Bacon crujiente',1),(12,'Salsa especial',0.65),(13,'Queso pepper jack',0.75),(14,'Jalapeños',0.45),(15,'Salsa picante',0.7),(16,'Carne vegetariana',2),(17,'Mayonesa',0.45),(18,'Ketchup',0.45),(19,'Mostaza',0.45),(20,'Salsa de queso',0.65),(21,'Bacon crujiente',1.2),(22,'Salsa deluxe',0.7);
 /*!40000 ALTER TABLE `ingrediente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `log`
+--
+
+DROP TABLE IF EXISTS `log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `log` (
+  `id_log` int NOT NULL AUTO_INCREMENT,
+  `correo` varchar(255) DEFAULT NULL,
+  `mensaje` varchar(255) DEFAULT NULL,
+  `fecha` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_log`),
+  KEY `id_usuario` (`correo`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `log`
+--
+
+LOCK TABLES `log` WRITE;
+/*!40000 ALTER TABLE `log` DISABLE KEYS */;
+INSERT INTO `log` VALUES (1,'alberto@ibf.cat','Alberto Olmo Acevedo se ha registrado','2024-12-06 18:07:03'),(2,'alberto@ibf.cat','Alberto Olmo Acevedo ha iniciado sesión.','2024-12-06 18:14:10'),(3,'alberto@ibf.cat','Alberto Olmo Acevedo ha intentado iniciar sesión','2024-12-06 18:14:36'),(4,'alberto@ibf.cat','Alberto Olmo Acevedo ha intentado iniciar sesión','2024-12-06 18:14:47'),(5,'alberto@ibf.cat','Alberto Olmo Acevedo ha iniciado sesión.','2024-12-06 18:16:59'),(6,'alberto@ibf.cat','Albertito Olmo Acevedo ha tramitado un pedido.','2024-12-06 18:24:07'),(7,'alberto@ibf.cat','Albertito Olmo Acevedo ha cerrado sesion.','2024-12-06 18:26:34'),(8,'alberto@ibf.cat','Albertito Olmo Acevedo ha intentado iniciar sesión','2024-12-06 18:26:57'),(9,'alberto@ibf.cat','Albertito Olmo Acevedo ha iniciado sesión.','2024-12-06 18:27:07');
+/*!40000 ALTER TABLE `log` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -164,10 +192,11 @@ CREATE TABLE `pedido` (
   `id_pedido` int NOT NULL AUTO_INCREMENT,
   `Fecha` date NOT NULL,
   `id_usuario` int NOT NULL,
+  `total_pedido` float DEFAULT NULL,
   PRIMARY KEY (`id_pedido`),
   KEY `id_clientes_idx` (`id_usuario`),
   CONSTRAINT `fk_pedido_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,6 +205,7 @@ CREATE TABLE `pedido` (
 
 LOCK TABLES `pedido` WRITE;
 /*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
+INSERT INTO `pedido` VALUES (2,'2024-12-06',2,20.57),(3,'2024-12-06',2,24.2);
 /*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,7 +257,7 @@ CREATE TABLE `usuario` (
   `rol` varchar(45) NOT NULL,
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `correo_UNIQUE` (`correo`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -236,7 +266,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'admin','admin','admin@ibf.cat','$2y$10$vRyqQRKjQEVzBF4pinsCXuQNz35UTmWInXVfeXzCOpL/PASOY2qta',NULL,'Cliente');
+INSERT INTO `usuario` VALUES (1,'admin','admin','admin@ibf.cat','$2y$10$vRyqQRKjQEVzBF4pinsCXuQNz35UTmWInXVfeXzCOpL/PASOY2qta',NULL,'Admin'),(2,'Albertito','Olmo Acevedo','alberto@ibf.cat','$2y$10$hMF5JmjQDPUizojGz3ujgekAnpxBOkFKuDGYcmBf1ei0ctlsjbiX2','1234 prueba','Cliente');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -249,4 +279,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-23 20:04:37
+-- Dump completed on 2024-12-06 19:28:08
