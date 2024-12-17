@@ -38,9 +38,7 @@ if ($_SESSION['usuario']["rol"] === "Admin") {
 <div class="mx-auto d-flex flex-column justify-content-center text-center">
     <h2>Lista de Pedidos</h2>
     <table id="tablaGeneral"></table>
-</div>
-
-<div id="productoDetalle" class="hidden">
+    <div id="productoDetalle" class="hidden">
     <div class="contenido-contenedor text-center">
         <div class="d-flex flex-row gap-5">
             <div class="w-50 flex-column text-start position-relative">
@@ -58,6 +56,7 @@ if ($_SESSION['usuario']["rol"] === "Admin") {
             <img src="<?=$detalleProducto->getImagen();?>" alt="<?=$detalleProducto->getNombre();?>">
         </div>
     </div>
+</div>
 </div>
 
     </section>

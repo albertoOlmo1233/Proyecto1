@@ -37,7 +37,6 @@ if ($_SESSION['usuario']["rol"] === "Admin") {
 ?>
  <!-- Tabla -->
 <div>
-
     <div class="container cuenta py-5">
         <div class="card cuenta border-0 justify-content-start p-5 position-relative overflow-visible">
             <div class="contenido-cuenta d-flex flex-column h-auto gap-3">
