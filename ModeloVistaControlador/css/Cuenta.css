@@ -81,14 +81,18 @@ button {
 
 /* Fondo oscuro */
 #contenedor.hidden {
-    display: none;
+    display: none ;
+}
+
+#productoDetalle.hidden {
+    display: none ;
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
-#contenedor {
+#contenedor, #productoDetalle {
     position: fixed;
     top: 0;
     left: 0;
@@ -101,8 +105,17 @@ button {
     z-index: 1000;
 }
 
+/* Apartado para mostrar los productos de cada pedido */
+#productoDetalle .contenido-contenedor  {
+    width: 700px !important;
+}
+#productoDetalle .contenido-contenedor img{
+    width: 50%;
+    height: auto;
+}
+
 /* Contenedor del modal */
-.contenido-contenedor {
+.contenido-contenedor, #productoDetalle .contenido-contenedor {
     background: #fff;
     padding: 24px;
     border-radius: 10px;
@@ -115,6 +128,7 @@ button {
 .contenido-contenedor img {
     width: 64px;
 }
+
 
 .text-align-left {
     text-align: left;

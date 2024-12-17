@@ -25,10 +25,10 @@
               </button>
               <!-- Ver datos -->
               <div class="collapse" id="usuarios-collapse">
-                <li><a href="?controller=admin&action=mostrarUsuarios" class="link-dark rounded">Ver</a></li>
-                <li><a href="?controller=admin&action=crearUsuarios" class="link-dark rounded">Crear</a></li>
-                <li><a href="?controller=admin&action=modificarUsuarios" class="link-dark rounded">Modificar</a></li>
-                <li><a href="?controller=admin&action=eliminarUsuarios" class="link-dark rounded">Eliminar</a></li>
+              <li><a href="?controller=admin&action=usuariosConfig&funcion=get">Ver</a></li>
+              <li><a href="?controller=admin&action=usuariosConfig&funcion=create">Crear</a></li>
+              <li><a href="?controller=admin&action=usuariosConfig&funcion=modifiy">Modificar</a></li>
+              <li><a href="?controller=admin&action=usuariosConfig&funcion=erase">Eliminar</a></li>
               </div> 
             </ul>
             <!-- Productos -->
@@ -41,10 +41,10 @@
               </button>
               <!-- Crear datos -->
               <div class="collapse" id="productos-collapse">
-                <li><a href="?controller=admin&action=mostrarProductos" class="link-dark rounded">Ver</a></li>
-                <li><a href="#" class="link-dark rounded">Crear</a></li>
-                <li><a href="#" class="link-dark rounded">Modificar</a></li>
-                <li><a href="#" class="link-dark rounded">Eliminar</a></li>
+                <li><a href="?controller=admin&action=productosConfig&funcion=get">Ver</a></li>
+                <li><a href="?controller=admin&action=productosConfig&funcion=create">Crear</a></li>
+                <li><a href="?controller=admin&action=productosConfig&funcion=modifiy">Modificar</a></li>
+                <li><a href="?controller=admin&action=productosConfig&funcion=erase">Eliminar</a></li>
               </div> 
             </ul>
             <!-- Pedidos -->
@@ -57,10 +57,10 @@
               </button>
               <!-- Crear datos -->
               <div class="collapse" id="pedidos-collapse">
-                <li><a href="?controller=admin&action=mostrarPedidos" class="link-dark rounded">Ver</a></li>
-                <li><a href="#" class="link-dark rounded">Crear</a></li>
-                <li><a href="#" class="link-dark rounded">Modificar</a></li>
-                <li><a href="#" class="link-dark rounded">Eliminar</a></li>
+                <li><a href="?controller=admin&action=pedidosConfig&funcion=get">Ver</a></li>
+                <li><a href="?controller=admin&action=pedidosConfig&funcion=create">Crear</a></li>
+                <li><a href="?controller=admin&action=pedidosConfig&funcion=modifiy">Modificar</a></li>
+                <li><a href="?controller=admin&action=pedidosConfig&funcion=erase">Eliminar</a></li>
               </div> 
             </ul>
             <li class="mb-1">

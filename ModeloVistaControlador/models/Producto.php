@@ -3,11 +3,6 @@
 
 // Creamos una clase abstracta para....
 abstract class Producto {
-    const TYPE_HAMBURGESAS = 1;
-    const TYPE_PATATAS = 2;
-    const TYPE_BEBIDAS = 3;
-    const TYPE_POSTRES = 4;
-
     protected $id_producto;
     protected $nombre;
     protected $categoria;

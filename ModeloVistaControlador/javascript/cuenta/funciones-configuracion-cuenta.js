@@ -42,7 +42,7 @@ editBtn_direccion.addEventListener('click', () => {
 
 // Ocultar el modal
 closeBtn.addEventListener('click', () => {
+    event.preventDefault();
     contenedor.classList.add('hidden');
-    formulario.action = "?controller=user";
 
 });

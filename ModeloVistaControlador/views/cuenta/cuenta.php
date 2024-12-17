@@ -3,12 +3,13 @@
             // Redirigir a otra URL al recargar
             window.location.href = "?controller=user"; // Cambia esto a la URL deseada
         });
-    </script>
+</script>
 
 <?php 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
 if($_SESSION['usuario']["rol"] === "Admin"){
 ?>
 <section id="panel-administrador" class="d-flex">
@@ -79,10 +80,80 @@ if($_SESSION['usuario']["rol"] === "Admin"){
                         <img src="../../imagenes/Iconos/edit-24.svg" alt="icon-edit-24">
                     </div>
                 </div>
+                <label for="direccion">Mis pedidos</label>
+                <?php 
+                
+                if (!empty($_SESSION['usuario']['pedidos'])) { ?>
+                    <div class="overflow-auto" style="max-height: 20vh; max-width: 90vw;">
+                        <table class="table table-bordered table-striped text-center">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID Usuario</th>
+                                    <th scope="col">ID Productos</th>
+                                    <th scope="col">Cantidad Total</th>
+                                    <th scope="col">Total Pedido</th>
+                                    <th scope="col">Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($_SESSION['usuario']['pedidos'] as $pedido) { ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($_SESSION['usuario']['correo']); ?></td>
+                                    <td>
+                                    <?php 
+                                        if (!empty($pedido->productos)) {
+                                            $productoLinks = array_map(function($idProducto) {
+                                                return "<a href='?controller=user&action=cuenta&id=" . htmlspecialchars($idProducto) . "' class='productoLink'>" . htmlspecialchars($idProducto) . "</a>";
+                                            }, $pedido->productos);
+                                            echo implode(", ", $productoLinks);
+                                        } else {
+                                            echo "No productos disponibles";
+                                        }
+                                        ?>
+                                    </td>
+                                    <td><?= htmlspecialchars($pedido->cantidad_total); ?></td>
+                                    <td><?= htmlspecialchars($pedido->total_pedido); ?>€</td>
+                                    <td><?= htmlspecialchars($pedido->Fecha); ?></td>
+                                </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php } else { ?>
+                    <p>No hay pedidos disponibles.</p>
+                <?php } ?>
             </div>
         </div>
     </div>
 </div>
+<script src="../../javascript/admin/productos/mostrarProductoPedido.js"></script>
+
+<div id="productoDetalle" class="hidden">
+    <?php if (isset($detalleProducto) && $detalleProducto): ?>
+    <div class="contenido-contenedor text-center">
+        <div class="d-flex flex-row gap-5">
+            <div class="w-50 flex-column text-start position-relative">
+                <h2 id="productoNombre"><?= htmlspecialchars($detalleProducto->getNombre()); ?></h2>
+                <?php if ($detalleProducto->getPrecioOferta()) { ?>
+                    <div class="d-flex flex-row gap-3">
+                        <h3 class="card-text text-decoration-line-through"><?= htmlspecialchars($detalleProducto->getPrecio()); ?> €</h3>
+                        <h3 class="card-text"><?= htmlspecialchars($detalleProducto->getPrecioOferta()); ?> €</h3>
+                    </div>
+                <?php } else { ?>
+                    <h3><?= htmlspecialchars($detalleProducto->getPrecio()); ?>€</h3>
+                <?php } ?>
+                <button id="close-productoDetalle" class="position-absolute bottom-0">Close</button>
+            </div>
+            <img src="<?= htmlspecialchars($detalleProducto->getImagen()); ?>" alt="<?= htmlspecialchars($detalleProducto->getNombre()); ?>">
+        </div>
+    </div>
+    <?php else: ?>
+        <p>Detalles del producto no disponibles.</p>
+    <?php endif; ?>
+</div>
+
+<script src="../../javascript/cuenta/funciones-configuracion-cuenta.js" defer></script>
+
 
 <!-- Modal para editar datos -->
 <div id="contenedor" class="hidden">
@@ -116,5 +187,3 @@ if($_SESSION['usuario']["rol"] === "Admin"){
         </form>
     </div>
 </div>
-
-<script src="../../javascript/cuenta/funciones-configuracion-cuenta.js"></script>

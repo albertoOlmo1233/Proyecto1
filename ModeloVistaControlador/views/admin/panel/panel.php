@@ -10,6 +10,8 @@ if($_SESSION['usuario']["rol"] === "Admin"){
 } else {
     include_once("views/header/header.php");
 }
+
+
 ?>
 
 <?php 

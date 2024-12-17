@@ -1,8 +1,6 @@
 <?php session_start(); 
 include_once("views/header/header.php");
-
 ?>
-
 
 <div class="container-fluid">
     <div class="row">

@@ -1,5 +1,7 @@
 <?php 
 include_once("models/UsuarioDAO.php");
+include_once("models/ProductoDAO.php");
+include_once("models/admin/AdminDAO.php");
 class userController {
     public function index() {
         if (session_status() === PHP_SESSION_NONE) {
@@ -21,15 +23,32 @@ class userController {
     
     public function cuenta(){
         UsuarioDAO::comprobarSesion();
+        // Almacenamos los pedidos en una sesion, para que si se recarga la pagina se mantengan los pedidos
+        $_SESSION['usuario']['pedidos'] = AdminDAO::obtenerPedido();
+        error_log("Pedidos obtenidos: " . print_r($_SESSION['usuario']['pedidos'], true));
+        $detalleProducto = self::mostrarDetallesProducto();
         $view="views/cuenta/Cuenta.php";
         include_once 'views/main.php';
     }
+    public static function mostrarDetallesProducto() {
+        // Verificar si se solicita la información del producto
+        $id = null;
+        $detalleProducto = null;
+    
+        // Intentar obtener el ID del producto desde la URL
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $detalleProducto = ProductoDAO::getProducto($id);
+        }
+    
+        return $detalleProducto;
+    }
+
     public function carrito(){
         UsuarioDAO::comprobarSesion();
         $view="views/cuenta/Carrito.php";
         include_once 'views/main.php';
     }
-
 
 public function inicioSesion(){
     $correo= "";

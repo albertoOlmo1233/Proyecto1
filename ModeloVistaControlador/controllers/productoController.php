@@ -39,6 +39,7 @@ class productoController {
         $view="views/Menu.php";
         include_once 'views/main.php';
     }
+    
 
     public function añadirCarrito() {
         session_start();
@@ -150,7 +151,6 @@ class productoController {
             $id=$_GET["id"];
         }
         $detalleProducto= ProductoDAO::getProducto($id);
-        $detalleIngredientes= IngredienteDAO::getIngrediente($id);
         $view="views/productos/show/showProducto.php";
         include_once 'views/main.php';
     }
@@ -175,41 +175,6 @@ class productoController {
         include_once 'views/main.php';
     }
     
-
-    // Redirigir panel
-    public function panel() {
-        $view="views/admin/panel.php";
-        include_once 'views/main.php';
-    }
-
-    // Acciones (Crear, almacenar, borrar)
-    public function create() {
-        $view="views/productos/create.php";
-        include_once 'views/main.php';
-    }
-    public function store() {
-        $nombre = $_POST['nombre'];
-        $categoria = $_POST['categoria'];
-        $descripcion = $_POST['descripcion'];
-        $precio = $_POST['precio'];
-        $imagen = $_POST['imagen'];
-        
-        echo "Nombre: .$nombre. Talla: .$talla. Precio: .$precio.";
-
-        // Creacion camiseta
-        $producto = new Producto();
-        $producto->setNombre($nombre);
-        $producto->setCategoria($categoria);
-        $producto->setDescripcion($descripcion);
-        $producto->setPrecio($precio);
-        $producto->setImagen($imagen);
-
-        ProductoDAO::store($producto);
-    }
-    public function destroy() {
-        ProductoDAO::destroy($_GET['id']);
-        header('Location:?controller=producto');
-    }
 
 }
 

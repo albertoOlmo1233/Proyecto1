@@ -40,27 +40,27 @@ class ProductoDAO {
     }
 
     public static function getProducto($id) {
-    $con = DataBase::connect();
-    $stmt = $con->prepare("
-        SELECT 
-            producto.*, 
-            (producto.precio * (oferta.porcentaje / 100)) as precio_oferta,
-            oferta.categoria AS categoria, 
-            oferta.porcentaje
-        FROM producto
-        LEFT JOIN oferta oferta ON producto.id_oferta = oferta.id_oferta
-        WHERE producto.id_producto = ?
-    ");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
+        $con = DataBase::connect();
+        $stmt = $con->prepare("
+            SELECT 
+                producto.*, 
+                (producto.precio * (oferta.porcentaje / 100)) as precio_oferta,
+                oferta.categoria AS categoria, 
+                oferta.porcentaje
+            FROM producto
+            LEFT JOIN oferta oferta ON producto.id_oferta = oferta.id_oferta
+            WHERE producto.id_producto = ?
+        ");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    $detalleProducto = $result->fetch_object("ProductoGeneral");
+        $detalleProducto = $result->fetch_object("ProductoGeneral");
 
 
-    $con->close();
-    return $detalleProducto;
-}
+        $con->close();
+        return $detalleProducto;
+    }
 
 
     public static function getOfertas(){
