@@ -35,19 +35,21 @@ if ($_SESSION['usuario']["rol"] === "Admin") {
     include_once("views/header/header.php");
 }
 ?>
- <!-- Tabla -->
-<div>
-    <div class="container cuenta py-5">
-        <div class="card cuenta border-0 justify-content-start p-5 position-relative overflow-visible">
-            <div class="contenido-cuenta d-flex flex-column h-auto gap-3">
-                <h2>Lista de Usuarios</h2>
-                <table id="tablaGeneral"></table>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 col-md-9 col-lg-9 mx-auto">
+            <h1>Lista de Usuarios:</h1>
+            <div class="row d-flex justify-content-around" id="listaUsuarios">
+            
             </div>
         </div>
     </div>
 </div>
 
-    </section>
+
+</section>
     
 </body>
 </html>

@@ -15,46 +15,35 @@ async function getUsers() {
             let content = "";
             usuarios.data.forEach(user => {
                 content += `
-                <tr>
-                    <td>${user.id}</td>
-                    <td>${user.nombre}</td>
-                    <td>${user.apellidos}</td>
-                    <td>${user.correo}</td>
-                    <td>${user.direccion}</td>
-                    <td>
-                    <a class="material-symbols-outlined cursor-pointer">
-                    person_add
-                    </a> 
-                    <a class="material-symbols-outlined cursor-pointer">
-                    manage_accounts
-                    </a> 
-                    <a class="material-symbols-outlined cursor-pointer">
-                    person_remove
-                    </a></td>
-                </tr>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-4 mt-0 mb-5">
+                    <div class="card h-100 w-100">
+                        <div class="card-body">
+                            <p>ID: ${user.id}</p>
+                            <h3 class="card-title">${user.nombre} ${user.apellidos}</h3>
+                            <p>Correo: ${user.correo}</p>
+                            <p>Direccion: ${user.direccion}</p>
+                            <div class="d-flex flex-row justify-content-around">
+                                <a href="#" class="material-symbols-outlined cursor-pointer text-decoration-none mb-4">
+                                manage_accounts
+                                </a> 
+                                <a href="#" class="material-symbols-outlined cursor-pointer text-decoration-none mb-4">
+                                person_remove
+                                </a></td>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 `;
             });
 
             // Asegurarse de que la tabla existe en el DOM
-            const tablaGeneral = document.getElementById("tablaGeneral");
-            if (tablaGeneral) {
-                tablaGeneral.innerHTML = `
-                    <thead>
-                        <tr>
-                            <th class="centered">ID</th>
-                            <th class="centered">Nombre</th>
-                            <th class="centered">Apellidos</th>
-                            <th class="centered">Correo</th>
-                            <th class="centered">Direccion</th>
-                            <th class="centered">Accion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${content}
-                    </tbody>
+            const listaUsuarios = document.getElementById("listaUsuarios");
+            if (listaUsuarios) {
+                listaUsuarios.innerHTML = `
+                    ${content}
                 `;
             } else {
-                console.error("No se encontró el elemento con id 'tablaGeneral'.");
+                console.error("No se encontró el elemento con id 'listaUsuarios'.");
             }
         } else {
             console.error("Error en la API: Datos no disponibles o estado incorrecto.");
