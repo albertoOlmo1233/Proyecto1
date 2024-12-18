@@ -1,7 +1,7 @@
 <?php 
 include_once("models/ProductoDAO.php");
 include_once("models/UsuarioDAO.php");
-include_once("models/ProductoDetalle.php");
+include_once("models/ProductoGeneral.php");
 include_once("models/admin/AdminDAO.php");
 include_once("models/admin/Logs/LogDetalle.php");
 
@@ -97,6 +97,7 @@ class apiController {
                     'nombre' => $producto->getNombre(),
                     'descripcion' => $producto->getDescripcion(),
                     'precio' => $producto->getPrecio(),
+                    'precioOferta' => $producto->getPrecioOferta(),
                     'id_oferta' => $producto->getIdOferta(),
                     'imagen' => $producto->getImagen(),
                     'categoria' => $producto->getCategoria()

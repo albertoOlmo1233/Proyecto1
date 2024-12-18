@@ -25,34 +25,34 @@ async function getPedidos() {
                 productoLinks = "No productos disponibles";
             }
 
-            // Aquí se genera cada fila de la tabla
             content += `
-                <tr>
-                    <td>${pedido.correo}</td>
-                    <td>${productoLinks}</td>
-                    <td>${pedido.cantidad_total}</td>
-                    <td>${pedido.total_pedido} €</td>
-                    <td>${pedido.fecha}</td>
-                </tr>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-4 mt-0 mb-5">
+                    <div class="card h-100 w-100">
+                        <div class="card-body">
+                            <h3 class="card-title">${pedido.correo}</h3>
+                            <p><b>Productos:</b> ${productoLinks}</p>
+                            <p><b>Cantidad:</b> ${pedido.cantidad_total}</p>
+                            <p><b>Total:</b> ${pedido.total_pedido}</p>
+                            <p><b>Fecha:</b> ${pedido.fecha}</p>
+                            <div class="d-flex flex-row justify-content-around">
+                                <a href="#" class="material-symbols-outlined cursor-pointer text-decoration-none mb-4">
+                                    manage_accounts
+                                </a> 
+                                <a href="#" class="material-symbols-outlined cursor-pointer text-decoration-none mb-4">
+                                    person_remove
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             `;
         });
 
         // Verificar si la tabla existe en el DOM y agregar los datos
-        const tablaGeneral = document.getElementById("tablaGeneral");
-        if (tablaGeneral) {
-            tablaGeneral.innerHTML = `
-                <thead>
-                    <tr>
-                        <th>ID Usuario</th>
-                        <th>ID Productos</th>
-                        <th>Cantidad Total</th>
-                        <th>Total Pedido</th>
-                        <th>Fecha</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${content}
-                </tbody>
+        const listaPedidos = document.getElementById("listaPedidos");
+        if (listaPedidos) {
+            listaPedidos.innerHTML = `
+                ${content}
             `;
         } else {
             console.error("No se encontró el elemento con id 'tablaGeneral'.");

@@ -2,7 +2,7 @@
 include_once("config/dataBase.php");
 include_once("models/admin/Logs/LogDetalle.php");
 
-include_once("models/ProductoDetalle.php");
+include_once("models/ProductoGeneral.php");
 include_once("models/UsuarioDetalle.php");
 
 
@@ -123,44 +123,27 @@ class AdminDAO {
         
         return $pedidos;  // Devolver la lista de pedidos
     }
-    
-    // // Función auxiliar para obtener los productos por cada pedido
-    // public static function productosPorPedido($id_pedido) {
-    //     $con = DataBase::connect();
-        
-    //     // Consulta para obtener los productos de este pedido
-    //     $stmt = $con->prepare("SELECT id_producto FROM detalle_pedido WHERE id_pedido = ?");
-    //     $stmt->bind_param("i", $id_pedido);
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
-        
-    //     $productos = [];
-        
-    //     // Recorrer el resultado y agregar los productos al array
-    //     while ($producto = $result->fetch_object()) {
-    //         $productos[] = $producto;  // Añadir el ID del producto a la lista
-    //     }
-        
-    //     // Cerrar conexiones
-    //     $stmt->close();
-    //     $con->close();
-        
-    //     return $productos;  // Devolver el array de productos
-    // }
 
     // Productos
     public static function obtenerProductos(){
         $con = DataBase::connect();
-        $stmt = $con->prepare("SELECT * FROM producto");
+        $stmt = $con->prepare("SELECT 
+                producto.*, 
+                (producto.precio * (oferta.porcentaje / 100)) as precio_oferta,
+                oferta.categoria AS categoria, 
+                oferta.porcentaje
+            FROM producto
+            LEFT JOIN oferta oferta ON producto.id_oferta = oferta.id_oferta");
 
         $stmt->execute();
         $result = $stmt->get_result();
 
         $productos = [];
 
-        while($producto = $result->fetch_object("ProductoDetalle")) {
+        while($producto = $result->fetch_object("ProductoGeneral")) {
             $productos[] = $producto;
         }
+        
 
         $con->close();
 
