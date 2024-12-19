@@ -1,4 +1,5 @@
 <?php 
+include_once("config/dataBase.php");
 include_once("models/ProductoDAO.php");
 include_once("models/UsuarioDAO.php");
 include_once("models/ProductoGeneral.php");
@@ -25,45 +26,69 @@ class apiController {
             return;
         }
 
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-            $usuario = null;
-            foreach ($users as $user) {
-                if ($user['id'] == $id) {
-                    $usuario = $user;
-                    break;
-                }
-            }
-            if ($usuario) {
-                echo json_encode([
-                    'estado' => 'Exito',
-                    'data' => $usuario
-                ]);
-            } else {
-                http_response_code(404);
-                echo json_encode([
-                    'estado' => 'Fallido',
-                    'data' => 'No se encontró el usuario'
-                ]);
-            }
-        } else {
-            $resultado = [];
-            foreach ($users as $user) {
-                $resultado[] = [
-                    'id' => $user->getID(),
-                    'nombre' => $user->getNombre(),
-                    'apellidos' => $user->getApellidos(),
-                    'correo' => $user->getCorreo(),
-                    'direccion' => $user->getDireccion()
-                ];
-            }
+        $resultado = [];
+        foreach ($users as $user) {
+            $resultado[] = [
+                'id' => $user->getID(),
+                'nombre' => $user->getNombre(),
+                'apellidos' => $user->getApellidos(),
+                'correo' => $user->getCorreo(),
+                'direccion' => $user->getDireccion()
+            ];
+        }
 
+        echo json_encode([
+            'estado' => 'Exito',
+            'data' => $resultado
+        ]);
+        
+    }
+
+    public function createUsuario() {
+        $nombre = null;
+        $apellidos = null;
+        $correo = null;
+        $contraseña = null;
+        $direccion = null;
+        if(isset($_POST['nombre'])&&isset($_POST['apellidos'])&&isset($_POST['correo'])&&isset($_POST['password'])&&isset($_POST['direccion'])){
+            $nombre = $_POST['nombre'];
+            $apellidos = $_POST['apellidos'];
+            $correo = $_POST['correo'];
+            $contraseña = $_POST['password'];
+            $direccion = $_POST['direccion'];
+        }
+
+        var_dump($nombre);
+        var_dump($apellidos);
+        var_dump($correo);
+        var_dump($contraseña);
+        var_dump($direccion);
+
+        // Intentamos registrar al usuario
+        $registroExitoso = UsuarioDAO::registroSesion($nombre, $apellidos, $correo, $contraseña);
+
+        // Verificamos si la creación fue exitosa o fallida
+        if ($registroExitoso) {
             echo json_encode([
                 'estado' => 'Exito',
-                'data' => $resultado
+                'mensaje' => '¡Usuario creado exitosamente!'
+            ]);
+        } else {
+            // Si no fue exitoso, devolvemos el error
+            echo json_encode([
+                'estado' => 'Fallido',
+                'mensaje' => 'El usuario ya existe o hubo un error al crear el usuario.'
             ]);
         }
-    }
+
+        header("Location: ?controller=admin&action=usuariosConfig&funcion=create");
+        exit;
+        // echo json_encode([
+        //     'estado' => 'Exito',
+        //     'data' => $resultado
+        // ]);
+}
+    
 
     // Productos
     public function getProductos() {

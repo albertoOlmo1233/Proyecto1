@@ -123,13 +123,17 @@ public static function registroSesion($nombre, $apellidos, $correo, $password){
     $stmt->execute();
     $result = $stmt->get_result();
     $usuario = $result->fetch_object("UsuarioDetalle");
-
-    // Si ya existe un usuario con el mismo correo, mostramos el error
-    if ($usuario) {
-        $_SESSION['error'] = "Ya existe una cuenta con este correo asociado.";
-        $view = "views/login/Register.php";
-        include_once 'views/main.php';
-        return;
+    session_start();
+    if($_SESSION['usuario']['rol'] === "Cliente"){
+        // Si ya existe un usuario con el mismo correo, mostramos el error
+        if ($usuario) {
+            $_SESSION['error'] = "Ya existe una cuenta con este correo asociado.";
+            $view = "views/login/Register.php";
+            include_once 'views/main.php';
+            return;
+        }
+    }else if($_SESSION['usuario']['rol'] === "Admin") {
+        return false;
     }
 
     // Si no existe, procedemos a insertar el nuevo usuario
@@ -141,15 +145,25 @@ public static function registroSesion($nombre, $apellidos, $correo, $password){
 
     // Si la ejecución es exitosa, mostramos el mensaje de confirmación
     if ($stmt2->execute()) {
-        $_SESSION['confirmacion'] = "Registro de sesión exitoso. Serás redirigido en breve.";
+        // Si el usuario es cliente muestra lo siguiente, pero si es administrador, no muestra nada
+        // Debido a que los avisos del admin se muestran de otra manera
+        if($_SESSION['usuario']['rol'] === "Cliente"){
+            $_SESSION['confirmacion'] = "Registro de sesión exitoso. Serás redirigido en breve.";
+            $view = "views/login/Register.php";
+            include_once 'views/main.php';
+        } else if($_SESSION['usuario']['rol'] === "Admin"){
+            return true;
+        }
         self::agregarLog($correo, $nombre . " " . $apellidos . " se ha registrado");
-        $view = "views/login/Register.php";
-        include_once 'views/main.php';
     } else {
         // Si hay un error en la base de datos
-        $_SESSION['error'] = "Ha habido un error en el servidor. Intenta de nuevo.";
-        $view = "views/login/Register.php";
-        include_once 'views/main.php';
+        if($_SESSION['usuario']['rol'] === "Cliente"){
+            $_SESSION['error'] = "Ha habido un error en el servidor. Intenta de nuevo.";
+            $view = "views/login/Register.php";
+            include_once 'views/main.php';
+        }else if($_SESSION['usuario']['rol'] === "Admin"){
+            return false;
+        }
     }
 
     // Cerrar la conexión

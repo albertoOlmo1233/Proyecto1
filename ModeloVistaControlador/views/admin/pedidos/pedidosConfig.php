@@ -39,7 +39,7 @@ if ($_SESSION['usuario']["rol"] === "Admin") {
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12 col-md-9 col-lg-9 mx-auto">
-            <h1>Lista de Usuarios:</h1>
+            <h1>Lista de Pedidos:</h1>
             <div class="row d-flex justify-content-around" id="listaPedidos">
             
             </div>

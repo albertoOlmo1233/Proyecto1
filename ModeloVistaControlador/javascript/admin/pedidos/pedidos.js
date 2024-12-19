@@ -32,7 +32,7 @@ async function getPedidos() {
                             <h3 class="card-title">${pedido.correo}</h3>
                             <p><b>Productos:</b> ${productoLinks}</p>
                             <p><b>Cantidad:</b> ${pedido.cantidad_total}</p>
-                            <p><b>Total:</b> ${pedido.total_pedido}</p>
+                            <p><b>Total:</b> ${pedido.total_pedido}€</p>
                             <p><b>Fecha:</b> ${pedido.fecha}</p>
                             <div class="d-flex flex-row justify-content-around">
                                 <a href="#" class="material-symbols-outlined cursor-pointer text-decoration-none mb-4">
