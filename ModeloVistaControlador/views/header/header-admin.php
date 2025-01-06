@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="../../css/admin/header-admin.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <div class="sticky-top flex-shrink-0 p-3 bg-white pantallas-pequeñas header-vertical-ajustes-personalizados vh-100" style="width: 250px;">
     <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
       <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
@@ -88,3 +89,4 @@
     </ul>
   </div>
 <script src="../../javascript/admin/cambiar-iconos.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">

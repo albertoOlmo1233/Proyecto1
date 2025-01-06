@@ -22,8 +22,12 @@
 }
 
 input {
-    font-size: 14px;
+    font-size: 14px !important;
     color: var(--default-border-checkbox);
+}
+
+input::placeholder {
+    color: var(--default-border-checkbox) !important;
 }
 
 
@@ -37,7 +41,7 @@ input[type="text"],input[type="email"],input[type="password"],.form-check, butto
     border-style: solid !important;
     border-color: var(--default-border-input) !important;
     padding: 0px 16px !important;
-    height: 44px;
+    height: 44px !important;
 }
 
 input::placeholder {
@@ -48,13 +52,13 @@ input::placeholder {
 
 /* Contenedor del checkbox */
 .form-check {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-color: #ccc; /* Borde base */
-    border-radius: 10px; /* Bordes redondeados */
-    background-color: #fff; /* Fondo blanco */
-    transition: all 0.3s ease; /* Transición suave */
+    display: flex !important;
+    align-items: center !important;
+    padding: 10px !important;
+    border-color: #ccc !important; /* Borde base */
+    border-radius: 10px !important; /* Bordes redondeados */
+    background-color: #fff !important; /* Fondo blanco */
+    transition: all 0.3s ease !important; /* Transición suave */
 }
 
 /* Aseguramos el puntero */
@@ -91,8 +95,8 @@ input:checked, input:focus, .form-check:focus-within {
 
 
 .mycheck:hover {
-    background-color: var(--background-checkbox);
-    border-color: var(--primary-color-1);
+    background-color: var(--background-checkbox) !important;
+    border-color: var(--primary-color-1) !important;
 }
 
 .mycheck:checked {

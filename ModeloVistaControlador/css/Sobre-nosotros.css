@@ -3,7 +3,7 @@
 }
 
 .banner-style {
-    background-image: linear-gradient(to bottom,rgba(253,253,252,0),#fdfdfc 100%)!important;
+    background-image: linear-gradient(to bottom, rgba(253, 253, 252, 0), #fdfdfc 100%) !important;
 }
 
 .altura-banner {
@@ -23,11 +23,13 @@
     justify-content: center;
     align-items: center;
 }
+
 #contenido-sobre-nosotros {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin: 20px 0; /* Margen vertical para separar el contenido */
 }
 
 .padding-personalizado {
@@ -36,6 +38,7 @@
 
 .sobreNosotros-padding-h1 {
     padding: 16px 0px !important;
+    margin-bottom: 20px; /* Margen inferior para separación */
 }
 
 .sobreNosotros-padding-migas {
@@ -44,12 +47,22 @@
 }
 
 .sobreNosotros-imagen {
-    padding: 32px 0px !important;
-    width: 100%;
+    width: 100%; /* Mantener la imagen al 100% del ancho sin márgenes */
 }
 
 .descripcion {
     font-size: 30px;
     color: var(--neutral-color-3);
     line-height: 35px;
+    margin-bottom: 20px; /* Margen inferior para separación */
+}
+
+/* Espaciado para encabezados y párrafos */
+h2 {
+    margin-top: 20px; /* Margen superior para separación */
+    margin-bottom: 10px; /* Margen inferior para separación */
+}
+
+p {
+    margin-bottom: 20px; /* Margen inferior para separación */
 }

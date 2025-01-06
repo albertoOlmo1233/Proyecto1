@@ -24,17 +24,12 @@
     --default-border-input: #e9e9e7;
     --default-border-checkbox: #c8c7c1;
     
-    
     /*  Shadow  */
     --primary-button-hover-shadow: 0px 1px 16.5px 0px var(--primary-color-1);
     --box-shadow-after: rgb(255, 255, 255) 0px 0px 0px 0px, rgb(255, 224, 179) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px;
 
 }
 
-/* 
-    Hablar con el profesor
-    *Con esto funciona*
-*/
 .row {
     margin-left: 0 !important;
     margin-right: 0 !important;
@@ -53,7 +48,7 @@
 }
 
 a {
-    color: var(--neutral-color-6);
+    color: var(--neutral-color-6) !important;
 }
 /* Responsive */
 

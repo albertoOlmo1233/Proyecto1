@@ -24,10 +24,10 @@ public static function getAll(){
     return $usuarios ;
 }
 
-public static function getUsuario($correo){
+public static function getUsuario($id){
     $con = DataBase::connect();
-    $stmt = $con->prepare("SELECT * FROM usuario WHERE correo = ?");
-    $stmt->bind_param("s",$correo);
+    $stmt = $con->prepare("SELECT * FROM usuario WHERE id_usuario = ?");
+    $stmt->bind_param("i",$id);
 
     $stmt->execute();
     $result = $stmt->get_result();
@@ -86,87 +86,104 @@ public static function iniciarSesion($identificador,$contraseña){
     $con->close();
 }
 
-public static function registroSesion($nombre, $apellidos, $correo, $password){
-    // Validar que la contraseña tenga 8 caracteres o más
-    if (strlen($password) < 8) {
-        $_SESSION['error'] = "La contraseña no puede tener menos de 8 caracteres.";
-        $view = "views/login/Register.php";
-        include_once 'views/main.php';
-        return;
+public static function cerrarSesion() {
+    // Iniciar la sesión
+    session_start();
+    if($_SESSION["usuario"]["rol"] === "Admin") {
+        header("Location: ?controller=user");
+    } else {
+        header("Location: ?controller=producto");
     }
-    
-    // Validar que la contraseña no tenga más de 18 caracteres
-    if (strlen($password) > 18) {
-        $_SESSION['error'] = "La contraseña no puede tener más de 18 caracteres.";
-        $view = "views/login/Register.php";
-        include_once 'views/main.php';
-        return;
+    self::agregarLog($_SESSION["usuario"]["correo"],$_SESSION["usuario"]["nombre"] . " " . $_SESSION["usuario"]["apellidos"] . " ha cerrado sesion.");
+    unset($_SESSION['usuario']);
+    exit();
+}
+
+// Parte mixta Usuario / Administrador
+
+public static function registroSesion($nombre, $apellidos, $correo, $password, $direccion = null) {
+    session_start();
+
+     // Validación de la contraseña (menos de 8 o más de 18 caracteres)
+     if (strlen($password) < 8 || strlen($password) > 18) {
+        $mensaje = (strlen($password) < 8) ? 'La contraseña no puede tener menos de 8 caracteres.' : 'La contraseña no puede tener más de 18 caracteres.';
+        if ($_SESSION['usuario']['rol'] === "Admin") {
+            echo json_encode(['estado' => 'Fallido', 'mensaje' => $mensaje]);
+        } else {
+            $_SESSION['error'] = $mensaje;
+            $view = "views/login/Register.php";
+            include_once 'views/main.php';
+            exit();
+        }
     }
 
-    //  Pasar todo a minusculas en el caso que sea todo mayusculas
-    if ($nombre === strtoupper($nombre)) {
-        $nombre = ucfirst(strtolower($nombre)); // Convierte a minúsculas y luego la primera letra a mayúscula
-    }
-    if ($apellidos === strtoupper($apellidos)) {
-        $apellidos = ucfirst(strtolower($apellidos)); // Lo mismo para apellidos
-    }
-    if ($correo === strtoupper($correo)) {
-        $correo = ucfirst(strtolower($correo));
-    }
+    // Normalizar nombres y correo
+    $nombre = ucfirst(strtolower($nombre));
+    $apellidos = ucfirst(strtolower($apellidos));
+    $correo = strtolower($correo);
 
     // Conexión a la base de datos
     $con = DataBase::connect();
 
-    // Verificar que el correo no exista en la base de datos
+    // Verificar si el correo ya está registrado
     $stmt = $con->prepare("SELECT * FROM usuario WHERE correo=?");
     $stmt->bind_param("s", $correo);
     $stmt->execute();
     $result = $stmt->get_result();
-    $usuario = $result->fetch_object("UsuarioDetalle");
-    session_start();
-    if($_SESSION['usuario']['rol'] === "Cliente"){
-        // Si ya existe un usuario con el mismo correo, mostramos el error
-        if ($usuario) {
+    $usuario = $result->fetch_object();
+
+    // Si el usuario existe, retornar error
+    if ($usuario) {
+        if ($_SESSION['usuario']['rol'] === "Admin") {
+            echo json_encode(['estado' => 'Fallido', 'mensaje' => 'El correo ya está registrado.']);
+        } else {
             $_SESSION['error'] = "Ya existe una cuenta con este correo asociado.";
             $view = "views/login/Register.php";
             include_once 'views/main.php';
-            return;
+            exit();
         }
-    }else if($_SESSION['usuario']['rol'] === "Admin") {
-        return false;
+    }
+    
+    // Si el usuario es administrador y se ha pasado un valor de dirección, lo usamos
+    if ($direccion === null && $_SESSION['usuario']['rol'] === "Admin") {
+        // Si no se pasa dirección, no se puede insertar. Dependiendo de tu lógica de negocio, podrías decidir qué hacer con ello.
+        $direccion = ''; // O simplemente no insertar la dirección (dejarla vacía)
     }
 
-    // Si no existe, procedemos a insertar el nuevo usuario
+    // Crear nueva contraseña encriptada
     $passwordEncriptado = password_hash($password, PASSWORD_DEFAULT);
 
-    // Insertamos los datos en la base de datos
-    $stmt2 = $con->prepare("INSERT INTO usuario (nombre, apellidos, correo, contraseña, rol) VALUES (?, ?, ?, ?, 'Cliente')");
-    $stmt2->bind_param("ssss", $nombre, $apellidos, $correo, $passwordEncriptado);
+    // Insertar nuevo usuario
+    $stmt2 = $con->prepare("INSERT INTO usuario (nombre, apellidos, correo, contraseña, rol, direccion) VALUES (?, ?, ?, ?, 'Cliente', ?)");
+    $stmt2->bind_param("sssss", $nombre, $apellidos, $correo, $passwordEncriptado, $direccion);
 
-    // Si la ejecución es exitosa, mostramos el mensaje de confirmación
     if ($stmt2->execute()) {
-        // Si el usuario es cliente muestra lo siguiente, pero si es administrador, no muestra nada
-        // Debido a que los avisos del admin se muestran de otra manera
-        if($_SESSION['usuario']['rol'] === "Cliente"){
+        $mensaje = "";
+        if ($_SESSION['usuario']['rol'] === "Admin") {
+            echo json_encode(['estado' => 'Exito', 'mensaje' => 'Usuario creado exitosamente.']);
+            $mensaje = "El administrador ha creado un usuario";
+        } else {
             $_SESSION['confirmacion'] = "Registro de sesión exitoso. Serás redirigido en breve.";
             $view = "views/login/Register.php";
             include_once 'views/main.php';
-        } else if($_SESSION['usuario']['rol'] === "Admin"){
-            return true;
+            $mensaje = "$nombre $apellidos se ha registrado";
         }
-        self::agregarLog($correo, $nombre . " " . $apellidos . " se ha registrado");
+        // Log de éxito
+        self::agregarLog($correo, $mensaje);
     } else {
-        // Si hay un error en la base de datos
-        if($_SESSION['usuario']['rol'] === "Cliente"){
+        // Error al registrar el usuario
+        if ($_SESSION['usuario']['rol'] === "Admin") {
+            echo json_encode(['estado' => 'Fallido', 'mensaje' => 'Error al registrar el usuario.']);
+        } else {
             $_SESSION['error'] = "Ha habido un error en el servidor. Intenta de nuevo.";
             $view = "views/login/Register.php";
             include_once 'views/main.php';
-        }else if($_SESSION['usuario']['rol'] === "Admin"){
-            return false;
         }
     }
 
-    // Cerrar la conexión
+    // Cerrar conexiones
+    $stmt->close();
+    $stmt2->close();
     $con->close();
 }
 
@@ -186,6 +203,16 @@ public static function comprobarSesion(){
         session_start();
     }
     if(!isset($_SESSION["usuario"])){
+        header("Location: ?controller=user");
+    }
+    
+}
+
+public static function esAdmin(){
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    if($_SESSION["usuario"]['rol'] && $_SESSION["usuario"]['rol'] === 'Cliente'){
         header("Location: ?controller=user");
     }
     
@@ -274,106 +301,380 @@ public static function tramitar_pedido($totalPedido) {
     }
 }
 
-public static function modificarNombre($id,$nombre){
-    // Asegúrate de que la sesión esté iniciada
+// Usuario - Administrador
+
+public static function modificarNombre($id, $nombre) {
     if (session_status() === PHP_SESSION_NONE) {
-        session_start();  // Inicia la sesión si no está iniciada
+        session_start();
     }
     $con = DataBase::connect();
-    $stmt = $con->prepare("SELECT nombre FROM usuario WHERE id_usuario=?;");
-    $stmt->bind_param("i",$id);
+    
+    // Validar existencia previa
+    $stmt = $con->prepare("SELECT nombre FROM usuario WHERE id_usuario = ?;");
+    $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultNombre = $stmt->get_result();
-    $row = $resultNombre->fetch_array();
-    $nombre_resultado = $row['nombre'];
+    $row = $resultNombre->fetch_assoc();
+    $nombre_resultado = $row['nombre'] ?? null;
 
-    if($nombre_resultado && $nombre_resultado === $nombre) {
-        $_SESSION['error'] = "Este nombre de usuario ya lo tienes asignado. <br> Prueba de nuevo.";
+    
+
+    // Cerrar sentencia SELECT
+    $stmt->close();
+
+    // Verificar acción desde GET
+    $action = $_GET['action'] ?? null;
+
+    // Validar rol de usuario y acción
+    if (isset($_SESSION['usuario']['rol']) && $_SESSION['usuario']['rol'] === "Admin" && $action !== "cuenta") {
+        if ($nombre_resultado !== $nombre) {
+            $stmt1 = $con->prepare("UPDATE usuario SET nombre = ? WHERE id_usuario = ?;");
+            $stmt1->bind_param("si", $nombre, $id);
+
+            
+            if ($stmt1->execute()) {
+                echo json_encode([
+                    "estado" => "Exito",
+                    "mensaje" => "El nombre del usuario se actualizó con éxito."
+                ]);
+            } else {
+                echo json_encode([
+                    "estado" => "Fallido",
+                    "mensaje" => "Ha habido un error al actualizar el nombre."
+                ]);
+            }
+            // Cerrar sentencia UPDATE
+            $stmt1->close();
+        } else {
+            echo json_encode([
+                "estado" => "Fallido",
+                "mensaje" => "El nombre de usuario no puede ser igual al que tiene el usuario."
+            ]);
+        }
     } else {
-        $stmt1 = $con->prepare("UPDATE usuario SET nombre = ? WHERE id_usuario = ?;");
-        $stmt1->bind_param("si",$nombre,$id);
-        $stmt1->execute();
-        $_SESSION['usuario']['nombre'] = $nombre;
-        $_SESSION['confirmacion']= "El nombre se ha modificado correctamente.";
-        self::agregarLog($_SESSION["usuario"]["correo"],$_SESSION["usuario"]["nombre"] . " " . $_SESSION["usuario"]["apellidos"] . " ha modificado su nombre de usuario.");
+        if ($nombre_resultado !== $nombre) {
+            $stmt1 = $con->prepare("UPDATE usuario SET nombre = ? WHERE id_usuario = ?;");
+            $stmt1->bind_param("si", $nombre, $id);
+            if ($stmt1->execute()) {
+                $_SESSION['confirmacion'] = "El nombre se actualizó correctamente.";
+                $_SESSION['usuario']['nombre'] = $nombre;
+                $view = "views/cuenta/Cuenta.php";
+                include_once 'views/main.php';
+            }
+            // Cerrar sentencia UPDATE
+            $stmt1->close();
+        } else {
+            $_SESSION['error'] = "El nombre de usuario no puede ser igual al que tienes.";
+            $view = "views/cuenta/Cuenta.php";
+            include_once 'views/main.php';
+        }
     }
 
-    // Redirigir a nuestro perfil (confirmacion)
-    header("Location: ?controller=user");
-    exit();
+    // Cerrar la conexión a la base de datos
     $con->close();
 }
-public static function modificarContraseña($id,$contraseña){
-    // Asegúrate de que la sesión esté iniciada
+
+
+public static function modificarApellidos($id, $apellidos) {
     if (session_status() === PHP_SESSION_NONE) {
-        session_start();  // Inicia la sesión si no está iniciada
+        session_start();
     }
     $con = DataBase::connect();
-    $stmt = $con->prepare("SELECT contraseña FROM usuario WHERE id_usuario=?");
-    $stmt->bind_param("i",$id);
+    
+    // Validar existencia previa
+    $stmt = $con->prepare("SELECT apellidos FROM usuario WHERE id_usuario = ?;");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $resultApellidos = $stmt->get_result();
+    $row = $resultApellidos->fetch_assoc();
+    $apellidos_resultado = $row['apellidos'] ?? null;
+
+    // Cerrar sentencia SELECT
+    $stmt->close();
+
+    // Verificar acción desde GET
+    $action = $_GET['action'] ?? null;
+
+    // Validar rol de usuario y acción
+    if (isset($_SESSION['usuario']['rol']) && $_SESSION['usuario']['rol'] === "Admin" && $action !== "cuenta") {
+        if ($apellidos_resultado !== $apellidos) {
+            $stmt1 = $con->prepare("UPDATE usuario SET apellidos = ? WHERE id_usuario = ?;");
+            $stmt1->bind_param("si", $apellidos, $id);
+            
+            if ($stmt1->execute()) {
+                echo json_encode([
+                    "estado" => "Exito",
+                    "mensaje" => "Los apellidos del usuario se actualizaron con éxito."
+                ]);
+            } else {
+                echo json_encode([
+                    "estado" => "Fallido",
+                    "mensaje" => "Ha habido un error al actualizar los apellidos."
+                ]);
+            }
+            // Cerrar sentencia UPDATE
+            $stmt1->close();
+        } else {
+            echo json_encode([
+                "estado" => "Fallido",
+                "mensaje" => "El apellido de usuario no puede ser igual al que tiene el usuario."
+            ]);
+        }
+    } else {
+        if ($apellidos_resultado !== $apellidos) {
+            $stmt1 = $con->prepare("UPDATE usuario SET apellidos = ? WHERE id_usuario = ?;");
+            $stmt1->bind_param("si", $apellidos, $id);
+            if ($stmt1->execute()) {
+                $_SESSION['confirmacion'] = "Los apellidos se actualizaron correctamente.";
+                $_SESSION['usuario']['apellidos'] = $apellidos;
+                $view = "views/cuenta/Cuenta.php";
+                include_once 'views/main.php';
+            }
+            // Cerrar sentencia UPDATE
+            $stmt1->close();
+        } else {
+            $_SESSION['error'] = "El apellido de usuario no puede ser igual al que tienes.";
+            $view = "views/cuenta/Cuenta.php";
+            include_once 'views/main.php';
+        }
+    }
+
+    // Cerrar la conexión a la base de datos
+    $con->close();
+}
+
+public static function modificarContraseña($id, $contraseña) {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    $con = DataBase::connect();
+    
+    // Establecer la codificación utf8mb4 para la conexión
+    $con->set_charset("utf8mb4");
+    
+    // Validar existencia previa
+    $stmt = $con->prepare("SELECT password FROM usuario WHERE id_usuario = ?;");
+    $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultContraseña = $stmt->get_result();
-    $row = $resultContraseña->fetch_array();
-    $contraseña_resultado = $row['contraseña'];
+    $row = $resultContraseña->fetch_assoc();
+    $contraseña_resultado = $row['password'] ?? null;
 
-    if($contraseña_resultado && $contraseña_resultado === $contraseña) {
-        $_SESSION['error'] = "Esta contraseña ya la tienes asignada. <br> Prueba de nuevo.";
+    // Cerrar sentencia SELECT
+    $stmt->close();
+
+    // Verificar acción desde GET
+    $action = $_GET['action'] ?? null;
+
+    // Validar rol de usuario y acción
+    if (isset($_SESSION['usuario']['rol']) && $_SESSION['usuario']['rol'] === "Admin" && $action !== "cuenta") {
+        // Verificar si la contraseña no es igual a la actual
+        if ($contraseña_resultado && !password_verify($contraseña, $contraseña_resultado)) {
+            // Encriptar nueva contraseña
+            $passwordEncriptado = password_hash($contraseña, PASSWORD_BCRYPT);
+            $stmt1 = $con->prepare("UPDATE usuario SET contraseña = ? WHERE id_usuario = ?;");
+            $stmt1->bind_param("si", $passwordEncriptado, $id);
+            
+            if ($stmt1->execute()) {
+                echo json_encode([
+                    "estado" => "Exito",
+                    "mensaje" => "La contraseña del usuario se actualizó con éxito."
+                ]);
+            } 
+            // Cerrar sentencia UPDATE
+            $stmt1->close();
+        } else {
+            echo json_encode([
+                "estado" => "Fallido",
+                "mensaje" => "La contraseña no puede ser igual a la actual."
+            ]);
+        }
     } else {
-        $passwordEncriptado = password_hash($contraseña, PASSWORD_BCRYPT);
-        $stmt1 = $con->prepare("UPDATE usuario SET contraseña = ? WHERE id_usuario = ?;");
-        $stmt1->bind_param("si",$passwordEncriptado,$id);
-        $stmt1->execute();
-        $_SESSION['confirmacion'] = "La contraseña se ha modificado correctamente.";
-        self::agregarLog($_SESSION["usuario"]["correo"],$_SESSION["usuario"]["nombre"] . " " . $_SESSION["usuario"]["apellidos"] . " ha modificado su contraseña.");
+        // Verificar si la contraseña no es igual a la actual
+        if ($contraseña_resultado && !password_verify($contraseña, $contraseña_resultado)) {
+            // Encriptar nueva contraseña
+            $passwordEncriptado = password_hash($contraseña, PASSWORD_BCRYPT);
+            $stmt1 = $con->prepare("UPDATE usuario SET password = ? WHERE id_usuario = ?;");
+            $stmt1->bind_param("si", $passwordEncriptado, $id);
+            if ($stmt1->execute()) {
+                $_SESSION['confirmacion'] = "La contraseña se actualizó correctamente.";
+                $view = "views/cuenta/Cuenta.php";
+                include_once 'views/main.php';
+            }
+            // Cerrar sentencia UPDATE
+            $stmt1->close();
+        } else {
+            $_SESSION['error'] = "La contraseña no puede ser igual a la anterior.";
+            $view = "views/cuenta/Cuenta.php";
+            include_once 'views/main.php';
+        }
     }
-    // Redirigir a nuestro perfil (confirmacion)
-    header("Location: ?controller=user");
-    exit();
 
+    // Cerrar la conexión a la base de datos
     $con->close();
 }
-public static function modificarDireccion($id,$direccion){
-    // Asegúrate de que la sesión esté iniciada
+
+
+
+
+public static function modificarDireccion($id, $direccion) {
     if (session_status() === PHP_SESSION_NONE) {
-        session_start();  // Inicia la sesión si no está iniciada
+        session_start();
     }
     $con = DataBase::connect();
-    $stmt = $con->prepare("SELECT direccion FROM usuario WHERE id_usuario=?");
-    $stmt->bind_param("i",$id);
+    
+    // Validar existencia previa
+    $stmt = $con->prepare("SELECT direccion FROM usuario WHERE id_usuario = ?;");
+    $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultDireccion = $stmt->get_result();
-    $row = $resultDireccion->fetch_array();
-    $direccion_resultado = $row['direccion'];
+    $row = $resultDireccion->fetch_assoc();
+    $direccion_resultado = $row['direccion'] ?? null;
 
-    if($direccion_resultado && $direccion_resultado === $direccion) {
-        $_SESSION['error'] = "Esta direccion ya la tienes asignada. <br> Prueba de nuevo.";
+    // Cerrar sentencia SELECT
+    $stmt->close();
+
+    // Verificar acción desde GET
+    $action = $_GET['action'] ?? null;
+
+    // Validar rol de usuario y acción
+    if (isset($_SESSION['usuario']['rol']) && $_SESSION['usuario']['rol'] === "Admin" && $action !== "cuenta") {
+        if ($direccion_resultado !== $direccion) {
+            $stmt1 = $con->prepare("UPDATE usuario SET direccion = ? WHERE id_usuario = ?;");
+            $stmt1->bind_param("si", $direccion, $id);
+            
+            if ($stmt1->execute()) {
+                echo json_encode([
+                    "estado" => "Exito",
+                    "mensaje" => "La dirección del usuario se actualizó con éxito."
+                ]);
+            } else {
+                echo json_encode([
+                    "estado" => "Fallido",
+                    "mensaje" => "Ha habido un error al actualizar la dirección."
+                ]);
+            }
+            // Cerrar sentencia UPDATE
+            $stmt1->close();
+        } else {
+            echo json_encode([
+                "estado" => "Fallido",
+                "mensaje" => "La dirección no puede ser igual a la actual."
+            ]);
+        }
     } else {
-        $stmt1 = $con->prepare("UPDATE usuario SET direccion = ? WHERE id_usuario = ?;");
-        $stmt1->bind_param("si",$direccion,$id);
-        $stmt1->execute();
-        $_SESSION['usuario']['direccion'] = $direccion;
-        $_SESSION['confirmacion'] = "La direccion se ha modificado correctamente.";
-        self::agregarLog($_SESSION["usuario"]["correo"],$_SESSION["usuario"]["nombre"] . " " . $_SESSION["usuario"]["apellidos"] . " ha modificado la direccion de entrega.");
+        if ($direccion_resultado !== $direccion) {
+            $stmt1 = $con->prepare("UPDATE usuario SET direccion = ? WHERE id_usuario = ?;");
+            $stmt1->bind_param("si", $direccion, $id);
+            if ($stmt1->execute()) {
+                $_SESSION['confirmacion'] = "La dirección se actualizó correctamente.";
+                $_SESSION['usuario']['direccion'] = $direccion;
+                $view = "views/cuenta/Cuenta.php";
+                include_once 'views/main.php';
+            } else {
+                $_SESSION['error'] = "Error al actualizar la dirección.";
+                $view = "views/cuenta/Cuenta.php";
+                include_once 'views/main.php';
+            }
+            // Cerrar sentencia UPDATE
+            $stmt1->close();
+        } else {
+            $_SESSION['error'] = "La dirección no puede ser igual a la anterior.";
+            $view = "views/cuenta/Cuenta.php";
+            include_once 'views/main.php';
+        }
     }
-    // Redirigir a nuestro perfil (confirmacion)
-    header("Location: ?controller=user");
-    exit();
 
+    // Cerrar la conexión a la base de datos
     $con->close();
 }
 
-public static function cerrarSesion() {
-    // Iniciar la sesión
-    session_start();
-    if($_SESSION["usuario"]["rol"] === "Admin") {
-        header("Location: ?controller=user");
-    } else {
-        header("Location: ?controller=producto");
+public static function modificarCorreo($id, $correo) {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
     }
-    self::agregarLog($_SESSION["usuario"]["correo"],$_SESSION["usuario"]["nombre"] . " " . $_SESSION["usuario"]["apellidos"] . " ha cerrado sesion.");
-    unset($_SESSION['usuario']);
-    exit();
+    $con = DataBase::connect();
+    
+    // Validar existencia previa
+    $stmt = $con->prepare("SELECT correo FROM usuario WHERE id_usuario=?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $resultCorreo = $stmt->get_result();
+    $row = $resultCorreo->fetch_array();
+    $correo_resultado = $row['correo'];
+
+    // Validar correo existente
+    if ($correo_resultado !== $correo) {
+        $stmt1 = $con->prepare("UPDATE usuario SET correo = ? WHERE id_usuario = ?;");
+        $stmt1->bind_param("si", $correo, $id);
+        $stmt1->execute();
+        return true; // Modificación exitosa
+    }
+    
+    return false; // No se realizó la modificación
 }
+
+
+//  Eliminar
+public static function eliminarUsuario($id) {
+    $con = DataBase::connect();
+
+    // Eliminar los detalles de pedido asociados con los pedidos del usuario
+    $detalles_pedidos = $con->prepare(
+        "DELETE detalle_pedido
+        FROM detalle_pedido
+        INNER JOIN pedido ON detalle_pedido.id_pedido = pedido.id_pedido
+        WHERE pedido.id_usuario = ?;"
+    );
+
+    $detalles_pedidos->bind_param("i", $id);
+    $detalles_pedidos->execute();
+    $detalles_pedidos->close(); // Cierra el statement después de usarlo
+
+    // Eliminar los pedidos del usuario
+    $pedidos = $con->prepare("DELETE FROM pedido WHERE id_usuario = ?");
+    $pedidos->bind_param("i", $id);
+    $pedidos->execute();
+    $pedidos->close(); // Cierra el statement después de usarlo
+
+    // Eliminar el usuario
+    $usuario = $con->prepare("DELETE FROM usuario WHERE id_usuario = ?");
+    $usuario->bind_param("i", $id);
+    $usuario->execute();
+    
+    // Reiniciar el AUTO_INCREMENT de las tablas relacionadas
+    // Para que cuando volvamos a crear un usuario, el ID se reinicie y empiece desde el ultimo ID existente
+    $queries = [
+        "ALTER TABLE detalle_pedido AUTO_INCREMENT = 1;",
+        "ALTER TABLE pedido AUTO_INCREMENT = 1;",
+        "ALTER TABLE usuario AUTO_INCREMENT = 1;"
+    ];
+
+    // Ejecutar todas las consultas de reinicio del AUTO_INCREMENT
+    foreach ($queries as $query) {
+        $autoIncrement = $con->prepare($query);
+        $autoIncrement->execute();
+    }
+
+    // Confirmar la transacción si todo salió bien
+    $con->commit();
+
+    $mensaje = "";
+    if ($usuario->affected_rows > 0) {
+        $mensaje = "Usuario eliminado correctamente.";
+    } else {
+        $mensaje = "No se encontró ningún usuario con el ID proporcionado.";
+    }
+
+    // Cierra el statement para el usuario
+    $usuario->close();
+
+    // Cierra la conexión a la base de datos
+    $con->close();
+    
+    return $mensaje;
+}
+
 
 }
 

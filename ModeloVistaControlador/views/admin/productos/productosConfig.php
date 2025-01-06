@@ -1,10 +1,3 @@
-<style>
-    #tablaGeneral th, #tablaGeneral td {
-        border: 1px solid black;
-        text-align: center; /* Centrar el contenido */
-        padding: 8px; /* Espaciado interno */
-    }
-</style>
 <link rel="stylesheet" href="../../css/admin/header-admin.css">
 <script src="../../../javascript/admin/productos/productos.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -28,8 +21,7 @@ if ($_SESSION['usuario']["rol"] === "Admin") {
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-12 col-md-9 col-lg-11 mx-auto">
-            <h1>Lista de Productos:</h1>
+    <div class="col-sm-12 col-md-9 col-lg-9 mx-auto vh-50 d-flex align-items-center">
             <div class="row d-flex justify-content-around" id="listaProductos">
             
             </div>

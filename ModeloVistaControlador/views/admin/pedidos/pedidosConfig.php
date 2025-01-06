@@ -17,6 +17,7 @@
     <script src="../../javascript/admin/pedidos/pedidos.js"></script>
     <script src="../../javascript/admin/productos/mostrarProductoPedido.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <!-- Sidebar -->
@@ -41,7 +42,7 @@ if ($_SESSION['usuario']["rol"] === "Admin") {
         <div class="col-sm-12 col-md-9 col-lg-9 mx-auto">
             <h1>Lista de Pedidos:</h1>
             <div class="row d-flex justify-content-around" id="listaPedidos">
-            
+                
             </div>
             <div id="productoDetalle" class="hidden">
                 <div class="contenido-contenedor text-center">
@@ -66,7 +67,9 @@ if ($_SESSION['usuario']["rol"] === "Admin") {
     </div>
 </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </section>
     
 </body>

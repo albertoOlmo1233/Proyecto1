@@ -93,6 +93,18 @@ public static function modificarNombre(){
     }
     UsuarioDAO::modificarNombre($id,$nombre);
 }
+
+public static function modificarApellidos(){
+    $id = null;
+    $apellidos = null;
+   
+    if(isset($_GET['id']) && isset($_POST['apellidos'])){
+        $id = $_GET['id'];
+        $apellidos = $_POST['apellidos'];
+    }
+    UsuarioDAO::modificarApellidos($id,$apellidos);
+}
+
 public static function modificarContraseña(){
     $id = null;
     $contraseña = null;
@@ -113,24 +125,16 @@ public static function modificarDireccion(){
     UsuarioDAO::modificarDireccion($id,$direccion);
 }
 
-// Acciones (Crear, almacenar, borrar)
-public function create() {
-    $view="views/productos/create.php";
-    include_once 'views/main.php';
-}
-public function store() {
-    $correo= $_POST['correo'];
-    $password = $_POST['password'];
-    
-    echo "Nombre: .$correo. Talla: .$password";
-
-    // Creacion camiseta
-    $usuario = new Usuario();
-    $usuario->setNombre($correo);
-    $usuario->setTalla($password);
-    $usuario->setPrecio($precio);
-
-    UsuarioDAO::store($producto);
+// Parte administrador
+public static function modificarCorreo(){
+    $id = null;
+    $correo = null;
+   
+    if(isset($_GET['id']) && isset($_POST['correo'])){
+        $id = $_GET['id'];
+        $direccion = $_POST['correo'];
+    }
+    UsuarioDAO::modificarCorreo($id,$correo);
 }
 }
 

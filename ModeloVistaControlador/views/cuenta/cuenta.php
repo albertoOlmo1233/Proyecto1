@@ -51,6 +51,13 @@ if($_SESSION['usuario']["rol"] === "Admin"){
                         <img src="../../imagenes/Iconos/edit-24.svg" alt="icon-edit-24">
                     </div>
                 </div>
+                <label for="nombre">Apellidos</label>
+                <div class="d-flex">
+                    <input type="text" class="form-control custom-border" id="apellidos" name="apellidos" placeholder="<?= $_SESSION['usuario']['apellidos']?>" disabled>
+                    <div class="fondo-edit form-control" id="edit-btn-apellidos">
+                        <img src="../../imagenes/Iconos/edit-24.svg" alt="icon-edit-24">
+                    </div>
+                </div>
 
                 <label for="correo">Correo</label>
                 <div class="d-flex align-items-center position-relative">
@@ -83,7 +90,7 @@ if($_SESSION['usuario']["rol"] === "Admin"){
                 <label for="direccion">Mis pedidos</label>
                 <?php 
                 
-                if (!empty($_SESSION['usuario']['pedidos'])) { ?>
+                if (isset($_SESSION['usuario']['pedidos']) && !empty($_SESSION['usuario']['pedidos'])) { ?>
                     <div class="overflow-auto" style="max-height: 20vh; max-width: 90vw;">
                         <table class="table table-bordered table-striped text-center">
                             <thead>
@@ -179,6 +186,10 @@ if($_SESSION['usuario']["rol"] === "Admin"){
             <div class="mostrar-2 hidden">
                 <label>Direccion</label>
                 <input type="text" value="<?= $_SESSION['usuario']['direccion']?>" name="direccion" id="direccion">
+            </div>
+            <div class="mostrar-3 hidden">
+                <label>Apellidos</label>
+                <input type="text" value="<?= $_SESSION['usuario']['apellidos']?>" name="apellidos" id="apellidos">
             </div>
             <div class="accion-contenedor text-end">
                 <button id="close-btn">Close</button>
