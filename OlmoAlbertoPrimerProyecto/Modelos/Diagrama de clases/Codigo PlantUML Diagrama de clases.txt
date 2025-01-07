@@ -186,6 +186,7 @@ class apiController {
     + modifyUsuarios()
     + eraseUsuarios()
     + uploadImagen()
+    + updateImagen()
     + getProductos()
     + getDetallePedido()
     + createProductos()
