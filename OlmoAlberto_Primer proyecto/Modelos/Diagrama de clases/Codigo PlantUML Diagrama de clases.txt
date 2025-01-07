@@ -1,0 +1,266 @@
+@startuml
+class Log {
+    int id_log
+    string correo
+    string mensaje
+    string fecha
+    + getId_log()
+    + setId_log($id_log)
+    + getCorreo()
+    + setCorreo($correo)
+    + getMensaje()
+    + setMensaje($mensaje)
+    + getFecha()
+}
+
+class LogDetalle {
+    + __construct()
+}
+
+class Usuario {
+    int id_usuario
+    string nombre
+    string apellidos
+    string correo
+    string contraseña
+    string direccion
+    string rol
+    + getRol()
+    + setRol($rol)
+    + getDireccion()
+    + setDireccion($direccion)
+    + getContraseña()
+    + setContraseña($contraseña)
+    + getCorreo()
+    + setCorreo($correo)
+    + getApellidos()
+    + setApellidos($apellidos)
+    + getNombre()
+    + setNombre($nombre)
+    + getID()
+    + setID($ID)
+}
+
+class UsuarioDetalle {
+    + __construct()
+}
+
+class Producto {
+    int id_producto
+    string nombre
+    string categoria
+    string descripcion
+    float precio
+    string imagen
+    int id_oferta
+    + getID()
+    + setID($id_producto): self
+    + getNombre()
+    + setNombre($nombre): self
+    + getCategoria()
+    + setCategoria($categoria): self
+    + getDescripcion()
+    + setDescripcion($descripcion): self
+    + getPrecio()
+    + setPrecio($precio): self
+    + getImagen()
+    + setImagen($imagen): self
+    + getIdOferta()
+    + setIdOferta($id_oferta): self
+}
+
+class ProductoDetalle {
+    + __construct()
+}
+
+class ProductoGeneral {
+    float precio_oferta
+    + __construct()
+    + initialize($id_producto, $nombre, $categoria, $descripcion, $precio, $imagen, $id_oferta, $precio_oferta)
+    + getPrecioOferta()
+}
+
+class Oferta {
+    int id_oferta
+    string categoria
+    float porcentaje
+    string fecha_inicio
+    string fecha_final
+    + getID()
+    + setID($id_oferta)
+    + getCategoria()
+    + setCategoria($categoria)
+    + getPorcentaje()
+    + setPorcentaje($porcentaje)
+    + getFecha_inicio()
+    + setFecha_inicio($fecha_inicio)
+    + getFecha_final()
+    + setFecha_final($fecha_final)
+}
+
+class OfertaDetalle {
+    int id_oferta
+    string categoria
+    + __construct()
+    + getIdOferta()
+    + setIdOferta($id_oferta): self
+    + getCategoria()
+    + setCategoria($categoria): self
+}
+
+class Hamburguesa {
+    + __construct()
+}
+
+class Patata {
+    + __construct()
+}
+
+class Bebida {
+    + __construct()
+}
+
+class Postre {
+    + __construct()
+}
+
+class AdminDAO {
+    + getLogs()
+    + obtenerPedidos()
+    + obtenerPedido()
+    + eliminarPedido($id_usuario, $id_pedido)
+    + crearPedido($id_usuario, $array_productos)
+    + obtenerProductos()
+    + obtenerDetallePedido($id_pedido, $id_producto)
+    + obtenerUsuarios()
+}
+
+class OfertaDAO {
+    + getOfertas()
+}
+
+class ProductoDAO {
+    + getAll()
+    + getType($categoria)
+    + getProducto($id)
+    + getOfertas()
+    + createProducto($nombre, $descripcion, $precio, $imagen, $categoria)
+    + eliminarProducto($id)
+    + modificarNombre($id, $nombre)
+    + modificarDescripcion($id, $descripcion)
+    + modificarPrecio($id, $precio)
+    + modificarImagen($id, $imagen)
+    + modificarCategoria($id, $categoria)
+}
+
+class UsuarioDAO {
+    + getAll()
+    + getUsuario($id)
+    + iniciarSesion($identificador, $contraseña)
+    + cerrarSesion()
+    + registroSesion($nombre, $apellidos, $correo, $password, $direccion = null)
+    + agregarLog($correo, $mensaje)
+    + comprobarSesion()
+    + esAdmin()
+    + tramitar_pedido($totalPedido)
+    + modificarNombre($id, $nombre)
+    + modificarApellidos($id, $apellidos)
+    + modificarContraseña($id, $contraseña)
+    + modificarDireccion($id, $direccion)
+    + modificarCorreo($id, $correo)
+    + eliminarUsuario($id)
+}
+
+class adminController {
+    + index()
+    + usuariosConfig()
+    + productosConfig()
+    + pedidosConfig()
+    + logs()
+}
+
+class apiController {
+    + agregarLog()
+    + getUsuarios()
+    + createUsuarios()
+    + modifyUsuarios()
+    + eraseUsuarios()
+    + uploadImagen()
+    + getProductos()
+    + getDetallePedido()
+    + createProductos()
+    + eraseProductos()
+    + removeProductoPedido()
+    + modifyProductos()
+    + getPedidos()
+    + createPedido()
+    + erasePedidos()
+    + modifyCantidadProducto()
+    + addProductoPedido()
+    + erasePedidos()
+}
+
+class productoController {
+    + index()
+    + menu()
+    + showPatatas()
+    + showBebidas()
+    + showPostres()
+    + añadirCarrito()
+    + sumar()
+    + restar()
+    + tramitacion_pedidos()
+    + show()
+    + sobreNosotros()
+    + contacto()
+    + login()
+    + registrarse()
+}
+
+class usuarioController {
+    + index()
+    + register()
+    + cuenta()
+    + mostrarDetallesProducto()
+    + carrito()
+    + inicioSesion()
+    + registroSesion()
+    + redireccionCarrito()
+    + logout()
+    + modificarNombre()
+    + modificarApellidos()
+    + modificarContraseña()
+    + modificarDireccion()
+    + modificarCorreo()
+}
+
+' Relaciones de herencia
+Hamburguesa --|> Producto
+Patata --|> Producto
+Bebida --|> Producto
+Postre --|> Producto
+
+ProductoDetalle --|> Producto
+ProductoGeneral --|> Producto
+
+LogDetalle --|> Log
+
+UsuarioDetalle --|> Usuario
+
+OfertaDetalle --|> Oferta
+
+' Relaciones de interacción
+UsuarioDAO --> Usuario : gestion
+UsuarioDAO --> Log : registraLogs
+AdminDAO --> Log : getLogs
+AdminDAO --> Producto : obtenerProductos
+AdminDAO --> Usuario : obtenerUsuarios
+ProductoDAO --> Producto : gestionProductos
+ProductoDAO --> Oferta : getOfertas
+OfertaDAO --> Oferta : gestionOfertas
+usuarioController --> UsuarioDAO : gestionCuenta
+productoController --> ProductoDAO : gestionCarrito
+apiController --> UsuarioDAO : CRUDUsuarios
+apiController --> ProductoDAO : CRUDProductos
+
+@enduml
